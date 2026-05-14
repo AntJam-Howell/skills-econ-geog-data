@@ -1,0 +1,202 @@
+# U.S. County-Year Panel of Labor and Skill Demand, 2010–2024
+
+A publicly available county-year panel of U.S. labor and skill demand, derived from 433.6 million Lightcast (Burning Glass) job postings spanning 2010–2024. The panel covers 3,194 counties across 15 years (47,891 county-year observations) and reports 44 variables that describe the volume, employer-entity composition, skill content, specialization, complexity, relatedness, and dynamics of local labor demand.
+
+Constructed by Anthony Howell, School of Public Affairs, Arizona State University.
+
+---
+
+## Repository layout
+
+```
+skills-econ-geog-data/
+├── README.md                 # this file
+├── CITATION.cff              # citation metadata (GitHub / Zenodo)
+├── LICENSE-DATA              # CC BY 4.0 (covers data/)
+├── LICENSE-CODE              # MIT (covers code/)
+├── data/
+│   ├── county_year_panel.parquet    # 9.1 MB primary release
+│   ├── county_year_panel.csv        # 20 MB CSV mirror
+│   ├── data_dictionary.csv          # canonical machine-readable variable metadata
+│   ├── codebook.md                  # human-readable variable definitions
+│   ├── summary_statistics.csv       # N, mean, SD, min, percentiles, max
+│   └── yearly_summary.csv           # national-aggregate values by year
+├── code/
+│   ├── README.md                    # pipeline diagram and environment
+│   ├── build_skill_counts.py        # Phase A: streaming scan of raw shards
+│   ├── compute_skill_measures.py    # Phase B: RCA, relatedness, complexity
+│   ├── build_descriptive_export.py  # 44-variable public-release export
+│   └── slurm/                       # ASU Sol SLURM submission scripts
+└── docs/
+    └── methodology.md               # extended methods notes
+```
+
+---
+
+## The dataset
+
+### Dimensions
+
+- **Unit of observation:** county-year (5-digit FIPS by calendar year)
+- **Years:** 2010–2024 (15 calendar years)
+- **Counties:** 3,194 unique FIPS codes
+- **Observations:** 47,891 county-years. The panel is unbalanced: counties with zero postings in a given year are dropped.
+- **Variables:** 44
+
+### Variable groups
+
+The 44 variables characterize local labor demand along three dimensions:
+
+- **Who is hiring** (groups B, C): total posting volume and the decomposition across the five employer entity types (corporate, university, federal or public lab, government, third-party staffing). The corporate category covers private-sector postings, including those whose detailed NAICS classification is missing (tracked separately by the transparency column `n_unclassified`).
+- **The nature of work** (group D, plus internship counts in group B): modality (remote, hybrid, on-site) and internship status.
+- **What they demand** (groups E, F, G, H, I): skill content, composition, diversity, complexity, relatedness, dynamics, and entity-type specialization breadth.
+
+Entity-type decomposition in the released panel is limited to posting counts (group C) and the RCA-breadth count (group I). The complexity, relatedness, and dynamics measures (groups F, G, H) are aggregate county-year measures pooled across all entity types. See `data/data_dictionary.csv` or `data/codebook.md` for the exact definition of each variable.
+
+| Group | Variables | What it captures |
+|---|---|---|
+| **A. Unit identifiers** | `county`, `year` | 5-digit FIPS and calendar year |
+| **B. Labor demand: totals** | 6 variables | Total postings, postings with skills, skill-mention totals by skill type, internship counts |
+| **C. Labor demand: entity-type counts** | 6 variables | Posting counts in the five entity types (corporate, university, federal lab, government, staffing) plus a transparency column `n_unclassified` for the subset of corporate postings with NAICS-4 = 9999 |
+| **D. Labor demand: work mode** | 6 variables | Counts and shares of remote, hybrid, and on-site postings |
+| **E. Skill composition** | 5 variables | Shares of specialized, software, and common-soft skill mentions; mean skills per posting; coverage |
+| **F. Skill diversity, concentration, and complexity** | 7 variables | Distinct skill count, RCA > 1 breadth, average ubiquity, Herfindahl-Hirschman concentration, Shannon entropy, Economic Complexity Index, Tacchella fitness-complexity |
+| **G. Skill relatedness and network position** | 3 variables | Balland skill density, Neffke skill coherence, average network centrality of the county's RCA > 1 skills |
+| **H. Year-over-year dynamics** | 4 variables | RCA churning entries, exits, net; cosine distance on skill frequency vectors between consecutive years |
+| **I. Entity-type specialization breadth** | 5 variables | RCA > 1 skill count computed within each employer entity type |
+
+### Employer entity types
+
+Each posting is assigned to exactly one of five entity types. Assignment uses the posting's NAICS-4 code and the Lightcast staffing flag:
+
+| Type | NAICS-4 codes |
+|---|---|
+| University | 6112, 6113, 6114, 6115, 6116, 6117 |
+| Federal/public lab | 5417, 9271 |
+| Government | 92xx (all) |
+| Staffing | NAICS 5613 or Lightcast `company_is_staffing == True` |
+| Corporate | all remaining postings (private-sector, including those with NAICS-4 = 9999) |
+
+The `n_unclassified` column reports the subset of corporate-category postings with NAICS-4 = 9999 as a transparency diagnostic. It is included in the corporate posting count `n_corporate` only conceptually; in the data file, `n_corporate` reports the NAICS-classified corporate slice and `n_unclassified` reports the NAICS-9999 slice as a separate column. Add them to get the total corporate (private-sector) posting count for a county-year.
+
+---
+
+## Interactive dashboard
+
+A companion web dashboard visualizes the released county-year panel. It is intended for readers, students, and policy users who want to explore the data without writing code.
+
+- **Hosted version:** `<dashboard-URL-to-be-assigned>` (open access, no credentials required).
+
+The dashboard has four pages:
+
+| Page | What it shows |
+|---|---|
+| **National Labor Demand** | National posting volume, employer-entity composition, work-mode mix, and the time-series behavior of headline measures, 2010–2024. |
+| **National Skill Demand** | County-level choropleth maps of skill diversity, complexity, RCA > 1 breadth, and dynamics, with year selection and side-by-side variable comparison. |
+| **Scatter** | Bivariate exploration: any two variables in the panel plotted against each other for any selected year, with linked map and county-label tooltips. |
+| **County profile** | In-depth single-county trajectory across the full 15-year window, covering all 44 variables. |
+
+---
+
+## Quick start
+
+### Python
+
+```python
+import pandas as pd
+panel = pd.read_parquet("data/county_year_panel.parquet")
+
+# or with polars:
+import polars as pl
+panel = pl.read_parquet("data/county_year_panel.parquet")
+```
+
+### R
+
+```r
+library(arrow)
+panel <- read_parquet("data/county_year_panel.parquet")
+```
+
+### Stata 18+
+
+```stata
+frame import file = "data/county_year_panel.parquet"
+```
+
+### DuckDB (SQL over parquet)
+
+```sql
+SELECT county, year, eci, skill_density, churning_net
+FROM 'data/county_year_panel.parquet'
+WHERE year = 2023 AND total_postings >= 1000
+ORDER BY eci DESC
+LIMIT 25;
+```
+
+---
+
+## Known limitations
+
+These caveats are documented more fully in the accompanying article. The most consequential are listed here.
+
+- **NAICS-classification quality within the corporate category.** Within corporate (private-sector) postings, the share with NAICS-4 = 9999 (tracked by `n_unclassified`) falls from approximately 40% in 2010 to 15% in 2024 as Lightcast's firm-identification pipeline matures. Early-year corporate-specific RCA breadth is computed over the NAICS-classified corporate slice and is biased toward larger, identifiable firms. Use entity-type shares rather than levels for cross-year work, or restrict to 2018 and later.
+- **2017–2018 Lightcast coverage step-up.** National posting volume jumps by approximately 26% between 2017 and 2018 because of a Lightcast source expansion. Use shares rather than levels, or include county fixed effects, when comparing across this boundary.
+- **Cosine distance noisy below 50 postings.** `skill_cosine_distance` becomes a poor measure of structural change for county-years with fewer than approximately 50 postings; apply a posting threshold for causal-inference work.
+- **State-level FIPS codes (ending in 999).** Postings that Lightcast could match to a state but not a specific county are assigned to a state-level FIPS ending in 999. For county-level analyses, drop with `(county % 1000) != 999`.
+- **Fitness-complexity instability.** The Tacchella fitness column is numerically unstable for very diversified or very specialized counties. Prefer `eci` as the primary complexity measure; treat `fitness` as a robustness check after clipping or log-transformation.
+
+---
+
+## Reproducing from raw data
+
+The `code/` subdirectory contains the Python pipeline that produced the panel from the raw Lightcast Main job-posting data.
+
+1. **`code/build_skill_counts.py`** (Phase A). Streams through the raw gzipped CSV shards, parses pipe-delimited skill mentions, classifies each posting into an entity type, and aggregates to per-year checkpoint parquets keyed by county and skill.
+2. **`code/compute_skill_measures.py`** (Phase B). Reads the Phase A checkpoints and computes the full battery of derived measures: revealed comparative advantage, skill-skill relatedness, skill density, coherence, ECI, fitness-complexity, year-over-year dynamics, and the entity-type specialization measures retained in the released panel.
+3. **`code/build_descriptive_export.py`** (Export). Subsets the full-pipeline output to the 44-variable public release, writes `county_year_panel.parquet` and `county_year_panel.csv`, the data dictionary, and the summary-statistics table.
+
+SLURM job scripts that document the resource configuration used on the ASU Sol HPC cluster are in `code/slurm/`. Extended methods notes are in `docs/methodology.md`.
+
+The raw Lightcast Main data are available to subscribers under Lightcast's data agreement. Replication from raw data requires a current Lightcast subscription.
+
+### Python environment
+
+The pipeline was developed and tested with Python 3.11 and the following key packages: `pandas`, `numpy`, `pyarrow`, `polars`, `scipy`, `scikit-learn`. The pipeline is deterministic given the same input data.
+
+---
+
+## Citation
+
+If you use this dataset, please cite:
+
+> Howell, Anthony (2026). *An economic geography panel of U.S. county-level labor and skill demand, 2010–2024.* Data descriptor (under review at *Scientific Data*).
+
+Machine-readable citation metadata is provided in `CITATION.cff`. GitHub auto-renders a "Cite this repository" button from this file, and Zenodo reads it on archive. A persistent DOI for the data release will be added once assigned.
+
+---
+
+## License
+
+- **Data files** (`data/*.parquet`, `data/*.csv`): released under Creative Commons Attribution 4.0 International (CC BY 4.0). Full license text in `LICENSE-DATA`. The derived measures are aggregated statistics computed from the underlying Lightcast micro data; the Lightcast license governs the raw data, not these aggregates.
+- **Source code** (`code/*.py`, `code/slurm/*.slurm`): released under the MIT License. Full license text in `LICENSE-CODE`.
+
+---
+
+## Contact and research collaborations
+
+This release contains the headline county-year panel. The construction pipeline also produces several research-team artifacts that either underpin the released measures (the county-skill-year long table of mention counts, the entity-type-specific RCA tables, and the year-specific skill-skill relatedness matrices) or extend them (384-dimensional semantic embeddings of the 29,256 skill names; finer-grained entity-pair similarity statistics; per-entity year-over-year dynamics statistics). None of these are part of the public release.
+
+Researchers interested in applications that operate at the underlying skill level are encouraged to contact the author for collaborative research. Examples include projecting published AI-exposure scores onto local skill demand via the semantic embeddings, decomposing the complexity and relatedness measures by entity type, building alternative RCA thresholds, and studying knowledge spillovers via entity-pair similarity.
+
+**Anthony Howell**
+Associate Professor, School of Public Affairs
+Director, Center on Technology, Data & Society
+Arizona State University
+Email: ajhowel5@asu.edu
+
+---
+
+## Acknowledgments
+
+This work is supported by NSF Award #2431853 and an Anthropic Economic Futures Award. Computation was performed on the ASU Sol supercomputer; we thank ASU Research Computing for support. Lightcast (formerly Burning Glass Technologies) is the source of the underlying job-posting data.

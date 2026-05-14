@@ -1,0 +1,82 @@
+# Raw Lightcast files (subscriber-only; never commit)
+# Examples: Lightcast Main job-posting CSV shards
+*.csv.gz
+**/Lightcast/**
+**/lightcast_main/**
+**/Main/*.csv
+**/Main/*.csv.gz
+
+# Credentials
+.env
+.env.*
+*.key
+*.pem
+credentials*.json
+*_credentials.json
+api_key*
+*.token
+
+# Large intermediates (not part of the public release)
+# The released data files in data/ are explicitly allowed below.
+*.parquet
+*.csv
+*.tsv
+*.feather
+*.arrow
+intermediate/
+scratch/
+tmp/
+processed/
+
+# Explicit allow-list: the released data files in data/
+!data/county_year_panel.parquet
+!data/county_year_panel.csv
+!data/data_dictionary.csv
+!data/summary_statistics.csv
+!data/yearly_summary.csv
+
+# Python build artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.venv/
+venv/
+env/
+.python-version
+.ipynb_checkpoints/
+
+# R build artifacts
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj
+
+# SLURM and HPC logs (kept on Sol, not in the public repo)
+logs/
+*.out
+*.err
+slurm-*.out
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Claude Code local settings
+.claude/
+
+# Build outputs
+dist/
+build/
+*.zip
+*.tar.gz

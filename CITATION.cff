@@ -1,0 +1,45 @@
+cff-version: 1.2.0
+message: "If you use this dataset, please cite it using the metadata in this file."
+title: "An economic geography panel of U.S. county-level labor and skill demand, 2010-2024"
+abstract: >-
+  A publicly available county-year panel of U.S. labor and skill demand,
+  derived from 433.6 million Lightcast (formerly Burning Glass) job postings
+  spanning 2010-2024. The panel covers 3,194 counties across 15 years
+  (47,891 county-year observations) and reports 44 variables that describe
+  the volume, employer-entity composition, skill content, specialization,
+  complexity, relatedness, and dynamics of local labor demand.
+type: dataset
+authors:
+  - family-names: "Howell"
+    given-names: "Anthony"
+    email: "ajhowel5@asu.edu"
+    affiliation: "School of Public Affairs, Arizona State University"
+    orcid: "https://orcid.org/0000-0003-3127-3791"
+version: "1.0.0"
+date-released: "2026-05-14"
+license: "CC-BY-4.0"
+license-url: "https://creativecommons.org/licenses/by/4.0/"
+repository-code: "https://github.com/AntJam-Howell/skills-econ-geog-data"
+url: "https://github.com/AntJam-Howell/skills-econ-geog-data"
+keywords:
+  - economic geography
+  - labor demand
+  - skill demand
+  - revealed comparative advantage
+  - economic complexity
+  - skill relatedness
+  - Lightcast
+  - Burning Glass
+  - county-year panel
+  - United States
+preferred-citation:
+  type: article
+  title: "An economic geography panel of U.S. county-level labor and skill demand, 2010-2024"
+  authors:
+    - family-names: "Howell"
+      given-names: "Anthony"
+      affiliation: "School of Public Affairs, Arizona State University"
+      orcid: "https://orcid.org/0000-0003-3127-3791"
+  journal: "Scientific Data"
+  year: 2026
+  notes: "Under review."

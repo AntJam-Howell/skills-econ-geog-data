@@ -1,0 +1,45 @@
+variable,type,definition,category
+county,string,5-digit FIPS code,A. Unit identifiers
+year,int,Calendar year 2010-2024,A. Unit identifiers
+total_postings,int,Total unique job postings in county-year,B. Labor demand: total postings and skill mentions
+n_has_skill,int,Postings with at least one skill listed,B. Labor demand: total postings and skill mentions
+mention_specialized,int,Total mentions of specialized skills,B. Labor demand: total postings and skill mentions
+mention_software,int,Total mentions of software skills,B. Labor demand: total postings and skill mentions
+mention_common,int,Total mentions of common (soft) skills,B. Labor demand: total postings and skill mentions
+n_internship,int,Postings flagged as internships,B. Labor demand: total postings and skill mentions
+n_corporate,int,Corporate (private-sector) postings with explicit NAICS-4 classification (non-univ/lab/gov/staffing); add n_unclassified for the total corporate posting count,C. Labor demand: posting counts by employer type
+n_university,int,Postings from NAICS 6112-6117 (universities/colleges),C. Labor demand: posting counts by employer type
+n_federal_lab,int,"Postings from NAICS 5417, 9271 (scientific R&D, space research)",C. Labor demand: posting counts by employer type
+n_government,int,Postings from NAICS 92xx (all government),C. Labor demand: posting counts by employer type
+n_staffing,int,Postings from NAICS 5613 or flagged as staffing,C. Labor demand: posting counts by employer type
+n_unclassified,int,Transparency subset of corporate: postings with NAICS-4 = 9999 (private-sector employer with no detailed NAICS classification),C. Labor demand: posting counts by employer type
+n_remote,int,Postings with remote_type=1 (remote),D. Labor demand: work mode
+n_hybrid,int,Postings with remote_type=2 (hybrid),D. Labor demand: work mode
+n_onsite,int,Postings with remote_type=0 (on-site),D. Labor demand: work mode
+share_remote,"float [0,1]",Fraction of postings that are remote,D. Labor demand: work mode
+share_hybrid,"float [0,1]",Fraction of postings that are hybrid,D. Labor demand: work mode
+share_onsite,"float [0,1]",Fraction of postings that are on-site,D. Labor demand: work mode
+share_specialized,"float [0,1]",Fraction of total skill mentions that are specialized,E. Skill demand: composition by skill type
+share_software,"float [0,1]",Fraction of total skill mentions that are software,E. Skill demand: composition by skill type
+share_common,"float [0,1]",Fraction of total skill mentions that are common (soft),E. Skill demand: composition by skill type
+mean_skills_per_posting,float,Average skill mentions per posting in county-year,E. Skill demand: composition by skill type
+pct_has_skill,"float [0,100]",Percent of postings with at least one skill,E. Skill demand: composition by skill type
+n_distinct_skills,int,Count of unique skills demanded in county-year,"F. Skill demand: diversity, concentration, and complexity"
+n_rca_skills,int,Count of skills with Revealed Comparative Advantage > 1,"F. Skill demand: diversity, concentration, and complexity"
+avg_ubiquity,float,Mean ubiquity of county's RCA>1 skills (# counties sharing the avg specialization),"F. Skill demand: diversity, concentration, and complexity"
+skill_hhi,"float (0,1]",Herfindahl-Hirschman concentration over skill frequencies,"F. Skill demand: diversity, concentration, and complexity"
+skill_entropy,float (bits),Shannon entropy of skill distribution (effective # skills),"F. Skill demand: diversity, concentration, and complexity"
+eci,standardized float,"Economic Complexity Index (Hidalgo-Hausmann method of reflections, standardized)","F. Skill demand: diversity, concentration, and complexity"
+fitness,float (non-negative),Tacchella fitness-complexity score (non-linear alternative to ECI),"F. Skill demand: diversity, concentration, and complexity"
+skill_density,"float [0,1]",Balland (2019) avg relatedness of RCA>1 skills to non-RCA skills,G. Skill relatedness and network position
+skill_coherence,"float [0,1]",Neffke (2011) avg pairwise relatedness among RCA>1 skills,G. Skill relatedness and network position
+avg_centrality,"float [0,1]",Mean network centrality of county's RCA>1 skills in skill-space network,G. Skill relatedness and network position
+churning_entries,int,Skills that gained RCA>1 this year vs. prior year,H. Skill dynamics: year-over-year
+churning_exits,int,Skills that lost RCA>1 this year vs. prior year,H. Skill dynamics: year-over-year
+churning_net,int,churning_entries - churning_exits,H. Skill dynamics: year-over-year
+skill_cosine_distance,"float [0,2]","1 - cos(skill freq vector t-1, t); structural change in demand profile",H. Skill dynamics: year-over-year
+corp_n_rca_skills,int,Count of skills with corporate-specific RCA>1,I. Employer-type specialization breadth (consistent measure by entity)
+univ_n_rca_skills,int,Count of skills with university-specific RCA>1,I. Employer-type specialization breadth (consistent measure by entity)
+fede_n_rca_skills,int,Count of skills with federal-lab-specific RCA>1,I. Employer-type specialization breadth (consistent measure by entity)
+gove_n_rca_skills,int,Count of skills with government-specific RCA>1,I. Employer-type specialization breadth (consistent measure by entity)
+staf_n_rca_skills,int,Count of skills with staffing-specific RCA>1,I. Employer-type specialization breadth (consistent measure by entity)
