@@ -37,6 +37,8 @@ skills-econ-geog-data/
 
 ## The dataset
 
+The released panel is built from the underlying raw Lightcast (formerly Burning Glass Technologies) job-posting micro data: 929 GB across 22,967 gzipped CSV shards, 433.6 million postings, 2010–2024. The micro data are used under an academic license. The released county-year aggregates in `data/` are derived statistics computed from those postings, not the postings themselves.
+
 ### Dimensions
 
 - **Unit of observation:** county-year (5-digit FIPS by calendar year)
@@ -190,4 +192,4 @@ Email: ajhowel5@asu.edu
 
 ## Acknowledgments
 
-This material is based upon work supported by the National Science Foundation under Grant No. 2431853. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author and do not necessarily reflect the views of the National Science Foundation. The underlying raw Lightcast (formerly Burning Glass Technologies) job-posting micro data (929 GB across 22,967 gzipped CSV shards, 433.6 million postings, 2010–2024) are used under an academic license.
+This material is based upon work supported by the National Science Foundation under Grant No. 2431853. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author and do not necessarily reflect the views of the National Science Foundation.
