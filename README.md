@@ -123,12 +123,6 @@ library(arrow)
 panel <- read_parquet("data/county_year_panel.parquet")
 ```
 
-### Stata 18+
-
-```stata
-frame import file = "data/county_year_panel.parquet"
-```
-
 ### DuckDB (SQL over parquet)
 
 ```sql
