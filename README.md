@@ -2,6 +2,8 @@
 
 A publicly available county-year panel of U.S. labor and skill demand, derived from 433.6 million Lightcast (Burning Glass) job postings spanning 2010–2024. The panel covers 3,194 counties across 15 years (47,891 county-year observations) and reports 44 variables that describe the volume, employer-entity composition, skill content, specialization, complexity, relatedness, and dynamics of local labor demand.
 
+The panel is designed to support research on the economic geography of skills: regional specialization and complexity, skill relatedness and diversification paths, anchor-institution effects on local skill ecosystems, and the dynamics of skill churn. For interactive exploration without writing code, see the companion dashboard at [https://antjam-howell.github.io/skills-econ-geog-dashboard/](https://antjam-howell.github.io/skills-econ-geog-dashboard/).
+
 Constructed by Anthony Howell, School of Public Affairs, Arizona State University.
 
 Data files in `data/` are released under CC BY 4.0 (see `LICENSE`). Source code in `code/` is released under MIT (see `LICENSE-CODE`).
