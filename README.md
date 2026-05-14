@@ -37,7 +37,7 @@ skills-econ-geog-data/
 
 ## The dataset
 
-The released panel is built from the underlying raw Lightcast (formerly Burning Glass Technologies) job-posting micro data: 929 GB across 22,967 gzipped CSV shards, 433.6 million postings, 2010–2024. The micro data are used under an academic license. The released county-year aggregates in `data/` are derived statistics computed from those postings, not the postings themselves. The construction methodology, variable definitions, and intended analytical uses are described in the accompanying working paper (Howell et al., 2026; [SSRN link to be assigned]).
+The released panel is built from the underlying raw Lightcast (formerly Burning Glass Technologies) job-posting micro data: 929 GB across 22,967 gzipped CSV shards, 433.6 million postings, 2010–2024. The micro data are used under an academic license. The released county-year aggregates in `data/` are derived statistics computed from those postings, not the postings themselves. The construction methodology, variable definitions, and intended analytical uses are described in the accompanying working paper by Howell, Feldman, Lanahan, Kalathil, and Johnson (2026); see Citation below.
 
 ### Dimensions
 
@@ -161,7 +161,9 @@ If you use this dataset, please cite:
 
 ### Accompanying paper
 
-> Howell, A. et al. (2026). *[Paper title to be assigned].* Working paper, SSRN. https://ssrn.com/abstract=XXXXXXX
+> Howell, A., Feldman, M., Lanahan, L., Kalathil, N., & Johnson, E. (2026). *Economic geography of U.S. employer demand: skill specialization, relatedness, and complexity.* Working paper, SSRN. https://ssrn.com/abstract=XXXXXXX
+
+Author affiliations: Howell and Feldman (Arizona State University), Lanahan (University of Oregon), Kalathil (Carnegie Mellon University), Johnson (University of North Carolina at Chapel Hill).
 
 Machine-readable citation metadata is provided in `CITATION.cff`. GitHub auto-renders a "Cite this repository" button from this file, and Zenodo reads it on archive. The Zenodo DOI and SSRN link above will be filled in once assigned.
 
