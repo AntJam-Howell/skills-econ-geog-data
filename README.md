@@ -4,6 +4,14 @@ A publicly available county-year panel of U.S. labor and skill demand, derived f
 
 The panel is designed to support research on the economic geography of skills: regional specialization and complexity, skill relatedness and diversification paths, anchor-institution effects on local skill ecosystems, and the dynamics of skill churn. For interactive exploration without writing code, see the companion dashboard at [https://antjam-howell.github.io/skills-econ-geog-dashboard/](https://antjam-howell.github.io/skills-econ-geog-dashboard/).
 
+**Accompanying paper**
+
+> Howell, A., Feldman, M., Lanahan, L., Kalathil, N., & Johnson, E. (2026). *Economic geography of U.S. employer demand: skill specialization, relatedness, and complexity.* Working paper, SSRN. https://ssrn.com/abstract=XXXXXXX
+
+Author affiliations: Howell and Feldman (Arizona State University), Lanahan (University of Oregon), Kalathil (Carnegie Mellon University), Johnson (University of North Carolina at Chapel Hill).
+
+Machine-readable citation metadata is provided in `CITATION.cff`. GitHub auto-renders a "Cite this repository" button from this file, and Zenodo reads it on archive. The Zenodo DOI and SSRN link above will be filled in once assigned.
+
 Constructed by Anthony Howell, School of Public Affairs, Arizona State University.
 
 Data files in `data/` are released under CC BY 4.0 (see `LICENSE`). Source code in `code/` is released under MIT (see `LICENSE-CODE`).
@@ -161,13 +169,7 @@ If you use this dataset, please cite:
 
 > Howell, A. (2026). *U.S. County-Year Panel of Labor and Skill Demand, 2010–2024* [Data set]. Zenodo. https://doi.org/10.5281/zenodo.XXXXXXX
 
-### Accompanying paper
-
-> Howell, A., Feldman, M., Lanahan, L., Kalathil, N., & Johnson, E. (2026). *Economic geography of U.S. employer demand: skill specialization, relatedness, and complexity.* Working paper, SSRN. https://ssrn.com/abstract=XXXXXXX
-
-Author affiliations: Howell and Feldman (Arizona State University), Lanahan (University of Oregon), Kalathil (Carnegie Mellon University), Johnson (University of North Carolina at Chapel Hill).
-
-Machine-readable citation metadata is provided in `CITATION.cff`. GitHub auto-renders a "Cite this repository" button from this file, and Zenodo reads it on archive. The Zenodo DOI and SSRN link above will be filled in once assigned.
+For the accompanying working paper, see the top of this README.
 
 ---
 
