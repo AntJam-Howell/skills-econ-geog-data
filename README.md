@@ -2,15 +2,15 @@
 
 A publicly available county-year panel of U.S. labor and skill demand, derived from 433.6 million Lightcast (Burning Glass) job postings spanning 2010–2024. The panel covers 3,194 counties across 15 years (47,891 county-year observations) and reports 44 variables that describe the volume, employer-entity composition, skill content, specialization, complexity, relatedness, and dynamics of local labor demand.
 
-The panel is designed to support research on the economic geography of skills: regional specialization and complexity, skill relatedness and diversification paths, anchor-institution effects on local skill ecosystems, and the dynamics of skill churn. For interactive exploration without writing code, see the companion dashboard at [https://antjam-howell.github.io/skills-econ-geog-dashboard/](https://antjam-howell.github.io/skills-econ-geog-dashboard/).
+The panel is designed to support research on the economic geography of skills: local specializations, relatedness, and complexity; anchor-institution (universities, government, federal research labs) contributions to local skill ecosystems; and tracking local composition and structural change in the skill ecosystem over time.
 
 **Accompanying paper**
 
 > Howell, A., Feldman, M., Lanahan, L., Kalathil, N., & Johnson, E. (2026). *Economic geography of U.S. employer demand: skill specialization, relatedness, and complexity.* Working paper, SSRN. https://ssrn.com/abstract=XXXXXXX
 
-Author affiliations: Howell and Feldman (Arizona State University), Lanahan (University of Oregon), Kalathil (Carnegie Mellon University), Johnson (University of North Carolina at Chapel Hill).
+**Accompanying dashboard**
 
-Machine-readable citation metadata is provided in `CITATION.cff`. GitHub auto-renders a "Cite this repository" button from this file, and Zenodo reads it on archive. The Zenodo DOI and SSRN link above will be filled in once assigned.
+> For interactive exploration without writing code: [https://antjam-howell.github.io/skills-econ-geog-dashboard/](https://antjam-howell.github.io/skills-econ-geog-dashboard/)
 
 Constructed by Anthony Howell, School of Public Affairs, Arizona State University.
 
