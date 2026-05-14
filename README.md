@@ -4,6 +4,8 @@ A publicly available county-year panel of U.S. labor and skill demand, derived f
 
 Constructed by Anthony Howell, School of Public Affairs, Arizona State University.
 
+Data files in `data/` are released under CC BY 4.0 (see `LICENSE`). Source code in `code/` is released under MIT (see `LICENSE-CODE`).
+
 ---
 
 ## Repository layout
@@ -12,7 +14,7 @@ Constructed by Anthony Howell, School of Public Affairs, Arizona State Universit
 skills-econ-geog-data/
 ├── README.md                 # this file
 ├── CITATION.cff              # citation metadata (GitHub / Zenodo)
-├── LICENSE-DATA              # CC BY 4.0 (covers data/)
+├── LICENSE                   # CC BY 4.0 (covers data/)
 ├── LICENSE-CODE              # MIT (covers code/)
 ├── data/
 │   ├── county_year_panel.parquet    # 9.1 MB primary release
@@ -85,16 +87,17 @@ The `n_unclassified` column reports the subset of corporate-category postings wi
 
 A companion web dashboard visualizes the released county-year panel. It is intended for readers, students, and policy users who want to explore the data without writing code.
 
-- **Hosted version:** `<dashboard-URL-to-be-assigned>` (open access, no credentials required).
+- **Hosted version:** [https://antjam-howell.github.io/skills-econ-geog-dashboard/](https://antjam-howell.github.io/skills-econ-geog-dashboard/) (open access, no credentials required).
 
-The dashboard has four pages:
+The dashboard has five pages:
 
 | Page | What it shows |
 |---|---|
-| **National Labor Demand** | National posting volume, employer-entity composition, work-mode mix, and the time-series behavior of headline measures, 2010–2024. |
-| **National Skill Demand** | County-level choropleth maps of skill diversity, complexity, RCA > 1 breadth, and dynamics, with year selection and side-by-side variable comparison. |
-| **Scatter** | Bivariate exploration: any two variables in the panel plotted against each other for any selected year, with linked map and county-label tooltips. |
-| **County profile** | In-depth single-county trajectory across the full 15-year window, covering all 44 variables. |
+| **Spatial visualization** | County-level choropleth map of any panel variable, with a year slider and play button to animate 2010–2024. The default landing metric is local specializations (`n_rca_skills`). |
+| **Rankings & trends** | Top-25 ranked table for the selected metric and year, distribution histogram, and four national-context charts that put the headline measures in 2010–2024 perspective. |
+| **County comparisons** | Bivariate scatter of any two panel variables for a selected year, with a focal county and its k-nearest peers highlighted. |
+| **County profiles** | In-depth single-county trajectory across the full 15-year window, with sparklines for the headline measures and stacked composition plots for the work-mode and skill-type shares. |
+| **How to use the dashboard** | Layered usage guide: data source, metric glossary, four numbered workflows, and a methodology summary. |
 
 ---
 
@@ -136,18 +139,6 @@ LIMIT 25;
 
 ---
 
-## Known limitations
-
-These caveats are documented more fully in the accompanying article. The most consequential are listed here.
-
-- **NAICS-classification quality within the corporate category.** Within corporate (private-sector) postings, the share with NAICS-4 = 9999 (tracked by `n_unclassified`) falls from approximately 40% in 2010 to 15% in 2024 as Lightcast's firm-identification pipeline matures. Early-year corporate-specific RCA breadth is computed over the NAICS-classified corporate slice and is biased toward larger, identifiable firms. Use entity-type shares rather than levels for cross-year work, or restrict to 2018 and later.
-- **2017–2018 Lightcast coverage step-up.** National posting volume jumps by approximately 26% between 2017 and 2018 because of a Lightcast source expansion. Use shares rather than levels, or include county fixed effects, when comparing across this boundary.
-- **Cosine distance noisy below 50 postings.** `skill_cosine_distance` becomes a poor measure of structural change for county-years with fewer than approximately 50 postings; apply a posting threshold for causal-inference work.
-- **State-level FIPS codes (ending in 999).** Postings that Lightcast could match to a state but not a specific county are assigned to a state-level FIPS ending in 999. For county-level analyses, drop with `(county % 1000) != 999`.
-- **Fitness-complexity instability.** The Tacchella fitness column is numerically unstable for very diversified or very specialized counties. Prefer `eci` as the primary complexity measure; treat `fitness` as a robustness check after clipping or log-transformation.
-
----
-
 ## Reproducing from raw data
 
 The `code/` subdirectory contains the Python pipeline that produced the panel from the raw Lightcast Main job-posting data.
@@ -178,7 +169,7 @@ Machine-readable citation metadata is provided in `CITATION.cff`. GitHub auto-re
 
 ## License
 
-- **Data files** (`data/*.parquet`, `data/*.csv`): released under Creative Commons Attribution 4.0 International (CC BY 4.0). Full license text in `LICENSE-DATA`. The derived measures are aggregated statistics computed from the underlying Lightcast micro data; the Lightcast license governs the raw data, not these aggregates.
+- **Data files** (`data/*.parquet`, `data/*.csv`): released under Creative Commons Attribution 4.0 International (CC BY 4.0). Full license text in `LICENSE`. The derived measures are aggregated statistics computed from the underlying Lightcast micro data; the Lightcast license governs the raw data, not these aggregates.
 - **Source code** (`code/*.py`, `code/slurm/*.slurm`): released under the MIT License. Full license text in `LICENSE-CODE`.
 
 ---
@@ -199,4 +190,4 @@ Email: ajhowel5@asu.edu
 
 ## Acknowledgments
 
-This work is supported by NSF Award #2431853 and an Anthropic Economic Futures Award. Computation was performed on the ASU Sol supercomputer; we thank ASU Research Computing for support. Lightcast (formerly Burning Glass Technologies) is the source of the underlying job-posting data.
+This material is based upon work supported by the National Science Foundation under Grant No. 2431853. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author and do not necessarily reflect the views of the National Science Foundation. The underlying raw Lightcast (formerly Burning Glass Technologies) job-posting micro data (929 GB across 22,967 gzipped CSV shards, 433.6 million postings, 2010–2024) are used under an academic license.
