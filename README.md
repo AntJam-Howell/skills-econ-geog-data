@@ -81,7 +81,7 @@ Each posting is assigned to exactly one of five entity types. Assignment uses th
 | Staffing | NAICS 5613 or Lightcast `company_is_staffing == True` |
 | Corporate | all remaining postings (private-sector, including those with NAICS-4 = 9999) |
 
-The `n_unclassified` column reports the subset of corporate-category postings with NAICS-4 = 9999 as a transparency diagnostic. It is included in the corporate posting count `n_corporate` only conceptually; in the data file, `n_corporate` reports the NAICS-classified corporate slice and `n_unclassified` reports the NAICS-9999 slice as a separate column. Add them to get the total corporate (private-sector) posting count for a county-year.
+In the data file, `n_corporate` and `n_unclassified` are separate columns. `n_corporate` reports NAICS-classified private-sector postings; `n_unclassified` reports postings with NAICS-4 = 9999. To recover the total private-sector posting count for a county-year, sum the two columns.
 
 ---
 
