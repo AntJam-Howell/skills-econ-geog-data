@@ -37,7 +37,7 @@ skills-econ-geog-data/
 
 ## The dataset
 
-The released panel is built from the underlying raw Lightcast (formerly Burning Glass Technologies) job-posting micro data: 929 GB across 22,967 gzipped CSV shards, 433.6 million postings, 2010–2024. The micro data are used under an academic license. The released county-year aggregates in `data/` are derived statistics computed from those postings, not the postings themselves.
+The released panel is built from the underlying raw Lightcast (formerly Burning Glass Technologies) job-posting micro data: 929 GB across 22,967 gzipped CSV shards, 433.6 million postings, 2010–2024. The micro data are used under an academic license. The released county-year aggregates in `data/` are derived statistics computed from those postings, not the postings themselves. The construction methodology, variable definitions, and intended analytical uses are described in the accompanying working paper (Howell et al., 2026; [SSRN link to be assigned]).
 
 ### Dimensions
 
@@ -163,9 +163,13 @@ The pipeline was developed and tested with Python 3.11 and the following key pac
 
 If you use this dataset, please cite:
 
-> Howell, Anthony (2026). *An economic geography panel of U.S. county-level labor and skill demand, 2010–2024.* Data descriptor (under review at *Scientific Data*).
+> Howell, A. (2026). *U.S. County-Year Panel of Labor and Skill Demand, 2010–2024* [Data set]. Zenodo. https://doi.org/10.5281/zenodo.XXXXXXX
 
-Machine-readable citation metadata is provided in `CITATION.cff`. GitHub auto-renders a "Cite this repository" button from this file, and Zenodo reads it on archive. A persistent DOI for the data release will be added once assigned.
+### Accompanying paper
+
+> Howell, A. et al. (2026). *[Paper title to be assigned].* Working paper, SSRN. https://ssrn.com/abstract=XXXXXXX
+
+Machine-readable citation metadata is provided in `CITATION.cff`. GitHub auto-renders a "Cite this repository" button from this file, and Zenodo reads it on archive. The Zenodo DOI and SSRN link above will be filled in once assigned.
 
 ---
 
