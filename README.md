@@ -10,7 +10,7 @@ The panel is designed to support research on the economic geography of skills: l
 
 **Accompanying dashboard**
 
-> For interactive exploration without writing code: [https://skills-econ-geog.netlify.app/](https://skills-econ-geog.netlify.app/) (fallback mirror at [antjam-howell.github.io/skills-econ-geog-dashboard](https://antjam-howell.github.io/skills-econ-geog-dashboard/))
+> For interactive exploration without writing code: [https://skills-econ-geog.netlify.app/](https://skills-econ-geog.netlify.app/)
 
 Constructed by Anthony Howell, School of Public Affairs, Arizona State University.
 
@@ -99,8 +99,7 @@ In the data file, `n_corporate` and `n_unclassified` are separate columns. `n_co
 
 A companion web dashboard visualizes the released county-year panel. It is intended for readers, students, and policy users who want to explore the data without writing code.
 
-- **Hosted version (canonical):** [https://skills-econ-geog.netlify.app/](https://skills-econ-geog.netlify.app/) (open access, no credentials required).
-- **Fallback mirror:** [https://antjam-howell.github.io/skills-econ-geog-dashboard/](https://antjam-howell.github.io/skills-econ-geog-dashboard/) (same build, GitHub Pages).
+- **Hosted version:** [https://skills-econ-geog.netlify.app/](https://skills-econ-geog.netlify.app/) (open access, no credentials required).
 
 The dashboard has five pages:
 
