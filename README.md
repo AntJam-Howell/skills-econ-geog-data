@@ -6,7 +6,7 @@ The panel is designed to support research on the economic geography of skills: l
 
 **Interactive dashboard**
 
-> Explore the panel without writing code: [https://skills-econ-geog.netlify.app/](https://skills-econ-geog.netlify.app/)
+> Explore key variables of the panel without writing code: [https://skills-econ-geog.netlify.app/](https://skills-econ-geog.netlify.app/)
 
 Data files in `data/` are released under CC BY 4.0 (see `LICENSE`). Source code in `code/` is released under MIT (see `LICENSE-CODE`).
 
@@ -85,19 +85,6 @@ The 164 variables in groups I-K are designed for four research questions that th
 4. **Differential dynamics by entity type.** Group K lets researchers decompose how each sector's skill portfolio evolves: do corporate, university, federal-lab, and government skill demands change together, or do their trajectories diverge?
 
 Each measure in group J is reported in four versions: pooled across all skills, and separately over specialized, software, and common skill subsets. This allows skill-type-specific claims (for example, "the university brings new specialized skills but duplicates existing common skills").
-
-### Employer entity types
-
-Each posting is assigned to exactly one of four entity types. Assignment uses the posting's NAICS-4 code:
-
-| Type | NAICS-4 codes |
-|---|---|
-| University | 6112, 6113, 6114, 6115, 6116, 6117 |
-| Federal lab | 5417, 9271 |
-| Government | 92xx (all) |
-| Corporate | all remaining postings (the full private sector) |
-
-In the data file, `n_corporate` reports all private-sector postings in the county-year, regardless of NAICS-4 specificity.
 
 ---
 
