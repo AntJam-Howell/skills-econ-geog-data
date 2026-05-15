@@ -30,12 +30,11 @@ Phase A is a single streaming pass over the raw gzipped CSV shards. For each pos
 
 1. Parses the `posted` date and assigns a calendar year.
 2. Resolves the county FIPS from the `county` field. Postings with missing or invalid county are dropped.
-3. Classifies the posting into one of five employer entity types using NAICS-4 and the Lightcast staffing flag:
+3. Classifies the posting into one of four employer entity types using NAICS-4:
    - **University:** NAICS 6112-6117
    - **Federal or public lab:** NAICS 5417, 9271
    - **Government:** any NAICS in the 92xx range
-   - **Staffing:** NAICS 5613 or `company_is_staffing = True`
-   - **Corporate:** all remaining postings (includes NAICS-4 = 9999 unclassified, tracked separately as `n_unclassified`)
+   - **Corporate:** all remaining postings (the full private sector, regardless of NAICS-4 specificity)
 4. Splits the three pipe-delimited skill columns (`specialized_skills_name`, `software_skills_name`, `common_skills_name`) into individual skill mentions.
 5. Updates per-year accumulators of (county, skill, entity_type) mention counts and (county, posting characteristic) counts.
 
@@ -72,17 +71,21 @@ The numerator is the share of all skill mentions in county *c* during year *t* t
 - `churning_net`: `churning_entries - churning_exits`
 - `skill_cosine_distance`: 1 - cos(skill_freq_vec(c, t-1), skill_freq_vec(c, t)), capturing total structural change in the demand profile
 
-**Entity-type specialization breadth.** For each of the five entity types, the count of skills with entity-specific RCA > 1 (`{type}_n_rca_skills`). Entity-type-specific RCA computes the numerator using only postings from that entity type while keeping the national-share denominator unchanged.
+**Entity-type specialization breadth.** For each of the four entity types, the count of skills with entity-specific RCA > 1 (`{type}_n_rca_skills`). Entity-type-specific RCA computes the numerator using only postings from that entity type while keeping the national-share denominator unchanged.
+
+**Employer-pair skill similarity (group J).** For each of the three entity-type pairs (university vs corporate, federal/public lab vs corporate, university vs federal/public lab), six similarity measures (cosine, Jaccard, Hidalgo proximity, weighted RCA overlap, directional gap count, directional gap relatedness) are computed between the two entity types' skill-frequency vectors within each county-year. Each measure is reported over all skills and separately over specialized, software, and common-soft skill subsets.
+
+**Per-employer-type dynamics (group K).** For each of the four entity types, churning entries, exits, net change, and cosine distance are computed within the entity type's own skill pool in parallel to the aggregate group-H measures.
 
 ### Phase C: Public-release export (`build_descriptive_export.py`)
 
-Subsets the full Phase B output to the 44 variables of the public release, computes summary statistics, generates the data dictionary, and writes the parquet and CSV files in `data/`.
+Generates the data dictionary, codebook, summary statistics, and yearly summary that accompany the 129-column Phase B output. The panel itself is the direct Phase B output and requires no additional subsetting.
 
 ## 4. Known limitations
 
 The public README documents the most consequential caveats:
 
-- **NAICS-classification quality within the corporate category.** The share of corporate postings with NAICS-4 = 9999 (`n_unclassified`) falls from approximately 40% in 2010 to 15% in 2024 as Lightcast's firm-identification pipeline matures. Early-year corporate-specific RCA breadth is biased toward larger, identifiable firms.
+- **NAICS-classification quality within the corporate category.** A substantial share of corporate postings have NAICS-4 = 9999 (Lightcast was unable to assign a specific industry). This share falls from approximately 40% in 2010 to 15% in 2024 as Lightcast's firm-identification pipeline matures. These postings are included in `n_corporate` and in the aggregate skill measures. Early-year corporate-specific RCA breadth (group I) is correspondingly biased toward larger, identifiable firms.
 - **2017-2018 Lightcast coverage step-up.** National posting volume jumps by approximately 26% between 2017 and 2018 because of a Lightcast source expansion. Use shares rather than levels, or include county fixed effects, when comparing across this boundary.
 - **Cosine distance noisy below 50 postings.** Apply a posting threshold for causal-inference work using `skill_cosine_distance`.
 - **State-level FIPS codes (ending in 999).** Postings that Lightcast could match to a state but not a specific county are assigned to a state-level FIPS ending in 999. For county-level analyses, drop with `(county % 1000) != 999`.

@@ -5,13 +5,12 @@ abstract: >-
   A publicly available county-year panel of U.S. labor and skill demand,
   derived from 433.6 million Lightcast (formerly Burning Glass) job postings
   spanning 2010-2024. The panel covers 3,194 counties across 15 years
-  (47,891 county-year observations) and reports 137 variables organized into
-  twelve groups: a 44-variable headline subset describing the volume,
+  (47,891 county-year observations) and reports 129 variables organized into
+  eleven groups: a 41-variable headline subset describing the volume,
   employer-entity composition, skill content, specialization, complexity,
-  relatedness, and dynamics of local labor demand, plus 93 additional
-  variables for employer-pair skill-similarity, per-employer-type dynamics,
-  and extended work-mode analyses intended for spillover and decomposition
-  research.
+  relatedness, and dynamics of local labor demand, plus 88 additional
+  variables for employer-pair skill-similarity and per-employer-type dynamics
+  intended for spillover and decomposition research.
 type: dataset
 authors:
   - family-names: "Howell"

@@ -16,7 +16,7 @@ intermediate/scan/year=YYYY/        (per-year checkpoint parquets)
     │                                 employer-pair similarity, per-entity
     │                                 dynamics)
     ▼
-county_year_panel.parquet           (137-column Phase B output, published directly)
+county_year_panel.parquet           (129-column Phase B output, published directly)
 county_year_panel.csv               (CSV mirror of the same panel)
     │
     │  build_descriptive_export.py  (documentation helpers)
@@ -29,9 +29,9 @@ codebook.md
 
 ## Files
 
-- **`build_skill_counts.py`** (Phase A). Single-pass streaming scan of the raw gzipped CSV shards. Parses pipe-delimited skill mentions, classifies each posting into one of six employer entity types (corporate, university, federal lab, government, staffing, unclassified) from the NAICS-4 field, and aggregates to per-year checkpoint parquets keyed by (county, skill, entity\_type). Year-level `_SUCCESS` markers allow restart without re-scanning completed years.
+- **`build_skill_counts.py`** (Phase A). Single-pass streaming scan of the raw gzipped CSV shards. Parses pipe-delimited skill mentions, classifies each posting into one of four employer entity types (corporate, university, federal lab, government) from the NAICS-4 field, and aggregates to per-year checkpoint parquets keyed by (county, skill, entity\_type). Year-level `_SUCCESS` markers allow restart without re-scanning completed years.
 - **`compute_skill_measures.py`** (Phase B). Reads Phase A checkpoints and computes the full battery of derived measures: Balassa revealed comparative advantage at county-skill-year resolution; year-specific skill-skill relatedness matrices (Hidalgo proximity); Balland skill density; Neffke skill coherence; Hidalgo-Hausmann Economic Complexity Index (method of reflections, 20 iterations); Tacchella fitness-complexity (50 iterations); year-over-year RCA churning and cosine distance on skill frequency vectors; entity-type specialization breadth.
-- **`build_descriptive_export.py`** (Documentation helpers). Writes the data dictionary, codebook, summary-statistics table, and yearly summary that accompany the 137-column Phase B output. The panel itself (`county_year_panel.parquet` / `.csv`) is the direct Phase B output and requires no additional script.
+- **`build_descriptive_export.py`** (Documentation helpers). Writes the data dictionary, codebook, summary-statistics table, and yearly summary that accompany the 129-column Phase B output. The panel itself (`county_year_panel.parquet` / `.csv`) is the direct Phase B output and requires no additional script.
 - **`slurm/`**. SLURM submission scripts that document the resource configuration used on the ASU Sol HPC cluster (200 GB memory, 16 cores; Phase A wall time approximately 48 hours; Phase B approximately 1 hour).
 
 ## Python environment

@@ -7,12 +7,10 @@ mention_specialized,int,Total mentions of specialized skills,B. Labor demand: to
 mention_software,int,Total mentions of software skills,B. Labor demand: total postings and skill mentions
 mention_common,int,Total mentions of common (soft) skills,B. Labor demand: total postings and skill mentions
 n_internship,int,Postings flagged as internships,B. Labor demand: total postings and skill mentions
-n_corporate,int,Corporate (private-sector) postings with explicit NAICS-4 classification (non-univ/lab/gov/staffing); add n_unclassified for the total corporate posting count,C. Labor demand: posting counts by employer type
+n_corporate,int,"All private-sector postings in the county-year, regardless of NAICS-4 classification. Includes postings with a recognized non-university/non-lab/non-government NAICS-4, postings with NAICS-4 = 9999 (unclassified), and postings from staffing firms.",C. Labor demand: posting counts by employer type
 n_university,int,Postings from NAICS 6112-6117 (universities/colleges),C. Labor demand: posting counts by employer type
 n_federal_lab,int,"Postings from NAICS 5417, 9271 (scientific R&D, space research)",C. Labor demand: posting counts by employer type
 n_government,int,Postings from NAICS 92xx (all government),C. Labor demand: posting counts by employer type
-n_staffing,int,Postings from NAICS 5613 or flagged as staffing,C. Labor demand: posting counts by employer type
-n_unclassified,int,Transparency subset of corporate: postings with NAICS-4 = 9999 (private-sector employer with no detailed NAICS classification),C. Labor demand: posting counts by employer type
 n_remote,int,Postings with remote_type=1 (remote),D. Labor demand: work mode
 n_hybrid,int,Postings with remote_type=2 (hybrid),D. Labor demand: work mode
 n_onsite,int,Postings with remote_type=0 (on-site),D. Labor demand: work mode
@@ -42,7 +40,6 @@ corp_n_rca_skills,int,Count of skills with corporate-specific RCA>1,I. Employer-
 univ_n_rca_skills,int,Count of skills with university-specific RCA>1,I. Employer-type specialization breadth (consistent measure by entity)
 fede_n_rca_skills,int,Count of skills with federal-lab-specific RCA>1,I. Employer-type specialization breadth (consistent measure by entity)
 gove_n_rca_skills,int,Count of skills with government-specific RCA>1,I. Employer-type specialization breadth (consistent measure by entity)
-staf_n_rca_skills,int,Count of skills with staffing-specific RCA>1,I. Employer-type specialization breadth (consistent measure by entity)
 corp_churning_entries,int,Skills that crossed into RCA>1 in the corporate (private-sector non-univ/lab/gov/staffing)-sector skill pool this year vs. prior year.,K. Per-employer-type skill dynamics
 corp_churning_exits,int,Skills that fell below RCA>1 in the corporate (private-sector non-univ/lab/gov/staffing)-sector skill pool this year vs. prior year.,K. Per-employer-type skill dynamics
 corp_churning_net,int,Net change in corporate (private-sector non-univ/lab/gov/staffing)-sector RCA>1 breadth between consecutive years (entries minus exits).,K. Per-employer-type skill dynamics
@@ -115,7 +112,6 @@ jaccard_univ_fede,"float [0,1]","Jaccard index over the university-RCA>1 and fed
 jaccard_univ_fede_common,"float [0,1]","Jaccard index over the university-RCA>1 and federal/public lab-RCA>1 skill sets restricted to common-soft skills only: |intersection| / |union|; range [0,1]; higher = greater overlap in what each entity type specializes in.",J. Employer-pair skill similarity
 jaccard_univ_fede_software,"float [0,1]","Jaccard index over the university-RCA>1 and federal/public lab-RCA>1 skill sets restricted to software skills only: |intersection| / |union|; range [0,1]; higher = greater overlap in what each entity type specializes in.",J. Employer-pair skill similarity
 jaccard_univ_fede_specialized,"float [0,1]","Jaccard index over the university-RCA>1 and federal/public lab-RCA>1 skill sets restricted to specialized skills only: |intersection| / |union|; range [0,1]; higher = greater overlap in what each entity type specializes in.",J. Employer-pair skill similarity
-n_remote_other,int,Postings with remote_type not classifiable as remote/hybrid/on-site; residual category. Should sum with n_remote + n_hybrid + n_onsite to a count close to total_postings (small gap from postings with NULL remote_type pre-2018).,L. Extended work mode
 rca_overlap_fede_corp,float (non-negative),Weighted RCA overlap: average corporate (private-sector non-univ/lab/gov/staffing)-sector RCA value across the federal/public lab-sector RCA>1 skill set over all skills (specialized + software + common); higher values indicate the federal/public lab sector demands skills that the corporate (private-sector non-univ/lab/gov/staffing) sector already specializes in.,J. Employer-pair skill similarity
 rca_overlap_fede_corp_common,float (non-negative),Weighted RCA overlap: average corporate (private-sector non-univ/lab/gov/staffing)-sector RCA value across the federal/public lab-sector RCA>1 skill set over common-soft skills only; higher values indicate the federal/public lab sector demands skills that the corporate (private-sector non-univ/lab/gov/staffing) sector already specializes in.,J. Employer-pair skill similarity
 rca_overlap_fede_corp_software,float (non-negative),Weighted RCA overlap: average corporate (private-sector non-univ/lab/gov/staffing)-sector RCA value across the federal/public lab-sector RCA>1 skill set over software skills only; higher values indicate the federal/public lab sector demands skills that the corporate (private-sector non-univ/lab/gov/staffing) sector already specializes in.,J. Employer-pair skill similarity
@@ -128,10 +124,6 @@ rca_overlap_univ_fede,float (non-negative),Weighted RCA overlap: average federal
 rca_overlap_univ_fede_common,float (non-negative),Weighted RCA overlap: average federal/public lab-sector RCA value across the university-sector RCA>1 skill set over common-soft skills only; higher values indicate the university sector demands skills that the federal/public lab sector already specializes in.,J. Employer-pair skill similarity
 rca_overlap_univ_fede_software,float (non-negative),Weighted RCA overlap: average federal/public lab-sector RCA value across the university-sector RCA>1 skill set over software skills only; higher values indicate the university sector demands skills that the federal/public lab sector already specializes in.,J. Employer-pair skill similarity
 rca_overlap_univ_fede_specialized,float (non-negative),Weighted RCA overlap: average federal/public lab-sector RCA value across the university-sector RCA>1 skill set over specialized skills only; higher values indicate the university sector demands skills that the federal/public lab sector already specializes in.,J. Employer-pair skill similarity
-staf_churning_entries,int,Skills that crossed into RCA>1 in the third-party staffing-sector skill pool this year vs. prior year.,K. Per-employer-type skill dynamics
-staf_churning_exits,int,Skills that fell below RCA>1 in the third-party staffing-sector skill pool this year vs. prior year.,K. Per-employer-type skill dynamics
-staf_churning_net,int,Net change in third-party staffing-sector RCA>1 breadth between consecutive years (entries minus exits).,K. Per-employer-type skill dynamics
-staf_cosine_distance,"float [0,1]","1 - cosine(skill-frequency vector of third-party staffing-sector postings at t-1, t); structural change in the third-party staffing-sector skill demand profile between consecutive years. Note: noisy in county-years with low third-party staffing-sector posting counts.",K. Per-employer-type skill dynamics
 univ_churning_entries,int,Skills that crossed into RCA>1 in the university-sector skill pool this year vs. prior year.,K. Per-employer-type skill dynamics
 univ_churning_exits,int,Skills that fell below RCA>1 in the university-sector skill pool this year vs. prior year.,K. Per-employer-type skill dynamics
 univ_churning_net,int,Net change in university-sector RCA>1 breadth between consecutive years (entries minus exits).,K. Per-employer-type skill dynamics
