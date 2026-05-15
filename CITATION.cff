@@ -9,7 +9,7 @@ abstract: >-
   eleven groups: a 37-variable core set describing the volume, employer-entity
   composition, work mode and internships, skill content, specialization,
   complexity, relatedness, and dynamics of local labor demand, plus 164
-  additional variables in the sectoral architecture extension covering
+  additional variables in the entity-decomposed extension covering
   entity-type specialization breadth, employer-pair skill-similarity, and
   per-employer-type dynamics for sectoral and spillover research.
 type: dataset

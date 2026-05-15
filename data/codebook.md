@@ -36,7 +36,7 @@ panel = pd.read_parquet("data/county_year_panel.parquet", columns=CORE)
 
 ## Variable groups
 
-The 201 variables are organized into eleven groups (A through K). Groups A-H are the core subset; groups I, J, and K are the sectoral architecture extension.
+The 201 variables are organized into eleven groups (A through K). Groups A-H are the core subset; groups I, J, and K are the entity-decomposed extension.
 
 | # | Variable | Type | Definition |
 |---|---|---|---|
@@ -85,7 +85,7 @@ The 201 variables are organized into eleven groups (A through K). Groups A-H are
 | 35 | `churning_exits` | int | Skills that lost RCA > 1 this year vs. prior year |
 | 36 | `churning_net` | int | `churning_entries` - `churning_exits` |
 | 37 | `skill_cosine_distance` | float [0,1] | 1 - cosine(skill freq vector at t-1, t); structural change in demand profile |
-| **I. Employer-type specialization breadth** *(sectoral architecture extension)* | | | |
+| **I. Employer-type specialization breadth** *(entity-decomposed extension)* | | | |
 | 38 | `corp_n_rca_skills` | int | Count of skills with corporate-specific RCA > 1 |
 | 39 | `univ_n_rca_skills` | int | Count of skills with university-specific RCA > 1 |
 | 40 | `fede_n_rca_skills` | int | Count of skills with federal-lab-specific RCA > 1 |

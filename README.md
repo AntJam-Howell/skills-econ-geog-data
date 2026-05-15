@@ -53,11 +53,11 @@ The released panel is built from the underlying raw Lightcast (formerly Burning 
 
 ### Variable groups
 
-The 201 variables characterize local labor demand along three conceptual dimensions and split further into a core set (groups A-H) and a sectoral architecture extension (groups I, J, K):
+The 201 variables characterize local labor demand along three conceptual dimensions and split further into a core set (groups A-H) and an entity-decomposed extension (groups I, J, K):
 
 - **Who is hiring** (groups B, C): total posting volume, total skill-mention counts by skill type, and the decomposition of posting counts across four employer entity types (corporate, university, federal lab, government). The corporate category covers all private-sector postings.
 - **The nature of work** (group D): modality (remote, hybrid, on-site) and the count of internship-flagged postings.
-- **What they demand** (groups E, F, G, H, and the sectoral architecture extensions I, J, K): skill content, composition, diversity, complexity, relatedness, dynamics, entity-type specialization breadth, employer-pair similarity, and per-entity-type dynamics.
+- **What they demand** (groups E, F, G, H, and the entity-decomposed extension (groups I, J, K)): skill content, composition, diversity, complexity, relatedness, dynamics, entity-type specialization breadth, employer-pair similarity, and per-entity-type dynamics.
 
 The full definition of every variable lives in `data/data_dictionary.csv` and `data/codebook.md`. Most descriptive, teaching, and applied uses need only the 37 core variables in groups A-H; the codebook shows how to load only that subset.
 
@@ -71,11 +71,11 @@ The full definition of every variable lives in `data/data_dictionary.csv` and `d
 | **F. Skill diversity, concentration, and complexity** | core | 7 variables | Distinct skill count, RCA > 1 breadth, average ubiquity, Herfindahl-Hirschman concentration, Shannon entropy, Economic Complexity Index, Tacchella fitness-complexity |
 | **G. Skill relatedness and network position** | core | 3 variables | Balland skill density, Neffke skill coherence, average network centrality of the county's RCA > 1 skills |
 | **H. Year-over-year dynamics** | core | 4 variables | RCA churning entries, exits, net; cosine distance on skill frequency vectors between consecutive years |
-| **I. Entity-type specialization breadth** | sectoral architecture extension | 4 variables | RCA > 1 skill count computed within each of the four employer entity types' own skill pools |
-| **J. Employer-pair skill similarity** | sectoral architecture extension | 144 variables | Pairwise similarity between the skill-frequency vectors of six entity-type pairs (univ-corp, fede-corp, gove-corp, univ-fede, univ-gove, fede-gove), in six measure families (cosine, Jaccard, Hidalgo proximity, weighted RCA overlap, directional gap count, directional gap relatedness), each over all skills and separately over specialized / software / common splits |
-| **K. Per-employer-type skill dynamics** | sectoral architecture extension | 16 variables | Year-over-year churning entries, exits, net, and cosine distance computed separately within each of the four entity types' own skill pools |
+| **I. Entity-type specialization breadth** | entity-decomposed extension | 4 variables | RCA > 1 skill count computed within each of the four employer entity types' own skill pools |
+| **J. Employer-pair skill similarity** | entity-decomposed extension | 144 variables | Pairwise similarity between the skill-frequency vectors of six entity-type pairs (univ-corp, fede-corp, gove-corp, univ-fede, univ-gove, fede-gove), in six measure families (cosine, Jaccard, Hidalgo proximity, weighted RCA overlap, directional gap count, directional gap relatedness), each over all skills and separately over specialized / software / common splits |
+| **K. Per-employer-type skill dynamics** | entity-decomposed extension | 16 variables | Year-over-year churning entries, exits, net, and cosine distance computed separately within each of the four entity types' own skill pools |
 
-### What the sectoral architecture extension (groups I, J, K) enables
+### What the entity-decomposed extension (groups I, J, K) enables
 
 The 164 variables in groups I-K are designed for four research questions that the aggregate core measures cannot answer:
 
