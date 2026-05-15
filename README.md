@@ -180,8 +180,6 @@ This release has two citable artifacts: the dataset and the accompanying paper. 
 
 > Howell, A., Feldman, M., Lanahan, L., Kalathil, N., & Johnson, E. (2026). *Economic geography of U.S. Skills: specialization, relatedness, and complexity.* Working paper, SSRN. https://ssrn.com/abstract=XXXXXXX
 
-Machine-readable citation metadata is provided in `CITATION.cff`. The dataset and paper have different author lists because data construction and analytical framing were carried out by different teams; see **Author contributions** below.
-
 ---
 
 ## Author contributions and credit
