@@ -27,11 +27,11 @@ skills-econ-geog-data/
 ├── LICENSE                   # CC BY 4.0 (covers data/)
 ├── LICENSE-CODE              # MIT (covers code/)
 ├── data/
-│   ├── county_year_panel.parquet    # 9.1 MB primary release
-│   ├── county_year_panel.csv        # 20 MB CSV mirror
-│   ├── data_dictionary.csv          # canonical machine-readable variable metadata
+│   ├── county_year_panel.parquet    # 18 MB, 137 variables (groups A-L)
+│   ├── county_year_panel.csv        # 51 MB CSV mirror
+│   ├── data_dictionary.csv          # canonical machine-readable variable metadata (137 rows)
 │   ├── codebook.md                  # human-readable variable definitions
-│   ├── summary_statistics.csv       # N, mean, SD, min, percentiles, max
+│   ├── summary_statistics.csv       # N, mean, SD, min, percentiles, max (all 137 vars)
 │   └── yearly_summary.csv           # national-aggregate values by year
 ├── code/
 │   ├── README.md                    # pipeline diagram and environment
@@ -55,29 +55,43 @@ The released panel is built from the underlying raw Lightcast (formerly Burning 
 - **Years:** 2010–2024 (15 calendar years)
 - **Counties:** 3,194 unique FIPS codes
 - **Observations:** 47,891 county-years. The panel is unbalanced: counties with zero postings in a given year are dropped.
-- **Variables:** 44
+- **Variables:** 137, organized into twelve groups (A-L). Most descriptive and teaching uses need only the 44 headline variables in groups A-I; the remaining 93 variables in groups J, K, L are intended for spillover, decomposition, and skill-type-specific analyses. The codebook explains how to load only the headline subset.
 
 ### Variable groups
 
-The 44 variables characterize local labor demand along three dimensions:
+The 137 variables characterize local labor demand along three conceptual dimensions and split further into a headline subset (groups A-I) and a spillover-and-decomposition extension (groups J, K, L):
 
 - **Who is hiring** (groups B, C): total posting volume and the decomposition across the five employer entity types (corporate, university, federal or public lab, government, third-party staffing). The corporate category covers private-sector postings, including those whose detailed NAICS classification is missing (tracked separately by the transparency column `n_unclassified`).
-- **The nature of work** (group D, plus internship counts in group B): modality (remote, hybrid, on-site) and internship status.
-- **What they demand** (groups E, F, G, H, I): skill content, composition, diversity, complexity, relatedness, dynamics, and entity-type specialization breadth.
+- **The nature of work** (group D, plus internship counts in group B; group L adds a residual work-mode category): modality (remote, hybrid, on-site) and internship status.
+- **What they demand** (groups E, F, G, H, I, and the spillover extensions J, K): skill content, composition, diversity, complexity, relatedness, dynamics, entity-type specialization breadth, employer-pair similarity, and per-entity-type dynamics.
 
-Entity-type decomposition in the released panel is limited to posting counts (group C) and the RCA-breadth count (group I). The complexity, relatedness, and dynamics measures (groups F, G, H) are aggregate county-year measures pooled across all entity types. See `data/data_dictionary.csv` or `data/codebook.md` for the exact definition of each variable.
+The full definition of every variable lives in `data/data_dictionary.csv` and `data/codebook.md`. Most descriptive, teaching, and applied uses need only the 44 headline variables in groups A-I; the codebook shows how to load only that subset.
 
-| Group | Variables | What it captures |
-|---|---|---|
-| **A. Unit identifiers** | `county`, `year` | 5-digit FIPS and calendar year |
-| **B. Labor demand: totals** | 6 variables | Total postings, postings with skills, skill-mention totals by skill type, internship counts |
-| **C. Labor demand: entity-type counts** | 6 variables | Posting counts in the five entity types (corporate, university, federal lab, government, staffing) plus a transparency column `n_unclassified` for the subset of corporate postings with NAICS-4 = 9999 |
-| **D. Labor demand: work mode** | 6 variables | Counts and shares of remote, hybrid, and on-site postings |
-| **E. Skill composition** | 5 variables | Shares of specialized, software, and common-soft skill mentions; mean skills per posting; coverage |
-| **F. Skill diversity, concentration, and complexity** | 7 variables | Distinct skill count, RCA > 1 breadth, average ubiquity, Herfindahl-Hirschman concentration, Shannon entropy, Economic Complexity Index, Tacchella fitness-complexity |
-| **G. Skill relatedness and network position** | 3 variables | Balland skill density, Neffke skill coherence, average network centrality of the county's RCA > 1 skills |
-| **H. Year-over-year dynamics** | 4 variables | RCA churning entries, exits, net; cosine distance on skill frequency vectors between consecutive years |
-| **I. Entity-type specialization breadth** | 5 variables | RCA > 1 skill count computed within each employer entity type |
+| Group | Subset | Variables | What it captures |
+|---|---|---|---|
+| **A. Unit identifiers** | headline | `county`, `year` | 5-digit FIPS and calendar year |
+| **B. Labor demand: totals** | headline | 6 variables | Total postings, postings with skills, skill-mention totals by skill type, internship counts |
+| **C. Labor demand: entity-type counts** | headline | 6 variables | Posting counts in the five entity types (corporate, university, federal lab, government, staffing) plus a transparency column `n_unclassified` for the subset of corporate postings with NAICS-4 = 9999 |
+| **D. Labor demand: work mode** | headline | 6 variables | Counts and shares of remote, hybrid, and on-site postings |
+| **E. Skill composition** | headline | 5 variables | Shares of specialized, software, and common-soft skill mentions; mean skills per posting; coverage |
+| **F. Skill diversity, concentration, and complexity** | headline | 7 variables | Distinct skill count, RCA > 1 breadth, average ubiquity, Herfindahl-Hirschman concentration, Shannon entropy, Economic Complexity Index, Tacchella fitness-complexity |
+| **G. Skill relatedness and network position** | headline | 3 variables | Balland skill density, Neffke skill coherence, average network centrality of the county's RCA > 1 skills |
+| **H. Year-over-year dynamics** | headline | 4 variables | RCA churning entries, exits, net; cosine distance on skill frequency vectors between consecutive years |
+| **I. Entity-type specialization breadth** | headline | 5 variables | RCA > 1 skill count computed within each employer entity type |
+| **J. Employer-pair skill similarity** | spillover extension | 72 variables | Pairwise similarity between the skill-frequency vectors of three entity-type pairs (univ-corp, fede-corp, univ-fede), in six measure families (cosine, Jaccard, Hidalgo proximity, weighted RCA overlap, directional gap count, directional gap relatedness), each over all skills and separately over specialized / software / common-soft splits |
+| **K. Per-employer-type skill dynamics** | spillover extension | 20 variables | Year-over-year churning entries, exits, net, and cosine distance computed separately within each of the five entity types' own skill pools |
+| **L. Extended work mode** | spillover extension | 1 variable | `n_remote_other`: residual modality category for postings whose `remote_type` does not classify as remote, hybrid, or on-site |
+
+### What the spillover extension (groups J, K, L) enables
+
+The 93 variables in groups J-L are designed for four research questions that the aggregate headline measures cannot answer:
+
+1. **Anchor-knowledge embeddedness.** Group J directly operationalizes "how aligned is the university's, or federal lab's, skill demand with the local corporate sector's?" The headline entity posting counts say how many jobs the anchor posted; `cosine_univ_corp` says whether those jobs overlap with what local corporate already specializes in.
+2. **Directional knowledge-spillover potential.** `gap_count_univ_corp` and `gap_relatedness_univ_corp` answer "which university specializations does local corporate lack, and how close are they to skills it has?" This is the operationalization of the spillover hypothesis: an anchor entry that fills a real gap should leave a different footprint than one that duplicates existing strengths.
+3. **Relatedness-weighted overlap vs exact overlap.** The `hidalgo_*` columns distinguish "the university and corporate sector demand nearby skills" from "they demand identical skills." This separates Marshallian spillover from pure agglomeration and is the basis for skill-space proximity claims.
+4. **Differential dynamics by entity type.** Group K lets anchor entry/exit event studies decompose the shock: did the local corporate sector's skill portfolio actually shift in response, or did only the anchor's own postings change?
+
+Each measure in group J is reported in four versions: pooled across all skills, and separately over specialized, software, and common-soft skill subsets. This allows skill-type-specific anchor claims (for example, "the university brings new specialized skills but duplicates existing common-soft skills").
 
 ### Employer entity types
 
@@ -126,6 +140,8 @@ import polars as pl
 panel = pl.read_parquet("data/county_year_panel.parquet")
 ```
 
+To load only the 44 headline variables (groups A-I), see the column list in `data/codebook.md` and pass it via the `columns=` argument to `read_parquet`.
+
 ### R
 
 ```r
@@ -150,8 +166,8 @@ LIMIT 25;
 The `code/` subdirectory contains the Python pipeline that produced the panel from the raw Lightcast Main job-posting data.
 
 1. **`code/build_skill_counts.py`** (Phase A). Streams through the raw gzipped CSV shards, parses pipe-delimited skill mentions, classifies each posting into an entity type, and aggregates to per-year checkpoint parquets keyed by county and skill.
-2. **`code/compute_skill_measures.py`** (Phase B). Reads the Phase A checkpoints and computes the full battery of derived measures: revealed comparative advantage, skill-skill relatedness, skill density, coherence, ECI, fitness-complexity, year-over-year dynamics, and the entity-type specialization measures retained in the released panel.
-3. **`code/build_descriptive_export.py`** (Export). Subsets the full-pipeline output to the 44-variable public release, writes `county_year_panel.parquet` and `county_year_panel.csv`, the data dictionary, and the summary-statistics table.
+2. **`code/compute_skill_measures.py`** (Phase B). Reads the Phase A checkpoints and computes the full battery of derived measures: revealed comparative advantage, skill-skill relatedness, skill density, coherence, ECI, fitness-complexity, year-over-year dynamics, entity-type specialization measures, employer-pair similarity (group J), and per-entity dynamics (group K). The Phase B output, with all 137 columns, is published directly as `data/county_year_panel.parquet`.
+3. **`code/build_descriptive_export.py`** (Export helpers). Writes the data dictionary, codebook, and summary-statistics table that accompany the panel.
 
 SLURM job scripts that document the resource configuration used on the ASU Sol HPC cluster are in `code/slurm/`. Extended methods notes are in `docs/methodology.md`.
 
