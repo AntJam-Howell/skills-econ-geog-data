@@ -158,35 +158,19 @@ The pipeline was developed and tested with Python 3.11 and the following key pac
 
 ---
 
-## Accompanying paper
+## Contributions and Citations
 
-The interpretive and analytical framing of this dataset is developed in:
+Computational analysis, dataset construction, and curation were conducted by Anthony Howell on the ASU Sol HPC cluster. Any errors are my own. The interpretive and analytical framing of the dataset is developed in the accompanying working paper by Howell, Feldman, Lanahan, Kalathil, and Johnson (2026).
 
-> Howell, A., Feldman, M., Lanahan, L., Kalathil, N., & Johnson, E. (2026). *Economic geography of U.S. Skills: specialization, relatedness, and complexity.* Working paper, SSRN. https://ssrn.com/abstract=XXXXXXX
+When using this dataset in published work, please cite both the dataset and the accompanying paper.
 
-The paper documents the construction methodology, develops the conceptual framework linking skill complexity, relatedness, and sectoral architecture to local economic outcomes, and presents descriptive findings using the core measures (groups A-H). When using this dataset in published work, please cite both the dataset and the paper (see **Citation** below).
-
----
-
-## Citation
-
-This release has two citable artifacts: the dataset and the accompanying paper. Please cite both when using the data in published work.
-
-**Dataset (this repository):**
+**To cite the dataset:**
 
 > Howell, A. (2026). *U.S. County-Year Panel of Labor and Skill Demand, 2010–2024* [Data set]. Zenodo. https://doi.org/10.5281/zenodo.XXXXXXX
 
-**Accompanying paper:**
+**To cite the accompanying paper:**
 
 > Howell, A., Feldman, M., Lanahan, L., Kalathil, N., & Johnson, E. (2026). *Economic geography of U.S. Skills: specialization, relatedness, and complexity.* Working paper, SSRN. https://ssrn.com/abstract=XXXXXXX
-
----
-
-## Author contributions and credit
-
-**Dataset construction and curation.** Anthony Howell designed and implemented the full data construction pipeline, including the streaming scan of 22,967 raw Lightcast shards (929 GB, 433.6M postings), entity-type classification, skill-measure computation (RCA, relatedness, complexity, dynamics, employer-pair similarity, per-entity dynamics), public-release subsetting, and documentation (codebook, data dictionary, summary statistics). The computational work was conducted on the ASU Sol HPC cluster. Howell is the sole author of the released dataset.
-
-**Accompanying paper.** The interpretive and analytical framing of the dataset is developed in the companion working paper by Howell, Feldman, Lanahan, Kalathil, and Johnson (2026), which should be cited alongside the dataset when the paper's conceptual framework or empirical findings are used.
 
 ---
 
