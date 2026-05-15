@@ -12,7 +12,7 @@ The panel is designed to support research on the economic geography of skills: l
 
 > For interactive exploration without writing code: [https://skills-econ-geog.netlify.app/](https://skills-econ-geog.netlify.app/)
 
-Constructed by Anthony Howell, School of Public Affairs, Arizona State University.
+Constructed by Anthony Howell, School of Public Affairs, Arizona State University. Email: Anthony.Howell@asu.edu.
 
 Data files in `data/` are released under CC BY 4.0 (see `LICENSE`). Source code in `code/` is released under MIT (see `LICENSE-CODE`).
 
@@ -191,20 +191,6 @@ For the accompanying working paper, see the top of this README.
 
 - **Data files** (`data/*.parquet`, `data/*.csv`): released under Creative Commons Attribution 4.0 International (CC BY 4.0). Full license text in `LICENSE`. The derived measures are aggregated statistics computed from the underlying Lightcast micro data; the Lightcast license governs the raw data, not these aggregates.
 - **Source code** (`code/*.py`, `code/slurm/*.slurm`): released under the MIT License. Full license text in `LICENSE-CODE`.
-
----
-
-## Contact and research collaborations
-
-This release contains the headline county-year panel. The construction pipeline also produces several research-team artifacts that either underpin the released measures (the county-skill-year long table of mention counts, the entity-type-specific RCA tables, and the year-specific skill-skill relatedness matrices) or extend them (384-dimensional semantic embeddings of the 29,256 skill names; finer-grained entity-pair similarity statistics; per-entity year-over-year dynamics statistics). None of these are part of the public release.
-
-Researchers interested in applications that operate at the underlying skill level are encouraged to contact the author for collaborative research. Examples include projecting published AI-exposure scores onto local skill demand via the semantic embeddings, decomposing the complexity and relatedness measures by entity type, building alternative RCA thresholds, and studying knowledge spillovers via entity-pair similarity.
-
-**Anthony Howell**
-Associate Professor, School of Public Affairs
-Director, Center on Technology, Data & Society
-Arizona State University
-Email: ajhowel5@asu.edu
 
 ---
 
