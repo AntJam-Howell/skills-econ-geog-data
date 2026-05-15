@@ -73,12 +73,12 @@ The full definition of every variable lives in `data/data_dictionary.csv` and `d
 | **B. Labor demand: totals** | headline | 6 variables | Total postings, postings with skills, skill-mention totals by skill type, internship counts |
 | **C. Labor demand: entity-type counts** | headline | 4 variables | Posting counts in the four entity types: corporate (all private-sector), university, federal/public lab, government |
 | **D. Labor demand: work mode** | headline | 6 variables | Counts and shares of remote, hybrid, and on-site postings |
-| **E. Skill composition** | headline | 5 variables | Shares of specialized, software, and common-soft skill mentions; mean skills per posting; coverage |
+| **E. Skill composition** | headline | 5 variables | Shares of specialized, software, and common skill mentions; mean skills per posting; coverage |
 | **F. Skill diversity, concentration, and complexity** | headline | 7 variables | Distinct skill count, RCA > 1 breadth, average ubiquity, Herfindahl-Hirschman concentration, Shannon entropy, Economic Complexity Index, Tacchella fitness-complexity |
 | **G. Skill relatedness and network position** | headline | 3 variables | Balland skill density, Neffke skill coherence, average network centrality of the county's RCA > 1 skills |
 | **H. Year-over-year dynamics** | headline | 4 variables | RCA churning entries, exits, net; cosine distance on skill frequency vectors between consecutive years |
 | **I. Entity-type specialization breadth** | headline | 4 variables | RCA > 1 skill count computed within each employer entity type |
-| **J. Employer-pair skill similarity** | spillover extension | 72 variables | Pairwise similarity between the skill-frequency vectors of three entity-type pairs (univ-corp, fede-corp, univ-fede), in six measure families (cosine, Jaccard, Hidalgo proximity, weighted RCA overlap, directional gap count, directional gap relatedness), each over all skills and separately over specialized / software / common-soft splits |
+| **J. Employer-pair skill similarity** | spillover extension | 72 variables | Pairwise similarity between the skill-frequency vectors of three entity-type pairs (univ-corp, fede-corp, univ-fede), in six measure families (cosine, Jaccard, Hidalgo proximity, weighted RCA overlap, directional gap count, directional gap relatedness), each over all skills and separately over specialized / software / common splits |
 | **K. Per-employer-type skill dynamics** | spillover extension | 16 variables | Year-over-year churning entries, exits, net, and cosine distance computed separately within each of the four entity types' own skill pools |
 
 ### What the spillover extension (groups J, K) enables
@@ -90,7 +90,7 @@ The 88 variables in groups J-K are designed for four research questions that the
 3. **Relatedness-weighted overlap vs exact overlap.** The `hidalgo_*` columns distinguish "two sectors demand nearby skills" from "they demand identical skills." This separates Marshallian spillover from pure agglomeration and is the basis for skill-space proximity claims.
 4. **Differential dynamics by entity type.** Group K lets researchers decompose how each sector's skill portfolio evolves: do corporate, university, federal-lab, and government skill demands change together, or do their trajectories diverge?
 
-Each measure in group J is reported in four versions: pooled across all skills, and separately over specialized, software, and common-soft skill subsets. This allows skill-type-specific claims (for example, "the university brings new specialized skills but duplicates existing common-soft skills").
+Each measure in group J is reported in four versions: pooled across all skills, and separately over specialized, software, and common skill subsets. This allows skill-type-specific claims (for example, "the university brings new specialized skills but duplicates existing common skills").
 
 ### Employer entity types
 
