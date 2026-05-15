@@ -53,7 +53,7 @@ The 129 variables are organized into eleven groups (A through K). Groups A-I are
 | 7 | `mention_common` | int | Total mentions of common (soft) skills |
 | 8 | `n_internship` | int | Postings flagged as internships |
 | **C. Labor demand: posting counts by employer type** *(headline)* | | | |
-| 9 | `n_corporate` | int | All private-sector postings in the county-year (any NAICS classification other than university, federal/public lab, or government) |
+| 9 | `n_corporate` | int | All private-sector postings in the county-year (any NAICS classification other than university, federal lab, or government) |
 | 10 | `n_university` | int | Postings from NAICS 6112-6117 (universities/colleges) |
 | 11 | `n_federal_lab` | int | Postings from NAICS 5417, 9271 (scientific R&D, space research) |
 | 12 | `n_government` | int | Postings from NAICS 92xx (all government) |
@@ -106,7 +106,7 @@ Four classes of research questions require variables beyond the 41 headline meas
 
 ### Group J. Employer-pair skill similarity (72 variables)
 
-Pairwise comparisons between the skill-frequency vectors of three employer-type pairs: `univ_corp` (university vs corporate), `fede_corp` (federal/public lab vs corporate), and `univ_fede` (university vs federal/public lab). Six measure families (cosine, Jaccard, Hidalgo proximity, weighted RCA overlap, directional gap count, directional gap relatedness) are each computed in four versions: over all skills, over specialized skills only, over software skills only, and over common skills only. Total: 3 pairs × 6 families × 4 skill-type splits = 72 variables.
+Pairwise comparisons between the skill-frequency vectors of three employer-type pairs: `univ_corp` (university vs corporate), `fede_corp` (federal lab vs corporate), and `univ_fede` (university vs federal lab). Six measure families (cosine, Jaccard, Hidalgo proximity, weighted RCA overlap, directional gap count, directional gap relatedness) are each computed in four versions: over all skills, over specialized skills only, over software skills only, and over common skills only. Total: 3 pairs × 6 families × 4 skill-type splits = 72 variables.
 
 | Family | Pattern | Type | What it captures |
 |---|---|---|---|

@@ -61,7 +61,7 @@ The released panel is built from the underlying raw Lightcast (formerly Burning 
 
 The 129 variables characterize local labor demand along three conceptual dimensions and split further into a headline subset (groups A-I) and a spillover-and-decomposition extension (groups J, K):
 
-- **Who is hiring** (groups B, C): total posting volume and the decomposition across four employer entity types (corporate, university, federal or public lab, government). The corporate category covers all private-sector postings.
+- **Who is hiring** (groups B, C): total posting volume and the decomposition across four employer entity types (corporate, university, federal lab, government). The corporate category covers all private-sector postings.
 - **The nature of work** (group D, plus internship counts in group B): modality (remote, hybrid, on-site) and internship status.
 - **What they demand** (groups E, F, G, H, I, and the spillover extensions J, K): skill content, composition, diversity, complexity, relatedness, dynamics, entity-type specialization breadth, employer-pair similarity, and per-entity-type dynamics.
 
@@ -71,7 +71,7 @@ The full definition of every variable lives in `data/data_dictionary.csv` and `d
 |---|---|---|---|
 | **A. Unit identifiers** | headline | `county`, `year` | 5-digit FIPS and calendar year |
 | **B. Labor demand: totals** | headline | 6 variables | Total postings, postings with skills, skill-mention totals by skill type, internship counts |
-| **C. Labor demand: entity-type counts** | headline | 4 variables | Posting counts in the four entity types: corporate (all private-sector), university, federal/public lab, government |
+| **C. Labor demand: entity-type counts** | headline | 4 variables | Posting counts in the four entity types: corporate (all private-sector), university, federal lab, government |
 | **D. Labor demand: work mode** | headline | 6 variables | Counts and shares of remote, hybrid, and on-site postings |
 | **E. Skill composition** | headline | 5 variables | Shares of specialized, software, and common skill mentions; mean skills per posting; coverage |
 | **F. Skill diversity, concentration, and complexity** | headline | 7 variables | Distinct skill count, RCA > 1 breadth, average ubiquity, Herfindahl-Hirschman concentration, Shannon entropy, Economic Complexity Index, Tacchella fitness-complexity |
@@ -99,7 +99,7 @@ Each posting is assigned to exactly one of four entity types. Assignment uses th
 | Type | NAICS-4 codes |
 |---|---|
 | University | 6112, 6113, 6114, 6115, 6116, 6117 |
-| Federal/public lab | 5417, 9271 |
+| Federal lab | 5417, 9271 |
 | Government | 92xx (all) |
 | Corporate | all remaining postings (the full private sector) |
 

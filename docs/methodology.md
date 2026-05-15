@@ -32,7 +32,7 @@ Phase A is a single streaming pass over the raw gzipped CSV shards. For each pos
 2. Resolves the county FIPS from the `county` field. Postings with missing or invalid county are dropped.
 3. Classifies the posting into one of four employer entity types using NAICS-4:
    - **University:** NAICS 6112-6117
-   - **Federal or public lab:** NAICS 5417, 9271
+   - **Federal lab:** NAICS 5417, 9271
    - **Government:** any NAICS in the 92xx range
    - **Corporate:** all remaining postings (the full private sector, regardless of NAICS-4 specificity)
 4. Splits the three pipe-delimited skill columns (`specialized_skills_name`, `software_skills_name`, `common_skills_name`) into individual skill mentions.
@@ -73,7 +73,7 @@ The numerator is the share of all skill mentions in county *c* during year *t* t
 
 **Entity-type specialization breadth.** For each of the four entity types, the count of skills with entity-specific RCA > 1 (`{type}_n_rca_skills`). Entity-type-specific RCA computes the numerator using only postings from that entity type while keeping the national-share denominator unchanged.
 
-**Employer-pair skill similarity (group J).** For each of the three entity-type pairs (university vs corporate, federal/public lab vs corporate, university vs federal/public lab), six similarity measures (cosine, Jaccard, Hidalgo proximity, weighted RCA overlap, directional gap count, directional gap relatedness) are computed between the two entity types' skill-frequency vectors within each county-year. Each measure is reported over all skills and separately over specialized, software, and common skill subsets.
+**Employer-pair skill similarity (group J).** For each of the three entity-type pairs (university vs corporate, federal lab vs corporate, university vs federal lab), six similarity measures (cosine, Jaccard, Hidalgo proximity, weighted RCA overlap, directional gap count, directional gap relatedness) are computed between the two entity types' skill-frequency vectors within each county-year. Each measure is reported over all skills and separately over specialized, software, and common skill subsets.
 
 **Per-employer-type dynamics (group K).** For each of the four entity types, churning entries, exits, net change, and cosine distance are computed within the entity type's own skill pool in parallel to the aggregate group-H measures.
 
