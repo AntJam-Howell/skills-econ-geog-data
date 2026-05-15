@@ -73,7 +73,7 @@ The numerator is the share of all skill mentions in county *c* during year *t* t
 
 **Entity-type specialization breadth.** For each of the four entity types, the count of skills with entity-specific RCA > 1 (`{type}_n_rca_skills`). Entity-type-specific RCA computes the numerator using only postings from that entity type while keeping the national-share denominator unchanged.
 
-**Employer-pair skill similarity (group J).** For each of the three entity-type pairs (university vs corporate, federal lab vs corporate, university vs federal lab), six similarity measures (cosine, Jaccard, Hidalgo proximity, weighted RCA overlap, directional gap count, directional gap relatedness) are computed between the two entity types' skill-frequency vectors within each county-year. Each measure is reported over all skills and separately over specialized, software, and common skill subsets.
+**Employer-pair skill similarity (group J).** For each of the six entity-type pairs (university vs corporate, federal lab vs corporate, government vs corporate, university vs federal lab, university vs government, federal lab vs government), six similarity measures (cosine, Jaccard, Hidalgo proximity, weighted RCA overlap, directional gap count, directional gap relatedness) are computed between the two entity types' skill-frequency vectors within each county-year. Each measure is reported over all skills and separately over specialized, software, and common skill subsets.
 
 **Per-employer-type dynamics (group K).** For each of the four entity types, churning entries, exits, net change, and cosine distance are computed within the entity type's own skill pool in parallel to the aggregate group-H measures.
 

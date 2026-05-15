@@ -1,10 +1,10 @@
 # Codebook: County-Year Panel of U.S. Labor and Skill Demand
 
-Human-readable companion to `data_dictionary.csv` (the canonical machine-readable source). One file (`county_year_panel.parquet` / `county_year_panel.csv`) reports 129 variables for 47,891 county-year observations covering 3,194 counties from 2010 to 2024.
+Human-readable companion to `data_dictionary.csv` (the canonical machine-readable source). One file (`county_year_panel.parquet` / `county_year_panel.csv`) reports 201 variables for 47,891 county-year observations covering 3,194 counties from 2010 to 2024.
 
 ## Recommended starting subset (37 core variables)
 
-Most descriptive, teaching, and applied uses only need the 37 variables in groups A through H. These are the core measures of labor and skill demand and are sufficient for analyses that treat the county-year as the analytic unit without decomposing the entity-type aspect of skill demand. The remaining 92 variables (groups I, J, and K) are intended for sectoral, spillover, and skill-type-specific analyses; see "When you need the full 129" below.
+Most descriptive, teaching, and applied uses only need the 37 variables in groups A through H. These are the core measures of labor and skill demand and are sufficient for analyses that treat the county-year as the analytic unit without decomposing the entity-type aspect of skill demand. The remaining 164 variables (groups I, J, and K) are intended for sectoral, spillover, and skill-type-specific analyses; see "When you need the full 201" below.
 
 To load only the 37 core variables in Python:
 
@@ -36,7 +36,7 @@ panel = pd.read_parquet("data/county_year_panel.parquet", columns=CORE)
 
 ## Variable groups
 
-The 129 variables are organized into eleven groups (A through K). Groups A-H are the core subset; groups I, J, and K are the sectoral architecture extension.
+The 201 variables are organized into eleven groups (A through K). Groups A-H are the core subset; groups I, J, and K are the sectoral architecture extension.
 
 | # | Variable | Type | Definition |
 |---|---|---|---|
@@ -93,7 +93,7 @@ The 129 variables are organized into eleven groups (A through K). Groups A-H are
 
 ---
 
-## When you need the full 129 (groups I, J, K)
+## When you need the full 201 (groups I, J, K)
 
 Four classes of research questions require variables beyond the 37 core measures. If your analysis falls into one of these, use the corresponding group.
 
@@ -106,9 +106,9 @@ Four classes of research questions require variables beyond the 37 core measures
 
 For each of the four entity types (corporate, university, federal lab, government), the count of skills with entity-specific RCA > 1. The entity-specific RCA computes the Balassa formula on each entity type's own skill pool. See variables 38--41 in the table above.
 
-### Group J. Employer-pair skill similarity (72 variables)
+### Group J. Employer-pair skill similarity (144 variables)
 
-Pairwise comparisons between the skill-frequency vectors of three employer-type pairs: `univ_corp` (university vs corporate), `fede_corp` (federal lab vs corporate), and `univ_fede` (university vs federal lab). Six measure families (cosine, Jaccard, Hidalgo proximity, weighted RCA overlap, directional gap count, directional gap relatedness) are each computed in four versions: over all skills, over specialized skills only, over software skills only, and over common skills only. Total: 3 pairs × 6 families × 4 skill-type splits = 72 variables.
+Pairwise comparisons between the skill-frequency vectors of three employer-type pairs: `univ_corp` (university vs corporate), `fede_corp` (federal lab vs corporate), and `univ_fede` (university vs federal lab). Six measure families (cosine, Jaccard, Hidalgo proximity, weighted RCA overlap, directional gap count, directional gap relatedness) are each computed in four versions: over all skills, over specialized skills only, over software skills only, and over common skills only. Total: 6 pairs × 6 families × 4 skill-type splits = 144 variables.
 
 | Family | Pattern | Type | What it captures |
 |---|---|---|---|

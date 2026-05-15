@@ -1,6 +1,6 @@
 # U.S. County-Year Panel of Labor and Skill Demand, 2010–2024
 
-A publicly available county-year panel of U.S. labor and skill demand, derived from 433.6 million Lightcast (Burning Glass) job postings spanning 2010–2024. The panel covers 3,194 counties across 15 years (47,891 county-year observations) and reports 129 variables that describe the volume, employer-entity composition, skill content, specialization, complexity, relatedness, dynamics, and sectoral architecture of local labor demand.
+A publicly available county-year panel of U.S. labor and skill demand, derived from 433.6 million Lightcast (Burning Glass) job postings spanning 2010–2024. The panel covers 3,194 counties across 15 years (47,891 county-year observations) and reports 201 variables that describe the volume, employer-entity composition, skill content, specialization, complexity, relatedness, dynamics, and sectoral architecture of local labor demand.
 
 The panel is designed to support research on the economic geography of skills: local specializations, relatedness, and complexity; anchor-institution (universities, government, federal research labs) contributions to local skill ecosystems; and tracking local composition and structural change in the skill ecosystem over time.
 
@@ -27,11 +27,11 @@ skills-econ-geog-data/
 ├── LICENSE                   # CC BY 4.0 (covers data/)
 ├── LICENSE-CODE              # MIT (covers code/)
 ├── data/
-│   ├── county_year_panel.parquet    # 18 MB, 129 variables (groups A-K)
+│   ├── county_year_panel.parquet    # 18 MB, 201 variables (groups A-K)
 │   ├── county_year_panel.csv        # 49 MB CSV mirror
-│   ├── data_dictionary.csv          # canonical machine-readable variable metadata (129 rows)
+│   ├── data_dictionary.csv          # canonical machine-readable variable metadata (201 rows)
 │   ├── codebook.md                  # human-readable variable definitions
-│   ├── summary_statistics.csv       # N, mean, SD, min, percentiles, max (128 numeric vars)
+│   ├── summary_statistics.csv       # N, mean, SD, min, percentiles, max (200 numeric vars)
 │   └── yearly_summary.csv           # national-aggregate values by year
 ├── code/
 │   ├── README.md                    # pipeline diagram and environment
@@ -55,11 +55,11 @@ The released panel is built from the underlying raw Lightcast (formerly Burning 
 - **Years:** 2010–2024 (15 calendar years)
 - **Counties:** 3,194 unique FIPS codes
 - **Observations:** 47,891 county-years. The panel is unbalanced: counties with zero postings in a given year are dropped.
-- **Variables:** 129, organized into eleven groups (A-K). Most descriptive and teaching uses need only the 37 core variables in groups A-H; the remaining 92 variables in groups I, J, and K are intended for sectoral, spillover, and skill-type-specific analyses. The codebook explains how to load only the core subset.
+- **Variables:** 201, organized into eleven groups (A-K). Most descriptive and teaching uses need only the 37 core variables in groups A-H; the remaining 164 variables in groups I, J, and K are intended for sectoral, spillover, and skill-type-specific analyses. The codebook explains how to load only the core subset.
 
 ### Variable groups
 
-The 129 variables characterize local labor demand along three conceptual dimensions and split further into a core set (groups A-H) and a sectoral architecture extension (groups I, J, K):
+The 201 variables characterize local labor demand along three conceptual dimensions and split further into a core set (groups A-H) and a sectoral architecture extension (groups I, J, K):
 
 - **Who is hiring** (groups B, C): total posting volume, total skill-mention counts by skill type, and the decomposition of posting counts across four employer entity types (corporate, university, federal lab, government). The corporate category covers all private-sector postings.
 - **The nature of work** (group D): modality (remote, hybrid, on-site) and the count of internship-flagged postings.
@@ -78,12 +78,12 @@ The full definition of every variable lives in `data/data_dictionary.csv` and `d
 | **G. Skill relatedness and network position** | core | 3 variables | Balland skill density, Neffke skill coherence, average network centrality of the county's RCA > 1 skills |
 | **H. Year-over-year dynamics** | core | 4 variables | RCA churning entries, exits, net; cosine distance on skill frequency vectors between consecutive years |
 | **I. Entity-type specialization breadth** | sectoral architecture extension | 4 variables | RCA > 1 skill count computed within each of the four employer entity types' own skill pools |
-| **J. Employer-pair skill similarity** | sectoral architecture extension | 72 variables | Pairwise similarity between the skill-frequency vectors of three entity-type pairs (univ-corp, fede-corp, univ-fede), in six measure families (cosine, Jaccard, Hidalgo proximity, weighted RCA overlap, directional gap count, directional gap relatedness), each over all skills and separately over specialized / software / common splits |
+| **J. Employer-pair skill similarity** | sectoral architecture extension | 144 variables | Pairwise similarity between the skill-frequency vectors of six entity-type pairs (univ-corp, fede-corp, gove-corp, univ-fede, univ-gove, fede-gove), in six measure families (cosine, Jaccard, Hidalgo proximity, weighted RCA overlap, directional gap count, directional gap relatedness), each over all skills and separately over specialized / software / common splits |
 | **K. Per-employer-type skill dynamics** | sectoral architecture extension | 16 variables | Year-over-year churning entries, exits, net, and cosine distance computed separately within each of the four entity types' own skill pools |
 
 ### What the sectoral architecture extension (groups I, J, K) enables
 
-The 92 variables in groups I-K are designed for four research questions that the aggregate core measures cannot answer:
+The 164 variables in groups I-K are designed for four research questions that the aggregate core measures cannot answer:
 
 1. **Sector-by-sector specialization patterns.** Group I reports each entity type's own RCA > 1 skill count: how broadly each sector specializes, and which sectors lead the local skill ecosystem.
 2. **Sectoral skill alignment.** Group J operationalizes "how aligned is the university's, federal lab's, or government's skill demand with the local corporate sector's?" The core entity posting counts say how many jobs each sector posted; `cosine_univ_corp` says whether those jobs overlap with what local corporate already specializes in.
