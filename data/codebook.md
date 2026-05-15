@@ -2,23 +2,24 @@
 
 Human-readable companion to `data_dictionary.csv` (the canonical machine-readable source). One file (`county_year_panel.parquet` / `county_year_panel.csv`) reports 129 variables for 47,891 county-year observations covering 3,194 counties from 2010 to 2024.
 
-## Recommended starting subset (41 headline variables)
+## Recommended starting subset (37 core variables)
 
-Most descriptive, teaching, and applied uses only need the 41 variables in groups A through I. These are the headline measures of labor and skill demand and are sufficient for analyses that treat the county-year as the analytic unit without decomposing the entity-type aspect of skill demand. The remaining 88 variables (groups J, K) are intended for spillover, decomposition, and skill-type-specific analyses; see "When you need the full 129" below.
+Most descriptive, teaching, and applied uses only need the 37 variables in groups A through H. These are the core measures of labor and skill demand and are sufficient for analyses that treat the county-year as the analytic unit without decomposing the entity-type aspect of skill demand. The remaining 92 variables (groups I, J, and K) are intended for sectoral, spillover, and skill-type-specific analyses; see "When you need the full 129" below.
 
-To load only the 41 headline variables in Python:
+To load only the 37 core variables in Python:
 
 ```python
 import pandas as pd
-HEADLINE = [
+CORE = [
     "county", "year",
     # B
     "total_postings", "n_has_skill", "mention_specialized", "mention_software",
-    "mention_common", "n_internship",
+    "mention_common",
     # C
     "n_corporate", "n_university", "n_federal_lab", "n_government",
     # D
-    "n_remote", "n_hybrid", "n_onsite", "share_remote", "share_hybrid", "share_onsite",
+    "n_remote", "n_hybrid", "n_onsite", "share_remote", "share_hybrid",
+    "share_onsite", "n_internship",
     # E
     "share_specialized", "share_software", "share_common",
     "mean_skills_per_posting", "pct_has_skill",
@@ -29,48 +30,45 @@ HEADLINE = [
     "skill_density", "skill_coherence", "avg_centrality",
     # H
     "churning_entries", "churning_exits", "churning_net", "skill_cosine_distance",
-    # I
-    "corp_n_rca_skills", "univ_n_rca_skills", "fede_n_rca_skills",
-    "gove_n_rca_skills",
 ]
-panel = pd.read_parquet("data/county_year_panel.parquet", columns=HEADLINE)
+panel = pd.read_parquet("data/county_year_panel.parquet", columns=CORE)
 ```
 
 ## Variable groups
 
-The 129 variables are organized into eleven groups (A through K). Groups A-I are the headline subset; groups J-K are the spillover-and-decomposition variables.
+The 129 variables are organized into eleven groups (A through K). Groups A-H are the core subset; groups I, J, and K are the sectoral architecture extension.
 
 | # | Variable | Type | Definition |
 |---|---|---|---|
-| **A. Unit identifiers** *(headline)* | | | |
+| **A. Unit identifiers** *(core)* | | | |
 | 1 | `county` | string | 5-digit FIPS code (zero-padded for single-digit state codes) |
 | 2 | `year` | int | Calendar year, 2010-2024 |
-| **B. Labor demand: totals** *(headline)* | | | |
+| **B. Labor demand: posting and skill-mention totals** *(core)* | | | |
 | 3 | `total_postings` | int | Total unique job postings in county-year |
 | 4 | `n_has_skill` | int | Postings with at least one skill listed |
 | 5 | `mention_specialized` | int | Total mentions of specialized skills |
 | 6 | `mention_software` | int | Total mentions of software skills |
-| 7 | `mention_common` | int | Total mentions of common (soft) skills |
-| 8 | `n_internship` | int | Postings flagged as internships |
-| **C. Labor demand: posting counts by employer type** *(headline)* | | | |
-| 9 | `n_corporate` | int | All private-sector postings in the county-year (any NAICS classification other than university, federal lab, or government) |
-| 10 | `n_university` | int | Postings from NAICS 6112-6117 (universities/colleges) |
-| 11 | `n_federal_lab` | int | Postings from NAICS 5417, 9271 (scientific R&D, space research) |
-| 12 | `n_government` | int | Postings from NAICS 92xx (all government) |
-| **D. Labor demand: work mode** *(headline)* | | | |
-| 13 | `n_remote` | int | Postings with `remote_type` = 1 (remote) |
-| 14 | `n_hybrid` | int | Postings with `remote_type` = 2 (hybrid) |
-| 15 | `n_onsite` | int | Postings with `remote_type` = 0 (on-site) |
-| 16 | `share_remote` | float [0,1] | Fraction of postings that are remote |
-| 17 | `share_hybrid` | float [0,1] | Fraction of postings that are hybrid |
-| 18 | `share_onsite` | float [0,1] | Fraction of postings that are on-site |
-| **E. Skill demand: composition by skill type** *(headline)* | | | |
+| 7 | `mention_common` | int | Total mentions of common skills |
+| **C. Labor demand: posting counts by employer type** *(core)* | | | |
+| 8 | `n_corporate` | int | All private-sector postings in the county-year (any NAICS classification other than university, federal lab, or government) |
+| 9 | `n_university` | int | Postings from NAICS 6112-6117 (universities/colleges) |
+| 10 | `n_federal_lab` | int | Postings from NAICS 5417, 9271 (scientific R&D, space research) |
+| 11 | `n_government` | int | Postings from NAICS 92xx (all government) |
+| **D. Nature of work: modality and internships** *(core)* | | | |
+| 12 | `n_remote` | int | Postings with `remote_type` = 1 (remote) |
+| 13 | `n_hybrid` | int | Postings with `remote_type` = 2 (hybrid) |
+| 14 | `n_onsite` | int | Postings with `remote_type` = 0 (on-site) |
+| 15 | `share_remote` | float [0,1] | Fraction of postings that are remote |
+| 16 | `share_hybrid` | float [0,1] | Fraction of postings that are hybrid |
+| 17 | `share_onsite` | float [0,1] | Fraction of postings that are on-site |
+| 18 | `n_internship` | int | Postings flagged as internships |
+| **E. Skill demand: composition by skill type** *(core)* | | | |
 | 19 | `share_specialized` | float [0,1] | Fraction of total skill mentions that are specialized |
 | 20 | `share_software` | float [0,1] | Fraction of total skill mentions that are software |
-| 21 | `share_common` | float [0,1] | Fraction of total skill mentions that are common (soft) |
+| 21 | `share_common` | float [0,1] | Fraction of total skill mentions that are common |
 | 22 | `mean_skills_per_posting` | float | Average skill mentions per posting in county-year |
 | 23 | `pct_has_skill` | float [0,100] | Percent of postings with at least one skill |
-| **F. Skill demand: diversity, concentration, and complexity** *(headline)* | | | |
+| **F. Skill demand: diversity, concentration, and complexity** *(core)* | | | |
 | 24 | `n_distinct_skills` | int | Count of unique skills demanded in county-year |
 | 25 | `n_rca_skills` | int | Count of skills with Revealed Comparative Advantage > 1 |
 | 26 | `avg_ubiquity` | float | Mean ubiquity of county's RCA > 1 skills (# counties sharing the average specialization) |
@@ -78,16 +76,16 @@ The 129 variables are organized into eleven groups (A through K). Groups A-I are
 | 28 | `skill_entropy` | float (bits) | Shannon entropy of skill distribution (effective number of skills) |
 | 29 | `eci` | standardized float | Economic Complexity Index (Hidalgo-Hausmann method of reflections, standardized) |
 | 30 | `fitness` | float (non-negative) | Tacchella fitness-complexity score (non-linear alternative to ECI) |
-| **G. Skill relatedness and network position** *(headline)* | | | |
+| **G. Skill relatedness and network position** *(core)* | | | |
 | 31 | `skill_density` | float [0,1] | Balland (2019) average relatedness of RCA > 1 skills to non-RCA skills |
 | 32 | `skill_coherence` | float [0,1] | Neffke (2011) average pairwise relatedness among RCA > 1 skills |
 | 33 | `avg_centrality` | float [0,1] | Mean network centrality of county's RCA > 1 skills in skill-space network |
-| **H. Skill dynamics: year-over-year** *(headline)* | | | |
+| **H. Skill dynamics: year-over-year** *(core)* | | | |
 | 34 | `churning_entries` | int | Skills that gained RCA > 1 this year vs. prior year |
 | 35 | `churning_exits` | int | Skills that lost RCA > 1 this year vs. prior year |
 | 36 | `churning_net` | int | `churning_entries` - `churning_exits` |
 | 37 | `skill_cosine_distance` | float [0,1] | 1 - cosine(skill freq vector at t-1, t); structural change in demand profile |
-| **I. Employer-type specialization breadth** *(headline)* | | | |
+| **I. Employer-type specialization breadth** *(sectoral architecture extension)* | | | |
 | 38 | `corp_n_rca_skills` | int | Count of skills with corporate-specific RCA > 1 |
 | 39 | `univ_n_rca_skills` | int | Count of skills with university-specific RCA > 1 |
 | 40 | `fede_n_rca_skills` | int | Count of skills with federal-lab-specific RCA > 1 |
@@ -95,14 +93,18 @@ The 129 variables are organized into eleven groups (A through K). Groups A-I are
 
 ---
 
-## When you need the full 129 (groups J, K)
+## When you need the full 129 (groups I, J, K)
 
-Four classes of research questions require variables beyond the 41 headline measures. If your analysis falls into one of these, use the corresponding group.
+Four classes of research questions require variables beyond the 37 core measures. If your analysis falls into one of these, use the corresponding group.
 
-1. **Sectoral skill alignment.** How aligned is the university's, or federal lab's, or government's skill demand with the local corporate sector's, and how does that alignment vary across counties, time, and skill types? Group J.
-2. **Directional skill gaps.** Which specializations does one sector have that another sector lacks, and how close are the gap skills, in skill space, to the second sector's current strengths? Group J (`gap_count_*`, `gap_relatedness_*`).
-3. **Relatedness-weighted overlap versus exact overlap.** Are different sectors demanding nearby skills, or identical skills? Group J (`hidalgo_*` columns).
+1. **Sector-by-sector specialization patterns.** How broadly does each entity type specialize, and which entity types lead the local skill ecosystem? Group I.
+2. **Sectoral skill alignment.** How aligned is the university's, federal lab's, or government's skill demand with the local corporate sector's, and how does that alignment vary across counties, time, and skill types? Group J.
+3. **Directional skill gaps.** Which specializations does one sector have that another sector lacks, and how close are the gap skills, in skill space, to the second sector's current strengths? Group J (`gap_count_*`, `gap_relatedness_*`).
 4. **Differential dynamics by entity type.** Do corporate, university, federal-lab, and government skill demands evolve together over time, or do their trajectories diverge? Group K.
+
+### Group I. Entity-type specialization breadth (4 variables)
+
+For each of the four entity types (corporate, university, federal lab, government), the count of skills with entity-specific RCA > 1. The entity-specific RCA computes the Balassa formula on each entity type's own skill pool. See variables 38--41 in the table above.
 
 ### Group J. Employer-pair skill similarity (72 variables)
 
@@ -140,7 +142,7 @@ Year-over-year change in each entity type's own skill demand. The aggregate dyna
 - **Standardization.** `eci` is standardized to mean 0 and standard deviation 1 within each year.
 - **Coverage filter.** The panel drops county-years with zero postings. Counties with fewer than ~50 postings produce noisy `skill_cosine_distance` values; apply a posting threshold for causal-inference work.
 - **Work-mode reconciliation.** `n_remote + n_hybrid + n_onsite` sums to a count slightly less than `total_postings` because some postings have a NULL `remote_type` (concentrated pre-2018) or a value that does not map cleanly to one of the three modalities. The gap is small in post-2018 data and concentrated in early years; treat `total_postings - (n_remote + n_hybrid + n_onsite)` as "modality not classified."
-- **Group J and K small-N caveats.** Group J similarities and group K per-entity dynamics depend on the entity-type's own posting count in the county-year. They are most reliable for `corp` and `univ`, less reliable for `fede` (only a small subset of county-years contain federal-lab postings) and `gove`. The same `total_postings >= 50` filter that applies to the core dynamics applies to group K; the recommended additional rule for group J is an entity-specific minimum (e.g., both entities in the pair having at least 50 own-postings) before treating a similarity value as informative.
+- **Sectoral architecture small-N caveats.** Groups I, J, and K all depend on the underlying entity-type's posting count in the county-year. They are most reliable for `corp` and `univ`, less reliable for `fede` (only a small subset of county-years contain federal-lab postings) and `gove`. The same `total_postings >= 50` filter that applies to the core dynamics applies to group K; the recommended additional rule for group J is an entity-specific minimum (e.g., both entities in the pair having at least 50 own-postings) before treating a similarity value as informative.
 - **Skill-type splits in group J.** The `_specialized` / `_software` / `_common` variants are computed by restricting the underlying skill-frequency vectors and the RCA binarization to mentions of the named skill type only. The unsuffixed variants (e.g., `cosine_univ_corp`) pool across all three skill types.
 
 For background on the construction pipeline, see `code/README.md` and `docs/methodology.md`. For the original variable definitions used by the build scripts, see `data_dictionary.csv`.

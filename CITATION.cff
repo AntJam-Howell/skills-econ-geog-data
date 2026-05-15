@@ -6,11 +6,12 @@ abstract: >-
   derived from 433.6 million Lightcast (formerly Burning Glass) job postings
   spanning 2010-2024. The panel covers 3,194 counties across 15 years
   (47,891 county-year observations) and reports 129 variables organized into
-  eleven groups: a 41-variable headline subset describing the volume,
-  employer-entity composition, skill content, specialization, complexity,
-  relatedness, and dynamics of local labor demand, plus 88 additional
-  variables for employer-pair skill-similarity and per-employer-type dynamics
-  intended for spillover and decomposition research.
+  eleven groups: a 37-variable core set describing the volume, employer-entity
+  composition, work mode and internships, skill content, specialization,
+  complexity, relatedness, and dynamics of local labor demand, plus 92
+  additional variables in the sectoral architecture extension covering
+  entity-type specialization breadth, employer-pair skill-similarity, and
+  per-employer-type dynamics for sectoral and spillover research.
 type: dataset
 authors:
   - family-names: "Howell"
