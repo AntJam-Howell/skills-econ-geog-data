@@ -1,4 +1,4 @@
-# U.S. County-Year Panel of Labor and Skill Demand, 2010–2024
+# U.S. County Panel of Labor and Skill Demand, 2010–2024
 
 A publicly available county-year panel of U.S. labor and skill demand, derived from 433.6 million Lightcast (Burning Glass) job postings spanning 2010–2024. The panel covers 3,194 counties across 15 years (47,891 county-year observations) and reports 201 variables that describe the volume, employer-entity composition, skill content, specialization, complexity, relatedness, dynamics, and sectoral architecture of local labor demand.
 
