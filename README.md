@@ -6,13 +6,11 @@ The panel is designed to support research on the economic geography of skills: l
 
 **Accompanying paper**
 
-> Howell, A., Feldman, M., Lanahan, L., Kalathil, N., & Johnson, E. (2026). *Economic geography of U.S. employer demand: skill specialization, relatedness, and complexity.* Working paper, SSRN. https://ssrn.com/abstract=XXXXXXX
+> Howell, A., Feldman, M., Lanahan, L., Kalathil, N., & Johnson, E. (2026). *Economic geography of U.S. Skills: specialization, relatedness, and complexity.* Working paper, SSRN. https://ssrn.com/abstract=XXXXXXX
 
 **Accompanying dashboard**
 
 > For interactive exploration without writing code: [https://skills-econ-geog.netlify.app/](https://skills-econ-geog.netlify.app/)
-
-Constructed by Anthony Howell, School of Public Affairs, Arizona State University. Email: Anthony.Howell@asu.edu.
 
 Data files in `data/` are released under CC BY 4.0 (see `LICENSE`). Source code in `code/` is released under MIT (see `LICENSE-CODE`).
 
@@ -197,3 +195,9 @@ For the accompanying working paper, see the top of this README.
 ## Acknowledgments
 
 This material is based upon work supported by the National Science Foundation under Grant No. 2431853. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author and do not necessarily reflect the views of the National Science Foundation.
+
+---
+
+## Contact
+
+Constructed by Anthony Howell, School of Public Affairs, Arizona State University. Email: [Anthony.Howell@asu.edu](mailto:Anthony.Howell@asu.edu).
