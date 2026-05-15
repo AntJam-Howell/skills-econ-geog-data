@@ -4,13 +4,9 @@ A publicly available county-year panel of U.S. labor and skill demand, derived f
 
 The panel is designed to support research on the economic geography of skills: local specializations, relatedness, and complexity; anchor-institution (universities, government, federal research labs) contributions to local skill ecosystems; and tracking local composition and structural change in the skill ecosystem over time.
 
-**Accompanying paper**
+**Interactive dashboard**
 
-> Howell, A., Feldman, M., Lanahan, L., Kalathil, N., & Johnson, E. (2026). *Economic geography of U.S. Skills: specialization, relatedness, and complexity.* Working paper, SSRN. https://ssrn.com/abstract=XXXXXXX
-
-**Accompanying dashboard**
-
-> For interactive exploration without writing code: [https://skills-econ-geog.netlify.app/](https://skills-econ-geog.netlify.app/)
+> Explore the panel without writing code: [https://skills-econ-geog.netlify.app/](https://skills-econ-geog.netlify.app/)
 
 Data files in `data/` are released under CC BY 4.0 (see `LICENSE`). Source code in `code/` is released under MIT (see `LICENSE-CODE`).
 
@@ -45,7 +41,7 @@ skills-econ-geog-data/
 
 ## The dataset
 
-The released panel is built from the underlying raw Lightcast (formerly Burning Glass Technologies) job-posting micro data: 929 GB across 22,967 gzipped CSV shards, 433.6 million postings, 2010–2024. The micro data are used under an academic license. The released county-year aggregates in `data/` are derived statistics computed from those postings, not the postings themselves. The construction methodology, variable definitions, and intended analytical uses are described in the accompanying working paper by Howell, Feldman, Lanahan, Kalathil, and Johnson (2026); see Citation below.
+The released panel is built from the underlying raw Lightcast (formerly Burning Glass Technologies) job-posting micro data: 929 GB across 22,967 gzipped CSV shards, 433.6 million postings, 2010–2024. The micro data are used under an academic license. The released county-year aggregates in `data/` are derived statistics computed from those postings, not the postings themselves. The construction methodology, variable definitions, and intended analytical uses are described in the accompanying working paper; see the **Accompanying paper** and **Citation** sections below.
 
 ### Dimensions
 
@@ -105,24 +101,6 @@ In the data file, `n_corporate` reports all private-sector postings in the count
 
 ---
 
-## Interactive dashboard
-
-A companion web dashboard visualizes the released county-year panel. It is intended for readers, students, and policy users who want to explore the data without writing code.
-
-- **Hosted version:** [https://skills-econ-geog.netlify.app/](https://skills-econ-geog.netlify.app/) (open access, no credentials required).
-
-The dashboard has five pages:
-
-| Page | What it shows |
-|---|---|
-| **Spatial visualization** | County-level choropleth map of any panel variable, with a year slider and play button to animate 2010–2024. The default landing metric is local specializations (`n_rca_skills`). |
-| **Rankings & trends** | Top-25 ranked table for the selected metric and year, distribution histogram, and four national-context charts that put the core measures in 2010–2024 perspective. |
-| **County comparisons** | Bivariate scatter of any two panel variables for a selected year, with a focal county and its k-nearest peers highlighted. |
-| **County profiles** | In-depth single-county trajectory across the full 15-year window, with sparklines for the core measures and stacked composition plots for the work-mode and skill-type shares. |
-| **How to use the dashboard** | Layered usage guide: data source, metric glossary, four numbered workflows, and a methodology summary. |
-
----
-
 ## Quick start
 
 ### Python
@@ -157,12 +135,30 @@ LIMIT 25;
 
 ---
 
+## Interactive dashboard
+
+A companion web dashboard visualizes the released county-year panel. It is intended for readers, students, and policy users who want to explore the data without writing code.
+
+- **Hosted version:** [https://skills-econ-geog.netlify.app/](https://skills-econ-geog.netlify.app/) (open access, no credentials required).
+
+The dashboard has five pages:
+
+| Page | What it shows |
+|---|---|
+| **Spatial visualization** | County-level choropleth map of any panel variable, with a year slider and play button to animate 2010–2024. The default landing metric is local specializations (`n_rca_skills`). |
+| **Rankings & trends** | Top-25 ranked table for the selected metric and year, distribution histogram, and four national-context charts that put the core measures in 2010–2024 perspective. |
+| **County comparisons** | Bivariate scatter of any two panel variables for a selected year, with a focal county and its k-nearest peers highlighted. |
+| **County profiles** | In-depth single-county trajectory across the full 15-year window, with sparklines for the core measures and stacked composition plots for the work-mode and skill-type shares. |
+| **How to use the dashboard** | Layered usage guide: data source, metric glossary, four numbered workflows, and a methodology summary. |
+
+---
+
 ## Reproducing from raw data
 
 The `code/` subdirectory contains the Python pipeline that produced the panel from the raw Lightcast Main job-posting data.
 
 1. **`code/build_skill_counts.py`** (Phase A). Streams through the raw gzipped CSV shards, parses pipe-delimited skill mentions, classifies each posting into an entity type, and aggregates to per-year checkpoint parquets keyed by county and skill.
-2. **`code/compute_skill_measures.py`** (Phase B). Reads the Phase A checkpoints and computes the full battery of derived measures: revealed comparative advantage, skill-skill relatedness, skill density, coherence, ECI, fitness-complexity, year-over-year dynamics, entity-type specialization measures, employer-pair similarity (group J), and per-entity dynamics (group K). The Phase B output is published as `data/county_year_panel.parquet` (129 columns).
+2. **`code/compute_skill_measures.py`** (Phase B). Reads the Phase A checkpoints and computes the full battery of derived measures: revealed comparative advantage, skill-skill relatedness, skill density, coherence, ECI, fitness-complexity, year-over-year dynamics, entity-type specialization measures, employer-pair similarity (group J), and per-entity dynamics (group K). The Phase B output is published as `data/county_year_panel.parquet` (201 columns).
 3. **`code/build_descriptive_export.py`** (Export helpers). Writes the data dictionary, codebook, and summary-statistics table that accompany the panel.
 
 SLURM job scripts that document the resource configuration used on the ASU Sol HPC cluster are in `code/slurm/`. Extended methods notes are in `docs/methodology.md`.
@@ -175,13 +171,37 @@ The pipeline was developed and tested with Python 3.11 and the following key pac
 
 ---
 
+## Accompanying paper
+
+The interpretive and analytical framing of this dataset is developed in:
+
+> Howell, A., Feldman, M., Lanahan, L., Kalathil, N., & Johnson, E. (2026). *Economic geography of U.S. Skills: specialization, relatedness, and complexity.* Working paper, SSRN. https://ssrn.com/abstract=XXXXXXX
+
+The paper documents the construction methodology, develops the conceptual framework linking skill complexity, relatedness, and sectoral architecture to local economic outcomes, and presents descriptive findings using the core measures (groups A-H). When using this dataset in published work, please cite both the dataset and the paper (see **Citation** below).
+
+---
+
 ## Citation
 
-If you use this dataset, please cite:
+This release has two citable artifacts: the dataset and the accompanying paper. Please cite both when using the data in published work.
+
+**Dataset (this repository):**
 
 > Howell, A. (2026). *U.S. County-Year Panel of Labor and Skill Demand, 2010–2024* [Data set]. Zenodo. https://doi.org/10.5281/zenodo.XXXXXXX
 
-For the accompanying working paper, see the top of this README.
+**Accompanying paper:**
+
+> Howell, A., Feldman, M., Lanahan, L., Kalathil, N., & Johnson, E. (2026). *Economic geography of U.S. Skills: specialization, relatedness, and complexity.* Working paper, SSRN. https://ssrn.com/abstract=XXXXXXX
+
+Machine-readable citation metadata is provided in `CITATION.cff`. The dataset and paper have different author lists because data construction and analytical framing were carried out by different teams; see **Author contributions** below.
+
+---
+
+## Author contributions and credit
+
+**Dataset construction and curation.** Anthony Howell designed and implemented the full data construction pipeline, including the streaming scan of 22,967 raw Lightcast shards (929 GB, 433.6M postings), entity-type classification, skill-measure computation (RCA, relatedness, complexity, dynamics, employer-pair similarity, per-entity dynamics), public-release subsetting, and documentation (codebook, data dictionary, summary statistics). The computational work was conducted on the ASU Sol HPC cluster. Howell is the sole author of the released dataset.
+
+**Accompanying paper.** The interpretive and analytical framing of the dataset is developed in the companion working paper by Howell, Feldman, Lanahan, Kalathil, and Johnson (2026), which should be cited alongside the dataset when the paper's conceptual framework or empirical findings are used.
 
 ---
 
@@ -200,4 +220,4 @@ This material is based upon work supported by the National Science Foundation un
 
 ## Contact
 
-Constructed by Anthony Howell, School of Public Affairs, Arizona State University. Email: [Anthony.Howell@asu.edu](mailto:Anthony.Howell@asu.edu).
+Anthony Howell, School of Public Affairs, Arizona State University. Email: [Anthony.Howell@asu.edu](mailto:Anthony.Howell@asu.edu).
