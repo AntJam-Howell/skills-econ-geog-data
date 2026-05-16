@@ -1,8 +1,10 @@
 # U.S. County Panel of Labor and Skill Demand, 2010–2024
 
-A publicly available county-year panel of U.S. labor and skill demand, derived from 433.6 million Lightcast (Burning Glass) job postings spanning 2010–2024. The panel covers 3,194 counties across 15 years (47,891 county-year observations) and reports 201 variables that describe the volume, employer-entity composition, skill content, specialization, complexity, relatedness, dynamics, and entity-type decomposition of local labor demand.
+A publicly available county-year panel of U.S. labor and skill demand, derived from 433.6 million Lightcast (Burning Glass) job postings spanning 2010–2024. The panel covers 3,194 counties across 15 years (47,891 county-year observations) and reports 201 variables that describe the volume, employer-entity composition, skill content, specialization, complexity, relatedness, dynamics, and sectoral architecture of local labor demand.
 
-The panel is designed to support research on the economic geography of skills: local specializations, relatedness, and complexity; anchor-institution (universities, government, federal research labs) contributions to local skill ecosystems; and tracking local composition and structural change in the skill ecosystem over time.
+The panel is designed to support research on the economic geography of skills: local specializations, relatedness, and complexity, and tracking local composition and structural change in the skill ecosystem over time. For the conceptual framework, measure definitions, equations, technical background, and applications in the literature, see the accompanying working paper:
+
+> Howell, A., Feldman, M., Lanahan, L., Kalathil, N., & Johnson, E. (2026). *Economic geography of U.S. Skills: specialization, relatedness, and complexity.* Working paper, SSRN. https://ssrn.com/abstract=XXXXXXX
 
 **Interactive dashboard**
 
@@ -41,7 +43,7 @@ skills-econ-geog-data/
 
 ## The dataset
 
-The released panel is built from the underlying raw Lightcast (formerly Burning Glass Technologies) job-posting micro data: 929 GB across 22,967 gzipped CSV shards, 433.6 million postings, 2010–2024. The micro data are used under an academic license. The released county-year aggregates in `data/` are derived statistics computed from those postings, not the postings themselves. The construction methodology, variable definitions, and intended analytical uses are described in the accompanying working paper; see the **Accompanying paper** and **Citation** sections below.
+The released panel is built from the underlying raw Lightcast (formerly Burning Glass Technologies) job-posting micro data: 929 GB across 22,967 gzipped CSV shards, 433.6 million postings, 2010–2024. The micro data are used under an academic license. The released county-year aggregates in `data/` are derived statistics computed from those postings, not the postings themselves. The construction methodology, variable definitions, and intended analytical uses are described in the accompanying working paper (see top of README and Citation below).
 
 ### Dimensions
 
@@ -53,11 +55,11 @@ The released panel is built from the underlying raw Lightcast (formerly Burning 
 
 ### Variable groups
 
-The 201 variables characterize local labor demand along three conceptual dimensions and split further into a core set (groups A-H) and an entity-decomposed extension (groups I, J, K):
+The 201 variables characterize local labor demand along three conceptual dimensions and split further into a core set (groups A-H) and a sectoral architecture extension (groups I, J, K):
 
 - **Who is hiring** (groups B, C): total posting volume, total skill-mention counts by skill type, and the decomposition of posting counts across four employer entity types (corporate, university, federal lab, government). The corporate category covers all private-sector postings.
 - **The nature of work** (group D): modality (remote, hybrid, on-site) and the count of internship-flagged postings.
-- **What they demand** (groups E, F, G, H, and the entity-decomposed extension (groups I, J, K)): skill content, composition, diversity, complexity, relatedness, dynamics, entity-type specialization breadth, employer-pair similarity, and per-entity-type dynamics.
+- **What they demand** (groups E, F, G, H, and the sectoral architecture extensions I, J, K): skill content, composition, diversity, complexity, relatedness, dynamics, entity-type specialization breadth, employer-pair similarity, and per-entity-type dynamics.
 
 The full definition of every variable lives in `data/data_dictionary.csv` and `data/codebook.md`. Most descriptive, teaching, and applied uses need only the 37 core variables in groups A-H; the codebook shows how to load only that subset.
 
@@ -71,11 +73,11 @@ The full definition of every variable lives in `data/data_dictionary.csv` and `d
 | **F. Skill diversity, concentration, and complexity** | core | 7 variables | Distinct skill count, RCA > 1 breadth, average ubiquity, Herfindahl-Hirschman concentration, Shannon entropy, Economic Complexity Index, Tacchella fitness-complexity |
 | **G. Skill relatedness and network position** | core | 3 variables | Balland skill density, Neffke skill coherence, average network centrality of the county's RCA > 1 skills |
 | **H. Year-over-year dynamics** | core | 4 variables | RCA churning entries, exits, net; cosine distance on skill frequency vectors between consecutive years |
-| **I. Entity-type specialization breadth** | entity-decomposed extension | 4 variables | RCA > 1 skill count computed within each of the four employer entity types' own skill pools |
-| **J. Employer-pair skill similarity** | entity-decomposed extension | 144 variables | Pairwise similarity between the skill-frequency vectors of six entity-type pairs (univ-corp, fede-corp, gove-corp, univ-fede, univ-gove, fede-gove), in six measure families (cosine, Jaccard, Hidalgo proximity, weighted RCA overlap, directional gap count, directional gap relatedness), each over all skills and separately over specialized / software / common splits |
-| **K. Per-employer-type skill dynamics** | entity-decomposed extension | 16 variables | Year-over-year churning entries, exits, net, and cosine distance computed separately within each of the four entity types' own skill pools |
+| **I. Entity-type specialization breadth** | sectoral architecture extension | 4 variables | RCA > 1 skill count computed within each of the four employer entity types' own skill pools |
+| **J. Employer-pair skill similarity** | sectoral architecture extension | 144 variables | Pairwise similarity between the skill-frequency vectors of six entity-type pairs (univ-corp, fede-corp, gove-corp, univ-fede, univ-gove, fede-gove), in six measure families (cosine, Jaccard, Hidalgo proximity, weighted RCA overlap, directional gap count, directional gap relatedness), each over all skills and separately over specialized / software / common splits |
+| **K. Per-employer-type skill dynamics** | sectoral architecture extension | 16 variables | Year-over-year churning entries, exits, net, and cosine distance computed separately within each of the four entity types' own skill pools |
 
-### What the entity-decomposed extension (groups I, J, K) enables
+### What the sectoral architecture extension (groups I, J, K) enables
 
 The 164 variables in groups I-K are designed for four research questions that the aggregate core measures cannot answer:
 
@@ -124,7 +126,7 @@ LIMIT 25;
 
 ## Interactive dashboard
 
-A companion web dashboard visualizes the released county-year panel. It is intended for readers, students, and policy users who want to explore the data without writing code.
+A companion web dashboard visualizes 19 core measures from the released panel. It is intended for readers, students, and policy users who want to explore the data without writing code.
 
 - **Hosted version:** [https://skills-econ-geog.netlify.app/](https://skills-econ-geog.netlify.app/) (open access, no credentials required).
 
@@ -136,7 +138,7 @@ The dashboard has five pages:
 | **Rankings & trends** | Top-25 ranked table for the selected metric and year, distribution histogram, and four national-context charts that put the core measures in 2010–2024 perspective. |
 | **County comparisons** | Bivariate scatter of any two panel variables for a selected year, with a focal county and its k-nearest peers highlighted. |
 | **County profiles** | In-depth single-county trajectory across the full 15-year window, with sparklines for the core measures and stacked composition plots for the work-mode and skill-type shares. |
-| **How to use the dashboard** | Layered usage guide: data source, metric glossary, four numbered workflows, and a methodology summary. |
+| **How to use the dashboard** | Layered usage guide: dashboard scope, four numbered workflows, and methodology notes. |
 
 ---
 
@@ -148,8 +150,6 @@ The `code/` subdirectory contains the Python pipeline that produced the panel fr
 2. **`code/compute_skill_measures.py`** (Phase B). Reads the Phase A checkpoints and computes the full battery of derived measures: revealed comparative advantage, skill-skill relatedness, skill density, coherence, ECI, fitness-complexity, year-over-year dynamics, entity-type specialization measures, employer-pair similarity (group J), and per-entity dynamics (group K). The Phase B output is published as `data/county_year_panel.parquet` (201 columns).
 3. **`code/build_descriptive_export.py`** (Export helpers). Writes the data dictionary, codebook, and summary-statistics table that accompany the panel.
 
-SLURM job scripts that document the resource configuration used on the ASU Sol HPC cluster are in `code/slurm/`. Extended methods notes are in `docs/methodology.md`.
-
 The raw Lightcast Main data are available to subscribers under Lightcast's data agreement. Replication from raw data requires a current Lightcast subscription.
 
 ### Python environment
@@ -158,9 +158,7 @@ The pipeline was developed and tested with Python 3.11 and the following key pac
 
 ---
 
-## Contributions and Citations
-
-Computational analysis, dataset construction, and curation were conducted by Anthony Howell on the ASU Sol HPC cluster. Any errors are my own. The interpretive and analytical framing of the dataset is developed in the accompanying working paper by Howell, Feldman, Lanahan, Kalathil, and Johnson (2026).
+## Citation
 
 When using this dataset in published work, please cite both the dataset and the accompanying paper.
 
@@ -172,12 +170,20 @@ When using this dataset in published work, please cite both the dataset and the 
 
 > Howell, A., Feldman, M., Lanahan, L., Kalathil, N., & Johnson, E. (2026). *Economic geography of U.S. Skills: specialization, relatedness, and complexity.* Working paper, SSRN. https://ssrn.com/abstract=XXXXXXX
 
+Machine-readable citation metadata is provided in `CITATION.cff`.
+
 ---
 
 ## License
 
 - **Data files** (`data/*.parquet`, `data/*.csv`): released under Creative Commons Attribution 4.0 International (CC BY 4.0). Full license text in `LICENSE`. The derived measures are aggregated statistics computed from the underlying Lightcast micro data; the Lightcast license governs the raw data, not these aggregates.
 - **Source code** (`code/*.py`, `code/slurm/*.slurm`): released under the MIT License. Full license text in `LICENSE-CODE`.
+
+---
+
+## Attribution
+
+Computational analysis, dataset construction, and curation were conducted by Anthony Howell on the ASU Sol HPC cluster. Any errors are my own; please submit a [GitHub issue](https://github.com/AntJam-Howell/skills-econ-geog-data/issues) for any errors or suggestions.
 
 ---
 
