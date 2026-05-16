@@ -1,21 +1,24 @@
 #!/usr/bin/env python3
 """
-Build Descriptive Export for Nikhil
-=====================================
+Build Public Release Descriptive Outputs
+=========================================
 
-Produces a simplified county-year panel focused on understanding how skill
-and labor demand change over time. NOT anchor-firm focused.
+Regenerates the documentation artifacts that ship with the released
+county-year panel: the variable subset CSV/parquet, the data dictionary,
+summary-statistics tables, time-series and choropleth figures, and the
+descriptive LaTeX report.
 
-Outputs:
-  2.data/exports/county_year_panel_export.parquet
-  2.data/exports/county_year_panel_export.csv
-  2.data/exports/data_dictionary.csv
-  4.results/tables/*.tex
-  4.results/figures/*.pdf, *.png
-  3.docs/Descriptive/descriptive_report.tex (+ compiled .pdf)
+Outputs (under LIGHTCAST_DESCRIPTIVE_OUTPUT, default ./descriptive_outputs/):
+  exports/county_year_panel_export.parquet
+  exports/county_year_panel_export.csv
+  exports/data_dictionary.csv
+  tables/*.tex
+  figures/*.pdf, *.png
+  doc/descriptive_report.tex (+ compiled .pdf)
 """
 
 import os
+from pathlib import Path
 import json
 import urllib.request
 import numpy as np
@@ -30,13 +33,21 @@ import plotly.express as px
 # CONFIGURATION
 # ============================================================
 
-ROOT = "/Users/ajhowel5/Claude/journal-submissions/4.Lightcast_Skills"
-PANEL_PATH = f"{ROOT}/2.data/panels/county_year_panel.parquet"
+# Input panel. Defaults to the released parquet shipped alongside this
+# repository (../data/county_year_panel.parquet, relative to code/).
+# Override with LIGHTCAST_PANEL_PATH for a non-default location.
+PANEL_PATH = os.environ.get(
+    "LIGHTCAST_PANEL_PATH",
+    str(Path(__file__).resolve().parents[1] / "data" / "county_year_panel.parquet"),
+)
 
-EXPORT_DIR = f"{ROOT}/2.data/exports"
-FIGURES_DIR = f"{ROOT}/4.results/figures"
-TABLES_DIR = f"{ROOT}/4.results/tables"
-DOC_DIR = f"{ROOT}/3.docs/Descriptive"
+# Output base. Override with LIGHTCAST_DESCRIPTIVE_OUTPUT to write
+# documentation artifacts somewhere other than ./descriptive_outputs/.
+OUTPUT_BASE = Path(os.environ.get("LIGHTCAST_DESCRIPTIVE_OUTPUT", "./descriptive_outputs"))
+EXPORT_DIR = str(OUTPUT_BASE / "exports")
+FIGURES_DIR = str(OUTPUT_BASE / "figures")
+TABLES_DIR = str(OUTPUT_BASE / "tables")
+DOC_DIR = str(OUTPUT_BASE / "doc")
 
 sns.set_style("whitegrid")
 plt.rcParams.update({"font.family": "serif", "font.size": 10})

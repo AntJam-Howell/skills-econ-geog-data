@@ -22,7 +22,16 @@
 # Expected runtime: 8-12 hours for full 2010-2024 scan
 # Wall time: 48:00:00 (safer margin — first attempt timed out at 24h with 12/15 years done)
 # Script skips completed years via _SUCCESS markers; resubmit is safe.
+#
+# This SLURM file is a Sol-specific template. On any other HPC environment,
+# update both the SBATCH directives (--output, --error, --mail-user, --partition)
+# AND the LIGHTCAST_RAW_DIR / LIGHTCAST_DATA_DIR exports below.
 # ==============================================================================
+
+# Path configuration consumed by build_skill_counts.py.
+# Defaults match the Sol layout; override here for other environments.
+export LIGHTCAST_RAW_DIR="/data/ajhowel5/Lightcast/Main"
+export LIGHTCAST_DATA_DIR="/data/ajhowel5/LightcastSkills/processed"
 
 echo "============================================"
 echo "  Phase A: Build Skill Counts"
@@ -30,6 +39,8 @@ echo "  Job started: $(date)"
 echo "  Node: $(hostname)"
 echo "  CPUs: $SLURM_CPUS_PER_TASK"
 echo "  Memory: ${SLURM_MEM_PER_NODE}MB"
+echo "  LIGHTCAST_RAW_DIR=${LIGHTCAST_RAW_DIR}"
+echo "  LIGHTCAST_DATA_DIR=${LIGHTCAST_DATA_DIR}"
 echo "============================================"
 echo ""
 
@@ -41,7 +52,7 @@ python3 -c "import pandas, pyarrow, numpy; print('OK: pandas', pandas.__version_
 echo ""
 echo "Checking raw data..."
 for y in 2010 2015 2020 2024; do
-    [ -d /data/ajhowel5/Lightcast/Main/$y ] && echo "  $y: OK" || echo "  $y: MISSING"
+    [ -d "${LIGHTCAST_RAW_DIR}/$y" ] && echo "  $y: OK" || echo "  $y: MISSING"
 done
 echo ""
 

@@ -39,8 +39,18 @@ import pandas as pd
 # CONFIGURATION
 # ============================================================
 
-DATA_BASE = "/data/ajhowel5/Lightcast/Main"
-OUTPUT_DIR = "/data/ajhowel5/LightcastSkills/processed/intermediate/scan"
+# Path configuration. Override via environment variables for portability.
+#   LIGHTCAST_RAW_DIR   — directory holding the raw Lightcast Main shards
+#                         (one subdirectory per year, each with gzipped CSVs)
+#   LIGHTCAST_DATA_DIR  — processed-data root; Phase A writes per-year
+#                         checkpoints to ${LIGHTCAST_DATA_DIR}/intermediate/scan
+# Fallbacks assume the script is run from a checkout that contains ./raw
+# and ./processed; on any other layout, set both env vars explicitly.
+DATA_BASE = os.environ.get("LIGHTCAST_RAW_DIR", "./raw/Main")
+OUTPUT_DIR = os.path.join(
+    os.environ.get("LIGHTCAST_DATA_DIR", "./processed"),
+    "intermediate", "scan",
+)
 
 YEARS = list(range(2010, 2025))  # 2024 is last full year
 

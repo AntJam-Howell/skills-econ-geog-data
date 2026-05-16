@@ -42,7 +42,10 @@ warnings.filterwarnings("ignore", category=FutureWarning)
 # CONFIGURATION
 # ============================================================
 
-BASE_DIR = "/data/ajhowel5/LightcastSkills/processed"
+# Path configuration. Override via the LIGHTCAST_DATA_DIR environment
+# variable; fallback assumes the script is run from a checkout that
+# contains ./processed (Phase A's output root).
+BASE_DIR = os.environ.get("LIGHTCAST_DATA_DIR", "./processed")
 SCAN_DIR = os.path.join(BASE_DIR, "intermediate/scan")
 PANEL_DIR = os.path.join(BASE_DIR, "panels")
 RCA_DIR = os.path.join(BASE_DIR, "rca")
@@ -52,17 +55,23 @@ YEARS = list(range(2010, 2025))
 EMPLOYER_TYPES = ["corporate", "university", "federal_lab",
                   "government", "staffing", "unclassified"]
 
-# Pairs for employer-type similarity
+# Pairs for employer-type similarity. All 6 unordered pairs over the four
+# released entity types (corporate, university, federal/public lab, government).
+# Naming convention follows {type_a[:4]}_{type_b[:4]}:
+#   univ_corp, fede_corp, gove_corp, univ_fede, univ_gove, fede_gove
 EMPLOYER_PAIRS = [
     ("university", "corporate"),
     ("federal_lab", "corporate"),
+    ("government", "corporate"),
     ("university", "federal_lab"),
+    ("university", "government"),
+    ("federal_lab", "government"),
 ]
 
 SKILL_TYPES = ["specialized", "software", "common"]
 
-# ECI / fitness-complexity iterations
-ECI_ITERATIONS = 20
+# Fitness-complexity iterations. ECI uses spectral closed form (Mealy 2019),
+# not iterative method of reflections, so no iteration count is needed.
 FITNESS_ITERATIONS = 50
 
 
@@ -469,6 +478,20 @@ def compute_employer_similarity(year, emp_year, phi, active_skills, skill_idx_ma
     """
     if len(emp_year) == 0:
         return {}
+
+    # The Phase A employer_skill.parquet is keyed by
+    # (county, employer_type, naics2, naics4, skill, skill_type). For RCA and
+    # the pairwise similarity work below we need data at (county, employer_type,
+    # skill, skill_type) — sum across the naics2/naics4 sub-rows so that the
+    # later set_index("skill") step does not produce a duplicate-labeled index.
+    # This step is a no-op for entity types with a single naics4 per skill and
+    # corrects the RCA denominator for entity types that span multiple naics4.
+    emp_year = (
+        emp_year
+        .groupby(["county", "employer_type", "skill", "skill_type", "year"],
+                 as_index=False, observed=True)
+        .agg({"count": "sum"})
+    )
 
     # Build employer-type-specific RCA
     total_ec = emp_year.groupby(["county", "employer_type"])["count"].transform("sum")

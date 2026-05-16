@@ -1,0 +1,18 @@
+# Python dependencies for reproducing the county-year panel.
+#
+# Tested on Python 3.11 (CPython). Versions pinned to the patch level
+# that produced the released panel on the ASU Sol HPC cluster.
+#
+# Install with:
+#   pip install -r requirements.txt
+#
+# Pipeline core (build_skill_counts.py, compute_skill_measures.py,
+# compute_phaseb_v2.py):
+pandas==2.2.3
+numpy==1.26.4
+pyarrow==15.0.2
+
+# Descriptive-export helper (build_descriptive_export.py):
+matplotlib==3.8.4
+seaborn==0.13.2
+plotly==5.20.0
