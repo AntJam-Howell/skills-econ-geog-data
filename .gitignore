@@ -72,10 +72,6 @@ desktop.ini
 *.swp
 *.swo
 
-# Local tooling settings and stray working files
-.claude/
-CLAUDE.md
-
 # Build outputs
 dist/
 build/
