@@ -55,11 +55,11 @@ The released panel is built from the underlying raw Lightcast (formerly Burning 
 
 ### Variable groups
 
-The 201 variables characterize local labor demand along three conceptual dimensions and split further into a core set (groups A-H) and a sectoral architecture extension (groups I, J, K):
+The 201 variables characterize local labor demand along three conceptual dimensions and split further into a core set (groups A-H) and a entity-decomposed extension (groups I, J, K):
 
 - **Who is hiring** (groups B, C): total posting volume, total skill-mention counts by skill type, and the decomposition of posting counts across four employer entity types (corporate, university, federal lab, government). The corporate category covers all private-sector postings.
 - **The nature of work** (group D): modality (remote, hybrid, on-site) and the count of internship-flagged postings.
-- **What they demand** (groups E, F, G, H, and the sectoral architecture extensions I, J, K): skill content, composition, diversity, complexity, relatedness, dynamics, entity-type specialization breadth, employer-pair similarity, and per-entity-type dynamics.
+- **What they demand** (groups E, F, G, H, and the entity-decomposed extensions I, J, K): skill content, composition, diversity, complexity, relatedness, dynamics, entity-type specialization breadth, employer-pair similarity, and per-entity-type dynamics.
 
 The full definition of every variable lives in `data/data_dictionary.csv` and `data/codebook.md`. Most descriptive, teaching, and applied uses need only the 37 core variables in groups A-H; the codebook shows how to load only that subset.
 
@@ -73,20 +73,20 @@ The full definition of every variable lives in `data/data_dictionary.csv` and `d
 | **F. Skill diversity, concentration, and complexity** | core | 7 variables | Distinct skill count, RCA > 1 breadth, average ubiquity, Herfindahl-Hirschman concentration, Shannon entropy, Economic Complexity Index, Tacchella fitness-complexity |
 | **G. Skill relatedness and network position** | core | 3 variables | Balland skill density, Neffke skill coherence, average network centrality of the county's RCA > 1 skills |
 | **H. Year-over-year dynamics** | core | 4 variables | RCA churning entries, exits, net; cosine distance on skill frequency vectors between consecutive years |
-| **I. Entity-type specialization breadth** | sectoral architecture extension | 4 variables | RCA > 1 skill count computed within each of the four employer entity types' own skill pools |
-| **J. Employer-pair skill similarity** | sectoral architecture extension | 144 variables | Pairwise similarity between the skill-frequency vectors of six entity-type pairs (univ-corp, fede-corp, gove-corp, univ-fede, univ-gove, fede-gove), in six measure families (cosine, Jaccard, Hidalgo proximity, weighted RCA overlap, directional gap count, directional gap relatedness), each over all skills and separately over specialized / software / common splits |
-| **K. Per-employer-type skill dynamics** | sectoral architecture extension | 16 variables | Year-over-year churning entries, exits, net, and cosine distance computed separately within each of the four entity types' own skill pools |
+| **I. Entity-type specialization breadth** | entity-decomposed extension | 4 variables | RCA > 1 skill count computed within each of the four employer entity types' own skill pools |
+| **J. Per-employer-type skill dynamics** | entity-decomposed extension | 16 variables | Year-over-year churning entries, exits, net, and cosine distance computed separately within each of the four entity types' own skill pools |
+| **K. Employer-pair skill similarity** | entity-decomposed extension | 144 variables | Pairwise similarity between the skill-frequency vectors of six entity-type pairs (univ-corp, fede-corp, gove-corp, univ-fede, univ-gove, fede-gove), in six measure families (cosine, Jaccard, Hidalgo proximity, weighted RCA overlap, directional gap count, directional gap relatedness), each over all skills and separately over specialized / software / common splits |
 
-### What the sectoral architecture extension (groups I, J, K) enables
+### What the entity-decomposed extension (groups I, J, K) enables
 
 The 164 variables in groups I-K are designed for four research questions that the aggregate core measures cannot answer:
 
 1. **Sector-by-sector specialization patterns.** Group I reports each entity type's own RCA > 1 skill count: how broadly each sector specializes, and which sectors lead the local skill ecosystem.
-2. **Sectoral skill alignment.** Group J operationalizes "how aligned is the university's, federal lab's, or government's skill demand with the local corporate sector's?" The core entity posting counts say how many jobs each sector posted; `cosine_univ_corp` says whether those jobs overlap with what local corporate already specializes in.
+2. **Sectoral skill alignment.** Group K operationalizes "how aligned is the university's, federal lab's, or government's skill demand with the local corporate sector's?" The core entity posting counts say how many jobs each sector posted; `cosine_univ_corp` says whether those jobs overlap with what local corporate already specializes in.
 3. **Directional skill gaps.** `gap_count_univ_corp` and `gap_relatedness_univ_corp` answer "which university specializations does local corporate lack, and how close are they to skills it has?" The same logic extends to fede-corp and univ-fede pairs.
-4. **Differential dynamics by entity type.** Group K lets researchers decompose how each sector's skill portfolio evolves: do corporate, university, federal-lab, and government skill demands change together, or do their trajectories diverge?
+4. **Differential dynamics by entity type.** Group J lets researchers decompose how each sector's skill portfolio evolves: do corporate, university, federal-lab, and government skill demands change together, or do their trajectories diverge?
 
-Each measure in group J is reported in four versions: pooled across all skills, and separately over specialized, software, and common skill subsets. This allows skill-type-specific claims (for example, "the university brings new specialized skills but duplicates existing common skills").
+Each measure in group K is reported in four versions: pooled across all skills, and separately over specialized, software, and common skill subsets. This allows skill-type-specific claims (for example, "the university brings new specialized skills but duplicates existing common skills").
 
 ---
 
@@ -147,7 +147,7 @@ The dashboard has five pages:
 The `code/` subdirectory contains the Python pipeline that produced the panel from the raw Lightcast Main job-posting data.
 
 1. **`code/build_skill_counts.py`** (Phase A). Streams through the raw gzipped CSV shards, parses pipe-delimited skill mentions, classifies each posting into an entity type, and aggregates to per-year checkpoint parquets keyed by county and skill.
-2. **`code/compute_skill_measures.py`** (Phase B). Reads the Phase A checkpoints and computes the full battery of derived measures: revealed comparative advantage, skill-skill relatedness, skill density, coherence, ECI, fitness-complexity, year-over-year dynamics, entity-type specialization measures, employer-pair similarity (group J), and per-entity dynamics (group K). The Phase B output is published as `data/county_year_panel.parquet` (201 columns).
+2. **`code/compute_skill_measures.py`** (Phase B). Reads the Phase A checkpoints and computes the full battery of derived measures: revealed comparative advantage, skill-skill relatedness, skill density, coherence, ECI, fitness-complexity, year-over-year dynamics, entity-type specialization measures, employer-pair similarity (group K), and per-entity dynamics (group J). The Phase B output is published as `data/county_year_panel.parquet` (201 columns).
 3. **`code/build_descriptive_export.py`** (Export helpers). Writes the data dictionary, codebook, and summary-statistics table that accompany the panel.
 
 The raw Lightcast Main data are available to subscribers under Lightcast's data agreement. Replication from raw data requires a current Lightcast subscription.

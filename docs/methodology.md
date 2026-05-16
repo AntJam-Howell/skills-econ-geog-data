@@ -73,9 +73,9 @@ The numerator is the share of all skill mentions in county *c* during year *t* t
 
 **Entity-type specialization breadth.** For each of the four entity types, the count of skills with entity-specific RCA > 1 (`{type}_n_rca_skills`). Entity-type-specific RCA is the Balassa RCA applied within the entity-type pool: both the numerator (county-share of skill *s* within that entity type) and the denominator (national-share of skill *s* within that entity type) are computed using only postings classified into the entity type. This matches Eq. 7 of the manuscript and the implementation in `compute_phaseb_v2.py:117–123`.
 
-**Employer-pair skill similarity (group J).** For each of the six entity-type pairs (university vs corporate, federal lab vs corporate, government vs corporate, university vs federal lab, university vs government, federal lab vs government), six similarity measures (cosine, Jaccard, Hidalgo proximity, weighted RCA overlap, directional gap count, directional gap relatedness) are computed between the two entity types' skill-frequency vectors within each county-year. Each measure is reported over all skills and separately over specialized, software, and common skill subsets.
+**Per-employer-type dynamics (group J).** For each of the four entity types, churning entries, exits, net change, and cosine distance are computed within the entity type's own skill pool in parallel to the aggregate group-H measures.
 
-**Per-employer-type dynamics (group K).** For each of the four entity types, churning entries, exits, net change, and cosine distance are computed within the entity type's own skill pool in parallel to the aggregate group-H measures.
+**Employer-pair skill similarity (group K).** For each of the six entity-type pairs (university vs corporate, federal lab vs corporate, government vs corporate, university vs federal lab, university vs government, federal lab vs government), six similarity measures (cosine, Jaccard, Hidalgo proximity, weighted RCA overlap, directional gap count, directional gap relatedness) are computed between the two entity types' skill-frequency vectors within each county-year. Each measure is reported over all skills and separately over specialized, software, and common skill subsets.
 
 ### Phase C: Public-release export (`build_descriptive_export.py`)
 

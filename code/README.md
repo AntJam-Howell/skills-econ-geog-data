@@ -22,7 +22,7 @@ intermediate/scan/year=YYYY/
     ▼                          ▼
 core measures (groups A–H)     entity-specific measures
 + entity-pair similarity        (groups I, K)
-(group J)
+(group K)
 181 columns                    20 columns
     │                          │
     └──────────┬───────────────┘
@@ -66,8 +66,8 @@ Variables and their dtypes are documented in `data/data_dictionary.csv`; variabl
 ## Files
 
 - **`build_skill_counts.py`** (Script A — Phase A). Single-pass streaming scan of the raw gzipped CSV shards. Parses pipe-delimited skill mentions, classifies each posting into one of four employer entity types (corporate, university, federal lab, government) from the NAICS-4 field, and aggregates to per-year checkpoint parquets keyed by `(county, skill, entity_type)`. Year-level `_SUCCESS` markers allow restart without re-scanning completed years.
-- **`compute_skill_measures.py`** (Script B — Phase B core + Group J). Reads Phase A checkpoints and computes the core measure battery (groups A–H): Balassa revealed comparative advantage at county-skill-year resolution; year-specific skill-skill relatedness matrices (Hidalgo proximity); Balland skill density (averaged over non-RCA skills); Neffke skill coherence; Hidalgo–Hausmann Economic Complexity Index (computed as the second-largest eigenvector of the normalized co-occurrence matrix per Mealy, Farmer & Teytelboym 2019, mathematically equivalent to the converged method of reflections); Tacchella fitness-complexity; year-over-year RCA churning and cosine distance on skill frequency vectors. It additionally computes group J: six families of entity-pair skill-similarity measures (cosine, Jaccard, Hidalgo proximity, weighted RCA overlap, directional gap count, directional gap relatedness) across the six unordered entity-type pairs and four skill-type subsets. Output: `panels/county_year_panel.parquet` (181 columns).
-- **`compute_phaseb_v2.py`** (Script C — Phase B entity extension). Reads the same Phase A checkpoints and computes the entity-decomposed extension: per-entity-type Balassa RCA on each entity's own skill pool, then derives group I (RCA > 1 breadth per entity type) and group K (per-entity churning entries / exits / net and within-entity cosine distance). Output: `panels/employer_rca/year=YYYY/employer_rca.parquet`, `panels/employer_dynamics.parquet`, and the 20-column group-I+K extension that is joined onto `county_year_panel.parquet` on `(county, year)` to produce the released 201-column file.
+- **`compute_skill_measures.py`** (Script B — Phase B core + Group K). Reads Phase A checkpoints and computes the core measure battery (groups A–H): Balassa revealed comparative advantage at county-skill-year resolution; year-specific skill-skill relatedness matrices (Hidalgo proximity); Balland skill density (averaged over non-RCA skills); Neffke skill coherence; Hidalgo–Hausmann Economic Complexity Index (computed as the second-largest eigenvector of the normalized co-occurrence matrix per Mealy, Farmer & Teytelboym 2019, mathematically equivalent to the converged method of reflections); Tacchella fitness-complexity; year-over-year RCA churning and cosine distance on skill frequency vectors. It additionally computes group K: six families of entity-pair skill-similarity measures (cosine, Jaccard, Hidalgo proximity, weighted RCA overlap, directional gap count, directional gap relatedness) across the six unordered entity-type pairs and four skill-type subsets. Output: `panels/county_year_panel.parquet` (181 columns).
+- **`compute_phaseb_v2.py`** (Script C — Phase B entity extension). Reads the same Phase A checkpoints and computes the entity-decomposed extension: per-entity-type Balassa RCA on each entity's own skill pool, then derives group I (RCA > 1 breadth per entity type) and group J (per-entity churning entries / exits / net and within-entity cosine distance). Output: `panels/employer_rca/year=YYYY/employer_rca.parquet`, `panels/employer_dynamics.parquet`, and the 20-column group-I+K extension that is joined onto `county_year_panel.parquet` on `(county, year)` to produce the released 201-column file.
 - **`build_descriptive_export.py`** (Documentation helper). Writes the data dictionary, codebook, summary-statistics table, and yearly summary that accompany the released panel.
 - **`slurm/`**. SLURM submission scripts documenting the resource configuration used on the ASU Sol HPC cluster. Three scripts mirror the three pipeline stages: `build_skill_counts.slurm` for Phase A (200 GB memory, 16 cores, ~48 h wall time), `compute_measures.slurm` for Script B (200 GB memory, 4 cores, ~1 h wall time), and `compute_phaseb_v2.slurm` for Script C (128 GB memory, 4 cores, ~1–2 h wall time).
 
@@ -79,7 +79,7 @@ The three pipeline scripts can be invoked directly with the project's Python int
 # Phase A: scan raw Lightcast shards (one-time, ~48 h on Sol)
 python build_skill_counts.py
 
-# Phase B core + group J (~1 h on Sol)
+# Phase B core + group K (~1 h on Sol)
 python compute_skill_measures.py
 
 # Phase B entity extension: groups I + K (~1–2 h on Sol)

@@ -98,32 +98,17 @@ The 201 variables are organized into eleven groups (A through K). Groups A-H are
 Four classes of research questions require variables beyond the 37 core measures. If your analysis falls into one of these, use the corresponding group.
 
 1. **Sector-by-sector specialization patterns.** How broadly does each entity type specialize, and which entity types lead the local skill ecosystem? Group I.
-2. **Sectoral skill alignment.** How aligned is the university's, federal lab's, or government's skill demand with the local corporate sector's, and how does that alignment vary across counties, time, and skill types? Group J.
-3. **Directional skill gaps.** Which specializations does one sector have that another sector lacks, and how close are the gap skills, in skill space, to the second sector's current strengths? Group J (`gap_count_*`, `gap_relatedness_*`).
-4. **Differential dynamics by entity type.** Do corporate, university, federal-lab, and government skill demands evolve together over time, or do their trajectories diverge? Group K.
+2. **Sectoral skill alignment.** How aligned is the university's, federal lab's, or government's skill demand with the local corporate sector's, and how does that alignment vary across counties, time, and skill types? Group K.
+3. **Directional skill gaps.** Which specializations does one sector have that another sector lacks, and how close are the gap skills, in skill space, to the second sector's current strengths? Group K (`gap_count_*`, `gap_relatedness_*`).
+4. **Differential dynamics by entity type.** Do corporate, university, federal-lab, and government skill demands evolve together over time, or do their trajectories diverge? Group J.
 
 ### Group I. Entity-type specialization breadth (4 variables)
 
 For each of the four entity types (corporate, university, federal lab, government), the count of skills with entity-specific RCA > 1. The entity-specific RCA computes the Balassa formula on each entity type's own skill pool. See variables 38--41 in the table above.
 
-### Group J. Employer-pair skill similarity (144 variables)
+### Group J. Per-employer-type skill dynamics (16 variables)
 
-Pairwise comparisons between the skill-frequency vectors of three employer-type pairs: `univ_corp` (university vs corporate), `fede_corp` (federal lab vs corporate), and `univ_fede` (university vs federal lab). Six measure families (cosine, Jaccard, Hidalgo proximity, weighted RCA overlap, directional gap count, directional gap relatedness) are each computed in four versions: over all skills, over specialized skills only, over software skills only, and over common skills only. Total: 6 pairs × 6 families × 4 skill-type splits = 144 variables.
-
-| Family | Pattern | Type | What it captures |
-|---|---|---|---|
-| Cosine similarity | `cosine_{a}_{b}[_{st}]` | float [0,1] | Alignment of the two entity types' skill-frequency vectors. Higher means more similar demand profiles. |
-| Jaccard | `jaccard_{a}_{b}[_{st}]` | float [0,1] | Overlap in RCA > 1 skill sets: \|intersection\| / \|union\|. Higher means greater overlap in what each entity type specializes in. |
-| Hidalgo proximity | `hidalgo_{a}_{b}[_{st}]` | float [0,1] | Average pairwise skill-skill relatedness between the two RCA > 1 portfolios using the national skill-space network. Captures nearby skills, not only exact overlap. |
-| Weighted RCA overlap | `rca_overlap_{a}_{b}[_{st}]` | float | Among the {a}-RCA > 1 skill set, the average {b}-sector RCA. High values mean the {a} sector demands skills the {b} sector already specializes in. |
-| Gap count (directional) | `gap_count_{a}_{b}[_{st}]` | int | Number of {a}-RCA > 1 skills for which the {b} sector does NOT have RCA > 1. Inventory of {a}-only specializations. |
-| Gap relatedness (directional) | `gap_relatedness_{a}_{b}[_{st}]` | float [0,1] | Average relatedness between the gap skills (from `gap_count`) and the {b}-sector's RCA > 1 portfolio. How close the {a}-only skills are to {b}'s current strengths. |
-
-Naming convention: `{pair}` is one of `univ_corp`, `fede_corp`, `univ_fede`. `{st}` is omitted (all skills) or one of `specialized`, `software`, `common`. Example: `hidalgo_univ_corp_specialized` is the Hidalgo proximity between the university and corporate skill portfolios computed on specialized skills only.
-
-### Group K. Per-employer-type skill dynamics (16 variables)
-
-Year-over-year change in each entity type's own skill demand. The aggregate dynamics in group H pool postings across entity types; group K decomposes those dynamics so that sector-specific shifts can be separated from aggregate shifts. Four entity types × four dynamics measures = 16 variables.
+Year-over-year change in each entity type's own skill demand. The aggregate dynamics in group H pool postings across entity types; group J decomposes those dynamics so that sector-specific shifts can be separated from aggregate shifts. Four entity types × four dynamics measures = 16 variables.
 
 | Pattern | Type | What it captures |
 |---|---|---|
@@ -134,6 +119,21 @@ Year-over-year change in each entity type's own skill demand. The aggregate dyna
 
 `{e}` is one of `corp`, `univ`, `fede`, `gove`. Caveat: in county-years with low entity-type posting counts (e.g., `fede_*` outside the few county-years with active federal-lab postings), these measures are noisy. Apply a per-entity posting threshold for causal-inference work.
 
+### Group K. Employer-pair skill similarity (144 variables)
+
+Pairwise comparisons between the skill-frequency vectors of the six unordered employer-entity pairs: `univ_corp` (university vs corporate), `fede_corp` (federal lab vs corporate), `gove_corp` (government vs corporate), `univ_fede` (university vs federal lab), `univ_gove` (university vs government), and `fede_gove` (federal lab vs government). Six measure families (cosine, Jaccard, Hidalgo proximity, weighted RCA overlap, directional gap count, directional gap relatedness) are each computed in four versions: over all skills, over specialized skills only, over software skills only, and over common skills only. Total: 6 pairs × 6 families × 4 skill-type splits = 144 variables.
+
+| Family | Pattern | Type | What it captures |
+|---|---|---|---|
+| Cosine similarity | `cosine_{a}_{b}[_{st}]` | float [0,1] | Alignment of the two entity types' skill-frequency vectors. Higher means more similar demand profiles. |
+| Jaccard | `jaccard_{a}_{b}[_{st}]` | float [0,1] | Overlap in RCA > 1 skill sets: \|intersection\| / \|union\|. Higher means greater overlap in what each entity type specializes in. |
+| Hidalgo proximity | `hidalgo_{a}_{b}[_{st}]` | float [0,1] | Average pairwise skill-skill relatedness between the two RCA > 1 portfolios using the national skill-space network. Captures nearby skills, not only exact overlap. |
+| Weighted RCA overlap | `rca_overlap_{a}_{b}[_{st}]` | float | Among the {a}-RCA > 1 skill set, the average {b}-sector RCA. High values mean the {a} sector demands skills the {b} sector already specializes in. |
+| Gap count (directional) | `gap_count_{a}_{b}[_{st}]` | int | Number of {a}-RCA > 1 skills for which the {b} sector does NOT have RCA > 1. Inventory of {a}-only specializations. |
+| Gap relatedness (directional) | `gap_relatedness_{a}_{b}[_{st}]` | float [0,1] | Average relatedness between the gap skills (from `gap_count`) and the {b}-sector's RCA > 1 portfolio. How close the {a}-only skills are to {b}'s current strengths. |
+
+Naming convention: `{pair}` is one of `univ_corp`, `fede_corp`, `gove_corp`, `univ_fede`, `univ_gove`, `fede_gove`. `{st}` is omitted (all skills) or one of `specialized`, `software`, `common`. Example: `hidalgo_univ_corp_specialized` is the Hidalgo proximity between the university and corporate skill portfolios computed on specialized skills only.
+
 ---
 
 ## Notes
@@ -141,7 +141,7 @@ Year-over-year change in each entity type's own skill demand. The aggregate dyna
 - **Standardization.** `eci` is standardized to mean 0 and standard deviation 1 within each year.
 - **Coverage filter.** The panel drops county-years with zero postings. Counties with fewer than ~50 postings produce noisy `skill_cosine_distance` values; apply a posting threshold for causal-inference work.
 - **Work-mode reconciliation.** `n_remote + n_hybrid + n_onsite` sums to a count slightly less than `total_postings`. The gap reflects postings whose modality could not be assigned to one of the three categories; treat `total_postings - (n_remote + n_hybrid + n_onsite)` as "modality not classified." The gap is small overall and somewhat larger in early years.
-- **Entity-decomposed extension small-N caveats.** Groups I, J, and K all depend on the underlying entity-type's posting count in the county-year. They are most reliable for `corp` and `univ`, less reliable for `fede` (only a small subset of county-years contain federal-lab postings) and `gove`. The same `total_postings >= 50` filter that applies to the core dynamics applies to group K; the recommended additional rule for group J is an entity-specific minimum (e.g., both entities in the pair having at least 50 own-postings) before treating a similarity value as informative.
-- **Skill-type splits in group J.** The `_specialized` / `_software` / `_common` variants are computed by restricting the underlying skill-frequency vectors and the RCA binarization to mentions of the named skill type only. The unsuffixed variants (e.g., `cosine_univ_corp`) pool across all three skill types.
+- **Entity-decomposed extension small-N caveats.** Groups I, J, and K all depend on the underlying entity-type's posting count in the county-year. They are most reliable for `corp` and `univ`, less reliable for `fede` (only a small subset of county-years contain federal-lab postings) and `gove`. The same `total_postings >= 50` filter that applies to the core dynamics applies to group J; the recommended additional rule for group K is an entity-specific minimum (e.g., both entities in the pair having at least 50 own-postings) before treating a similarity value as informative.
+- **Skill-type splits in group K.** The `_specialized` / `_software` / `_common` variants are computed by restricting the underlying skill-frequency vectors and the RCA binarization to mentions of the named skill type only. The unsuffixed variants (e.g., `cosine_univ_corp`) pool across all three skill types.
 
 For background on the construction pipeline, see `code/README.md` and `docs/methodology.md`. For the original variable definitions used by the build scripts, see `data_dictionary.csv`.
