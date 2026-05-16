@@ -72,8 +72,9 @@ desktop.ini
 *.swp
 *.swo
 
-# Claude Code local settings
+# Local tooling settings and stray working files
 .claude/
+CLAUDE.md
 
 # Build outputs
 dist/

@@ -77,7 +77,7 @@ The 201 variables are organized into eleven groups (A through K). Groups A-H are
 | 29 | `eci` | standardized float | Economic Complexity Index (Hidalgo-Hausmann method of reflections, standardized) |
 | 30 | `fitness` | float (non-negative) | Tacchella fitness-complexity score (non-linear alternative to ECI) |
 | **G. Skill relatedness and network position** *(core)* | | | |
-| 31 | `skill_density` | float [0,1] | Balland (2019) average relatedness of RCA > 1 skills to non-RCA skills |
+| 31 | `skill_density` | float [0,1] | Balland (2019) skill density: per-county average, taken over the county's non-RCA skills, of each non-RCA skill's average relatedness to the county's RCA > 1 portfolio. Predicts which skills the county is likely to acquire next. |
 | 32 | `skill_coherence` | float [0,1] | Neffke (2011) average pairwise relatedness among RCA > 1 skills |
 | 33 | `avg_centrality` | float [0,1] | Mean network centrality of county's RCA > 1 skills in skill-space network |
 | **H. Skill dynamics: year-over-year** *(core)* | | | |

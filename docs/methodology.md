@@ -59,7 +59,7 @@ The numerator is the share of all skill mentions in county *c* during year *t* t
 
 **Neffke skill coherence.** For each county *c*, year *t*, the average pairwise relatedness *among* the county's RCA > 1 skills. High coherence indicates a tightly clustered specialization profile (Neffke et al. 2011).
 
-**Economic Complexity Index (ECI).** Computed by the Hidalgo-Hausmann method of reflections: an iterative process that alternates between county-level diversification (count of RCA > 1 skills) and skill-level ubiquity (count of counties with RCA > 1 in the skill). Twenty iterations; the final county-level value is standardized to mean 0, standard deviation 1 within each year. Adapted from countries × products to counties × skills.
+**Economic Complexity Index (ECI).** Following Hidalgo & Hausmann (2009), ECI is defined as the converged limit of the method-of-reflections iteration, which alternates between county-level diversification (count of RCA > 1 skills) and skill-level ubiquity (count of counties with RCA > 1 in the skill). Mealy, Farmer, and Teytelboym (2019) show that this limit equals the eigenvector associated with the second-largest eigenvalue of the normalized county-skill co-occurrence matrix; we compute ECI directly as that eigenvector. The county-level value is standardized to mean 0, standard deviation 1 within each year. Adapted from countries × products to counties × skills.
 
 **Tacchella fitness-complexity.** A non-linear alternative to ECI (Tacchella et al. 2012). County fitness scales linearly with the sum of skill complexities; skill complexity scales inversely with the harmonic mean of fitness across counties that have RCA > 1 in the skill. Fifty iterations. Released as `fitness`; the column is numerically unstable for very diversified or very specialized counties and should be log-transformed or clipped before downstream use.
 
@@ -71,7 +71,7 @@ The numerator is the share of all skill mentions in county *c* during year *t* t
 - `churning_net`: `churning_entries - churning_exits`
 - `skill_cosine_distance`: 1 - cos(skill_freq_vec(c, t-1), skill_freq_vec(c, t)), capturing total structural change in the demand profile
 
-**Entity-type specialization breadth.** For each of the four entity types, the count of skills with entity-specific RCA > 1 (`{type}_n_rca_skills`). Entity-type-specific RCA computes the numerator using only postings from that entity type while keeping the national-share denominator unchanged.
+**Entity-type specialization breadth.** For each of the four entity types, the count of skills with entity-specific RCA > 1 (`{type}_n_rca_skills`). Entity-type-specific RCA is the Balassa RCA applied within the entity-type pool: both the numerator (county-share of skill *s* within that entity type) and the denominator (national-share of skill *s* within that entity type) are computed using only postings classified into the entity type. This matches Eq. 7 of the manuscript and the implementation in `compute_phaseb_v2.py:117–123`.
 
 **Employer-pair skill similarity (group J).** For each of the six entity-type pairs (university vs corporate, federal lab vs corporate, government vs corporate, university vs federal lab, university vs government, federal lab vs government), six similarity measures (cosine, Jaccard, Hidalgo proximity, weighted RCA overlap, directional gap count, directional gap relatedness) are computed between the two entity types' skill-frequency vectors within each county-year. Each measure is reported over all skills and separately over specialized, software, and common skill subsets.
 
@@ -79,7 +79,7 @@ The numerator is the share of all skill mentions in county *c* during year *t* t
 
 ### Phase C: Public-release export (`build_descriptive_export.py`)
 
-Generates the data dictionary, codebook, summary statistics, and yearly summary that accompany the 129-column Phase B output. The panel itself is the direct Phase B output and requires no additional subsetting.
+Generates the data dictionary, codebook, summary statistics, and yearly summary that accompany the 201-column Phase B output. The panel itself is the direct Phase B output and requires no additional subsetting.
 
 ## 4. Known limitations
 
