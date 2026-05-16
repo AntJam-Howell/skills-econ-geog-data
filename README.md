@@ -1,10 +1,10 @@
 # U.S. County Panel of Labor and Skill Demand, 2010–2024
 
-A publicly available county-year panel of U.S. labor and skill demand, derived from 433.6 million Lightcast (Burning Glass) job postings spanning 2010–2024. The panel covers 3,194 counties across 15 years (47,891 county-year observations) and reports 201 variables that describe the volume, employer-entity composition, skill content, specialization, complexity, relatedness, dynamics, and sectoral architecture of local labor demand.
+A publicly available county-year panel of U.S. labor and skill demand, derived from 433.6 million Lightcast (Burning Glass) job postings spanning 2010–2024. The panel covers 3,194 counties across 15 years (47,891 county-year observations) and reports 201 variables that describe the volume, employer-entity composition, skill content, specialization, diversity, complexity, dynamics; plus a corresponding suite of entity-specific decomposition (by corporate, university, government, and federal labs) of each entity type's own specialization and dynamics, and entity-pair measures of alignment, overlap, and skill gaps between entity types within the same county-year.
 
 The panel is designed to support research on the economic geography of skills: local specializations, relatedness, and complexity, and tracking local composition and structural change in the skill ecosystem over time. For the conceptual framework, measure definitions, equations, technical background, and applications in the literature, see the accompanying working paper:
 
-> Howell, A., Feldman, M., Lanahan, L., Kalathil, N., & Johnson, E. (2026). *Economic geography of U.S. Skills: specialization, relatedness, and complexity.* Working paper, SSRN. https://ssrn.com/abstract=XXXXXXX
+> Howell, A., Feldman, M., Lanahan, L., Kalathil, N., & Johnson, E. (2026). *Economic geography dataset of labor demand and skill specialization, diversity and complexity.* Working paper, SSRN. https://ssrn.com/abstract=XXXXXXX
 
 **Interactive dashboard**
 
@@ -168,7 +168,7 @@ When using this dataset in published work, please cite both the dataset and the 
 
 **To cite the accompanying paper:**
 
-> Howell, A., Feldman, M., Lanahan, L., Kalathil, N., & Johnson, E. (2026). *Economic geography of U.S. Skills: specialization, relatedness, and complexity.* Working paper, SSRN. https://ssrn.com/abstract=XXXXXXX
+> Howell, A., Feldman, M., Lanahan, L., Kalathil, N., & Johnson, E. (2026). *Economic geography dataset of labor demand and skill specialization, diversity and complexity.* Working paper, SSRN. https://ssrn.com/abstract=XXXXXXX
 
 Machine-readable citation metadata is provided in `CITATION.cff`.
 
