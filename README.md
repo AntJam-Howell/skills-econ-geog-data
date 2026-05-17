@@ -1,4 +1,4 @@
-# A U.S. county panel of skill specialization, relatedness, and complexity, by employer type
+# A U.S. county panel of skill specialization, relatedness, and complexity, across employer entity type
 
 A publicly available county-year panel of U.S. labor and skill demand, derived from 433.6 million Lightcast (Burning Glass) job postings spanning 2010–2024. The panel covers 3,194 counties across 15 years and reports 201 variables that describe the volume of job postings, modality and nature of work (e.g., remote share , internship share), and a suite of economic geography variables: skill-based measures of county specialization, relatedness, diversity, complexity, and dynamics. These measures are further decomposed by employer entity type (corporate, university, government, federal lab), along with entity-pair measures of alignment, overlap, and directional skill gaps between sectors.
 
@@ -165,7 +165,7 @@ When using this dataset in published work, please cite both the dataset and the 
 
 **To cite the dataset:**
 
-> Howell, A. (2026). *A U.S. county panel of skill specialization, relatedness, and complexity, by employer type* [Data set]. Zenodo. https://doi.org/10.5281/zenodo.XXXXXXX
+> Howell, A. (2026). *A U.S. county panel of skill specialization, relatedness, and complexity, across employer entity type* [Data set]. Zenodo. https://doi.org/10.5281/zenodo.XXXXXXX
 
 Machine-readable citation metadata is provided in `CITATION.cff`.
 

@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this dataset, please cite it using the metadata in this file."
-title: "A U.S. county panel of skill specialization, relatedness, and complexity, by employer type"
+title: "A U.S. county panel of skill specialization, relatedness, and complexity, across employer entity type"
 abstract: >-
   A publicly available county-year panel of U.S. labor and skill demand,
   derived from 433.6 million Lightcast (formerly Burning Glass) job postings
