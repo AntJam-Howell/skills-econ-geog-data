@@ -4,7 +4,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
-#SBATCH --mem=64G
+#SBATCH --mem=200G
 #SBATCH --time=48:00:00
 #SBATCH --output=/data/ajhowel5/LightcastSkills/logs/%x_%j.out
 #SBATCH --error=/data/ajhowel5/LightcastSkills/logs/%x_%j.err
@@ -19,8 +19,11 @@
 # (county, year, skill, employer_type) counts.
 # Checkpoints per year — safe to resubmit if wall time hit.
 #
-# Expected runtime: 8-12 hours for full 2010-2024 scan
-# Wall time: 48:00:00 (safer margin — first attempt timed out at 24h with 12/15 years done)
+# Expected runtime: ~26-30 hours for full 2010-2024 scan (production v2 run
+# took roughly that long; the v1 schema was faster but produced fewer columns).
+# Memory: 200G is required for the v2 employer_skill schema; the per-year
+# counter grows with naics2 / naics4 / skill_type granularity and OOMs at 64G.
+# Wall time: 48:00:00 (generous margin over the ~26-30h expected runtime).
 # Script skips completed years via _SUCCESS markers; resubmit is safe.
 #
 # This SLURM file is a Sol-specific template. On any other HPC environment,
