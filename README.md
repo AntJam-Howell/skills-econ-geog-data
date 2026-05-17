@@ -167,8 +167,6 @@ When using this dataset in published work, please cite both the dataset and the 
 
 > Howell, A. (2026). *U.S. County-Year Panel of Labor and Skill Demand, 2010–2024* [Data set]. Zenodo. https://doi.org/10.5281/zenodo.XXXXXXX
 
-To cite the accompanying paper, see the working-paper reference at the top of this README.
-
 Machine-readable citation metadata is provided in `CITATION.cff`.
 
 ---
