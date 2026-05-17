@@ -5,7 +5,7 @@ A publicly available county-year panel of U.S. labor and skill demand, derived f
 
 For the conceptual framework, main measure definitions, technical background, and applications in the literature, see the accompanying working paper:
 
-> Howell, A., Feldman, M., Lanahan, L., Kalathil, N., & Johnson, E. (2026). *Economic geography dataset of labor demand and skill specialization, diversity and complexity.* Working paper, SSRN. https://ssrn.com/abstract=XXXXXXX
+> Howell, A., Feldman, M., Lanahan, L., Kalathil, N., & Johnson, E. (2026). *An economic geography dataset of labor demand and skill specialization, diversity and complexity.* Working paper, SSRN. https://ssrn.com/abstract=XXXXXXX
 
 **Interactive dashboard**
 
@@ -169,7 +169,7 @@ When using this dataset in published work, please cite both the dataset and the 
 
 **To cite the accompanying paper:**
 
-> Howell, A., Feldman, M., Lanahan, L., Kalathil, N., & Johnson, E. (2026). *Economic geography dataset of labor demand and skill specialization, diversity and complexity.* Working paper, SSRN. https://ssrn.com/abstract=XXXXXXX
+> Howell, A., Feldman, M., Lanahan, L., Kalathil, N., & Johnson, E. (2026). *An economic geography dataset of labor demand and skill specialization, diversity and complexity.* Working paper, SSRN. https://ssrn.com/abstract=XXXXXXX
 
 Machine-readable citation metadata is provided in `CITATION.cff`.
 
