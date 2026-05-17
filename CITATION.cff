@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this dataset, please cite it using the metadata in this file."
-title: "An economic geography panel of U.S. county-level labor and skill demand, 2010-2024"
+title: "A U.S. county-year panel of labor demand and skill specialization, relatedness, and complexity, by employer entity type, 2010-2024"
 abstract: >-
   A publicly available county-year panel of U.S. labor and skill demand,
   derived from 433.6 million Lightcast (formerly Burning Glass) job postings
