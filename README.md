@@ -1,14 +1,15 @@
 # U.S. County Panel of Labor and Skill Demand, 2010–2024
 
-A publicly available county-year panel of U.S. labor and skill demand, derived from 433.6 million Lightcast (Burning Glass) job postings spanning 2010–2024. The panel covers 3,194 counties across 15 years (47,891 county-year observations) and reports 201 variables that describe the volume, employer-entity composition, skill content, specialization, diversity, complexity, dynamics; plus a corresponding suite of entity-specific decomposition (by corporate, university, government, and federal labs) of each entity type's own specialization and dynamics, and entity-pair measures of alignment, overlap, and skill gaps between entity types within the same county-year.
+A publicly available county-year panel of U.S. labor and skill demand, derived from 433.6 million Lightcast (Burning Glass) job postings spanning 2010–2024. The panel covers 3,194 counties across 15 years and reports 201 variables that describe the volume of job postings, modality and nature of work (e.g., remote share , internship share), and a suite of economic geography variables: skill-based measures of county specialization, relatedness, diversity, complexity, and dynamics. These measures are further decomposed by employer entity type (corporate, university, government, federal lab), along with entity-pair measures of alignment, overlap, and directional skill gaps between sectors.
 
-The panel is designed to support research on the economic geography of skills: local specializations, relatedness, and complexity, and tracking local composition and structural change in the skill ecosystem over time. For the conceptual framework, measure definitions, equations, technical background, and applications in the literature, see the accompanying working paper:
+
+For the conceptual framework, main measure definitions, technical background, and applications in the literature, see the accompanying working paper:
 
 > Howell, A., Feldman, M., Lanahan, L., Kalathil, N., & Johnson, E. (2026). *Economic geography dataset of labor demand and skill specialization, diversity and complexity.* Working paper, SSRN. https://ssrn.com/abstract=XXXXXXX
 
 **Interactive dashboard**
 
-> Explore key variables of the panel without writing code: [https://skills-econ-geog.netlify.app/](https://skills-econ-geog.netlify.app/)
+> An accompanying interactive dashboard supports both academic research and applied use, with features including spatiotemporal visualization, county rankings and trends, pairwise county comparisons, and individual county profiles. Explore key variables of the panel without writing code: [https://skills-econ-geog.netlify.app/](https://skills-econ-geog.netlify.app/)
 
 Data files in `data/` are released under CC BY 4.0 (see `LICENSE`). Source code in `code/` is released under MIT (see `LICENSE-CODE`).
 
