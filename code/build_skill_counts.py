@@ -58,7 +58,7 @@ USECOLS = [
     "posted", "county", "naics4", "naics2",
     "specialized_skills_name", "software_skills_name", "common_skills_name",
     "company", "company_is_staffing",
-    "remote_type", "min_edulevels", "job_seniority",
+    "remote_type",
     "is_internship", "duplicates",
 ]
 
