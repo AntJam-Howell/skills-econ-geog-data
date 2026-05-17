@@ -6,7 +6,7 @@ Extended methodology notes for the county-year panel of U.S. labor and skill dem
 
 The panel is derived from the Lightcast (formerly Burning Glass Technologies) US Job Postings database. Lightcast aggregates the universe of online job postings across more than 50,000 sources (corporate career sites, government boards, third-party aggregators) and applies a proprietary deduplication pipeline. The release here covers calendar years 2010-2024, comprising 433.6 million unique postings after deduplication.
 
-Each posting carries a structured set of fields: posting date, location (state, MSA, county, city), employer name, NAICS-4 industry code, Standard Occupational Classification (SOC), educational requirements, work-mode flag (remote / hybrid / on-site, populated from 2018 onward), internship flag, staffing-firm flag, and three categories of skills (specialized, software, common). Skills are extracted by Lightcast's NLP pipeline against an evolving taxonomy of approximately 30,000 distinct skill names.
+Each posting carries a structured set of fields: posting date, location (state, MSA, county, city), employer name, NAICS-4 industry code, Standard Occupational Classification (SOC), work-mode flag (remote / hybrid / on-site, populated from 2018 onward), internship flag, staffing-firm flag, and three categories of skills (specialized, software, common). Skills are extracted by Lightcast's NLP pipeline against an evolving taxonomy of approximately 30,000 distinct skill names.
 
 The Lightcast data are licensed to subscribers under a separate agreement. This repository releases only county-year aggregates derived from the underlying micro data; replication from raw data requires a current Lightcast subscription.
 

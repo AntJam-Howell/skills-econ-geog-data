@@ -48,7 +48,7 @@ The 201 released variables are partitioned across the three numbered scripts. Ea
 | **A** | 2 | Unit identifiers (`county`, `year`) | Script B |
 | **B** | 5 | Labor-demand totals + internship count | Script B |
 | **C** | 4 | Posting counts by entity type (`n_corporate`, `n_university`, `n_federal_lab`, `n_government`) | Script B |
-| **D** | 7 | Work-mode shares and education / seniority shares | Script B |
+| **D** | 7 | Modality counts and shares (`n_remote`, `n_hybrid`, `n_onsite`, `share_remote`, `share_hybrid`, `share_onsite`) plus internship count (`n_internship`) | Script B |
 | **E** | 5 | Skill composition (totals, distinct skills, type shares) | Script B |
 | **F** | 7 | Skill diversity, concentration, complexity (entropy, HHI, ECI, fitness, RCA breadth, ubiquity) | Script B |
 | **G** | 3 | Skill-relatedness measures (density, coherence, centrality) | Script B |
