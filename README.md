@@ -1,11 +1,11 @@
-# A U.S. county-year panel of labor demand and skill specialization, relatedness, and complexity, by employer entity type, 2010–2024
+# A U.S. county panel of skill specialization, relatedness, and complexity, by employer type
 
 A publicly available county-year panel of U.S. labor and skill demand, derived from 433.6 million Lightcast (Burning Glass) job postings spanning 2010–2024. The panel covers 3,194 counties across 15 years and reports 201 variables that describe the volume of job postings, modality and nature of work (e.g., remote share , internship share), and a suite of economic geography variables: skill-based measures of county specialization, relatedness, diversity, complexity, and dynamics. These measures are further decomposed by employer entity type (corporate, university, government, federal lab), along with entity-pair measures of alignment, overlap, and directional skill gaps between sectors.
 
 
 For the conceptual framework, main measure definitions, technical background, and applications in the literature, see the accompanying working paper:
 
-> Howell, A., Feldman, M., Lanahan, L., Kalathil, N., & Johnson, E. (2026). *An economic geography dataset of labor demand and skill specialization, diversity and complexity.* Working paper, SSRN. https://ssrn.com/abstract=XXXXXXX
+> Howell, A., Feldman, M., Lanahan, L., Kalathil, N., & Johnson, E. (2026). *An economic geography dataset of U.S. skill specialization, relatedness, and complexity.* Working paper, SSRN. https://ssrn.com/abstract=XXXXXXX
 
 **Interactive dashboard**
 
@@ -165,7 +165,7 @@ When using this dataset in published work, please cite both the dataset and the 
 
 **To cite the dataset:**
 
-> Howell, A. (2026). *U.S. County-Year Panel of Labor and Skill Demand, 2010–2024* [Data set]. Zenodo. https://doi.org/10.5281/zenodo.XXXXXXX
+> Howell, A. (2026). *A U.S. county panel of skill specialization, relatedness, and complexity, by employer type* [Data set]. Zenodo. https://doi.org/10.5281/zenodo.XXXXXXX
 
 Machine-readable citation metadata is provided in `CITATION.cff`.
 
