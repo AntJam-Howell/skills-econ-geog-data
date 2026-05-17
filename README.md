@@ -167,9 +167,7 @@ When using this dataset in published work, please cite both the dataset and the 
 
 > Howell, A. (2026). *U.S. County-Year Panel of Labor and Skill Demand, 2010–2024* [Data set]. Zenodo. https://doi.org/10.5281/zenodo.XXXXXXX
 
-**To cite the accompanying paper:**
-
-> Howell, A., Feldman, M., Lanahan, L., Kalathil, N., & Johnson, E. (2026). *An economic geography dataset of labor demand and skill specialization, diversity and complexity.* Working paper, SSRN. https://ssrn.com/abstract=XXXXXXX
+To cite the accompanying paper, see the working-paper reference at the top of this README.
 
 Machine-readable citation metadata is provided in `CITATION.cff`.
 
