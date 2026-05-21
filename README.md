@@ -1,6 +1,6 @@
 # A U.S. county panel of skill specialization, relatedness, and complexity, across employer entity type
 
-A publicly available county-year panel of U.S. labor and skill demand, derived from 433.6 million Lightcast (Burning Glass) job postings spanning 2010–2024. The panel covers 3,194 counties across 15 years and reports 201 variables that describe the volume of job postings, modality and nature of work (e.g., remote share , internship share), and a suite of economic geography variables: skill-based measures of county specialization, relatedness, diversity, complexity, and dynamics. These measures are further decomposed by employer entity type (corporate, university, government, federal lab), along with entity-pair measures of alignment, overlap, and directional skill gaps.
+A publicly available county-year panel of U.S. skill specialization, relatedness, and complexity, derived from 433.6 million Lightcast (Burning Glass) job postings spanning 2010–2024. The panel covers 3,194 counties across 15 years and reports 201 variables. Alongside the skill-based measures of county specialization, relatedness, diversity, complexity, and dynamics, the panel also captures labor-demand context: the volume of job postings and the modality and nature of work (e.g., remote share, internship share). All measures are further decomposed by employer entity type (corporate, university, government, federal lab), along with entity-pair measures of alignment, overlap, and directional skill gaps.
 
 
 For the conceptual framework, main measure definitions, technical background, and applications in the literature, see the accompanying working paper:
@@ -24,16 +24,19 @@ skills-econ-geog-data/
 ├── LICENSE                   # CC BY 4.0 (covers data/)
 ├── LICENSE-CODE              # MIT (covers code/)
 ├── data/
-│   ├── county_year_panel.parquet    # 18 MB, 201 variables (groups A-K)
-│   ├── county_year_panel.csv        # 49 MB CSV mirror
+│   ├── county_year_panel.parquet    # 30 MB, 201 variables (groups A-K)
+│   ├── county_year_panel.csv        # 85 MB CSV mirror
 │   ├── data_dictionary.csv          # canonical machine-readable variable metadata (201 rows)
 │   ├── codebook.md                  # human-readable variable definitions
 │   ├── summary_statistics.csv       # N, mean, SD, min, percentiles, max (200 numeric vars)
-│   └── yearly_summary.csv           # national-aggregate values by year
+│   ├── yearly_summary.csv           # national-aggregate values by year
+│   └── MANIFEST.json                # provenance record (build commit, SLURM job, file hashes)
 ├── code/
 │   ├── README.md                    # pipeline diagram and environment
+│   ├── requirements.txt             # pinned Python dependencies
 │   ├── build_skill_counts.py        # Phase A: streaming scan of raw shards
-│   ├── compute_skill_measures.py    # Phase B: RCA, relatedness, complexity
+│   ├── compute_skill_measures.py    # Phase B core + Group K (entity-pair similarity)
+│   ├── compute_phaseb_v2.py         # Phase B entity extension: Groups I + J
 │   ├── build_descriptive_export.py  # documentation helpers for the public release
 │   └── slurm/                       # ASU Sol SLURM submission scripts
 └── docs/
@@ -145,17 +148,18 @@ The dashboard has five pages:
 
 ## Reproducing from raw data
 
-The `code/` subdirectory contains the Python pipeline that produced the panel from the raw Lightcast Main job-posting data.
+The `code/` subdirectory contains the Python pipeline that produced the panel from the raw Lightcast Main job-posting data. The pipeline runs as one Phase A scan plus two parallel Phase B compute steps that are joined on `(county, year)` to produce the released 201-column panel. Full build-chain diagram and per-script variable provenance live in `code/README.md`.
 
 1. **`code/build_skill_counts.py`** (Phase A). Streams through the raw gzipped CSV shards, parses pipe-delimited skill mentions, classifies each posting into an entity type, and aggregates to per-year checkpoint parquets keyed by county and skill.
-2. **`code/compute_skill_measures.py`** (Phase B). Reads the Phase A checkpoints and computes the full battery of derived measures: revealed comparative advantage, skill-skill relatedness, skill density, coherence, ECI, fitness-complexity, year-over-year dynamics, entity-type specialization measures, employer-pair similarity (group K), and per-entity dynamics (group J). The Phase B output is published as `data/county_year_panel.parquet` (201 columns).
-3. **`code/build_descriptive_export.py`** (Export helpers). Writes the data dictionary, codebook, and summary-statistics table that accompany the panel.
+2. **`code/compute_skill_measures.py`** (Phase B core + Group K). Reads the Phase A checkpoints and computes the core measure battery (groups A–H: revealed comparative advantage, skill-skill relatedness, skill density, coherence, ECI, fitness-complexity, year-over-year dynamics) plus the six families of employer-pair similarity measures in Group K. Output: a 181-column parquet.
+3. **`code/compute_phaseb_v2.py`** (Phase B entity extension). Reads the same Phase A checkpoints and computes the entity-decomposed extension: per-entity-type RCA breadth (Group I) and per-entity dynamics (Group J). Output: the 20-column extension joined onto the Phase B core output on `(county, year)` to produce the released 201-column `data/county_year_panel.parquet`.
+4. **`code/build_descriptive_export.py`** (Export helpers). Writes the data dictionary, codebook, and summary-statistics table that accompany the panel.
 
 The raw Lightcast Main data are available to subscribers under Lightcast's data agreement. Replication from raw data requires a current Lightcast subscription.
 
 ### Python environment
 
-The pipeline was developed and tested with Python 3.11 and the following key packages: `pandas`, `numpy`, `pyarrow`, `polars`, `scipy`, `scikit-learn`. The pipeline is deterministic given the same input data.
+The pipeline was developed and tested with Python 3.11. All dependencies are pinned in `code/requirements.txt` (pandas, numpy, pyarrow for the pipeline; matplotlib, seaborn, plotly for the descriptive-export helper). `requirements.txt` is the single source of truth. The pipeline is deterministic given the same input data.
 
 ---
 

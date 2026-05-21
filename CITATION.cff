@@ -2,16 +2,17 @@ cff-version: 1.2.0
 message: "If you use this dataset, please cite it using the metadata in this file."
 title: "A U.S. county panel of skill specialization, relatedness, and complexity, across employer entity type"
 abstract: >-
-  A publicly available county-year panel of U.S. labor and skill demand,
-  derived from 433.6 million Lightcast (formerly Burning Glass) job postings
-  spanning 2010-2024. The panel covers 3,194 counties across 15 years
-  (47,891 county-year observations) and reports 201 variables organized into
-  eleven groups: a 37-variable core set describing the volume, employer-entity
-  composition, work mode and internships, skill content, specialization,
-  complexity, relatedness, and dynamics of local labor demand, plus 164
-  additional variables in the entity-decomposed extension covering
-  entity-type specialization breadth, employer-pair skill-similarity, and
-  per-employer-type dynamics for sectoral and spillover research.
+  A publicly available county-year panel of U.S. skill specialization,
+  relatedness, and complexity, derived from 433.6 million Lightcast
+  (formerly Burning Glass) job postings spanning 2010-2024. The panel
+  covers 3,194 counties across 15 years (47,891 county-year observations)
+  and reports 201 variables organized into eleven groups: a 37-variable
+  core set describing the volume, employer-entity composition, work mode
+  and internships, skill content, specialization, complexity, relatedness,
+  and dynamics of local labor demand, plus 164 additional variables in the
+  entity-decomposed extension covering entity-type specialization breadth,
+  employer-pair skill-similarity, and per-employer-type dynamics for
+  sectoral and spillover research.
 type: dataset
 authors:
   - family-names: "Howell"
@@ -20,7 +21,7 @@ authors:
     affiliation: "School of Public Affairs, Arizona State University"
     orcid: "https://orcid.org/0000-0003-3127-3791"
 version: "1.0.0"
-date-released: "2026-05-14"
+date-released: "2026-05-21"
 license: "CC-BY-4.0"
 license-url: "https://creativecommons.org/licenses/by/4.0/"
 repository-code: "https://github.com/AntJam-Howell/skills-econ-geog-data"
@@ -44,6 +45,14 @@ preferred-citation:
       given-names: "Anthony"
       affiliation: "School of Public Affairs, Arizona State University"
       orcid: "https://orcid.org/0000-0003-3127-3791"
+    - family-names: "Feldman"
+      given-names: "Maryann"
+    - family-names: "Lanahan"
+      given-names: "Lauren"
+    - family-names: "Kalathil"
+      given-names: "Nikhil"
+    - family-names: "Johnson"
+      given-names: "Eric"
   journal: "Scientific Data"
   year: 2026
   notes: "Under review."

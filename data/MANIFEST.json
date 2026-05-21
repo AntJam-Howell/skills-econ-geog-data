@@ -1,0 +1,30 @@
+{
+  "dataset_title": "A U.S. county panel of skill specialization, relatedness, and complexity, across employer entity type",
+  "version": "1.0.0",
+  "build_commit": "188b1a6",
+  "slurm_job_id": "52890793",
+  "build_date": "2026-05-15",
+  "deposit_date": "2026-05-21",
+  "dimensions": {
+    "observations": 47891,
+    "variables": 201,
+    "counties": 3194,
+    "years": [2010, 2024]
+  },
+  "files": [
+    {
+      "name": "county_year_panel.parquet",
+      "bytes": 29731879,
+      "sha256": "5071f112f7886e6b41460762eee1ac6d9f029f8105b924e8a2bb65fd65fffa78"
+    },
+    {
+      "name": "county_year_panel.csv",
+      "bytes": 84541962,
+      "sha256": "6c4fdd2930fcefda8919df6b26015d4c2448549b83e14e132d56019c48d1821a"
+    }
+  ],
+  "environment": {
+    "python": "3.11",
+    "requirements": "code/requirements.txt"
+  }
+}

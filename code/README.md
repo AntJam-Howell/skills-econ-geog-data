@@ -54,12 +54,12 @@ The 201 released variables are partitioned across the three numbered scripts. Ea
 | **G** | 3 | Skill-relatedness measures (density, coherence, centrality) | Script B |
 | **H** | 4 | Year-over-year dynamics (RCA churning entries / exits / net; cosine distance) | Script B |
 | **I** | 4 | Per-entity RCA > 1 breadth (`{entity}_n_rca_skills` × 4) | **Script C** |
-| **J** | 144 | Six entity-pair similarity families (cosine, Jaccard, Hidalgo proximity, weighted RCA overlap, gap count, gap relatedness), over six unordered pairs of entity types, each split across {all, specialized, software, common} skill subsets | Script B |
-| **K** | 16 | Per-entity churning entries / exits / net + within-entity cosine distance, for each of 4 entity types | **Script C** |
+| **J** | 16 | Per-entity churning entries / exits / net + within-entity cosine distance, for each of 4 entity types | **Script C** |
+| **K** | 144 | Six entity-pair similarity families (cosine, Jaccard, Hidalgo proximity, weighted RCA overlap, gap count, gap relatedness), over six unordered pairs of entity types, each split across {all, specialized, software, common} skill subsets | Script B |
 | | **201** | total released variables | |
 
-Groups A–H + J = **181 columns**, written by Script B to `panels/county_year_panel.parquet`.
-Groups I + K = **20 columns**, written by Script C and joined onto the panel on `(county, year)`.
+Groups A–H + K = **181 columns**, written by Script B to `panels/county_year_panel.parquet`.
+Groups I + J = **20 columns**, written by Script C and joined onto the panel on `(county, year)`.
 
 Variables and their dtypes are documented in `data/data_dictionary.csv`; variable semantics and construction notes are in `data/codebook.md`.
 
