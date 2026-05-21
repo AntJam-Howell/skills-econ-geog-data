@@ -38,7 +38,7 @@ keywords:
   - county-year panel
   - United States
 preferred-citation:
-  type: article
+  type: report
   title: "An economic geography dataset of U.S. skill specialization, relatedness, and complexity"
   authors:
     - family-names: "Howell"
@@ -53,6 +53,6 @@ preferred-citation:
       given-names: "Nikhil"
     - family-names: "Johnson"
       given-names: "Eric"
-  journal: "Scientific Data"
   year: 2026
-  notes: "Under review."
+  url: "https://ssrn.com/abstract=XXXXXXX"
+  notes: "Working paper, SSRN."

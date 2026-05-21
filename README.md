@@ -59,7 +59,7 @@ The released panel is built from the underlying raw Lightcast (formerly Burning 
 
 ### Variable groups
 
-The 201 variables characterize local labor demand along three conceptual dimensions and split further into a core set (groups A-H) and a entity-decomposed extension (groups I, J, K):
+The 201 variables characterize local labor demand along three conceptual dimensions and split further into a core set (groups A-H) and an entity-decomposed extension (groups I, J, K):
 
 - **Who is hiring** (groups B, C): total posting volume, total skill-mention counts by skill type, and the decomposition of posting counts across four employer entity types (corporate, university, federal lab, government). The corporate category covers all private-sector postings.
 - **The nature of work** (group D): modality (remote, hybrid, on-site) and the count of internship-flagged postings.
@@ -167,9 +167,13 @@ The pipeline was developed and tested with Python 3.11. All dependencies are pin
 
 When using this dataset in published work, please cite both the dataset and the accompanying paper.
 
-**To cite the dataset:**
+**Dataset:**
 
 > Howell, A. (2026). *A U.S. county panel of skill specialization, relatedness, and complexity, across employer entity type* [Data set]. Zenodo. https://doi.org/10.5281/zenodo.XXXXXXX
+
+**Accompanying paper:**
+
+> Howell, A., Feldman, M., Lanahan, L., Kalathil, N., & Johnson, E. (2026). *An economic geography dataset of U.S. skill specialization, relatedness, and complexity.* Scientific Data (under review).
 
 Machine-readable citation metadata is provided in `CITATION.cff`.
 
