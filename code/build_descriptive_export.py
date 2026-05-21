@@ -450,9 +450,10 @@ def main():
     fig.savefig(f"{FIGURES_DIR}/entity_rca_breadth.png", dpi=200)
     plt.close(fig)
 
-    # Entity-decomposed extension overview: stocks (Group I), flows (Group J),
-    # and between-entity alignment (Group K). Reads the full panel because
-    # the J and K columns are not part of the 44-variable export subset.
+    # Entity-decomposed extension overview: stocks (Group I), between-entity
+    # alignment (Group K), and per-entity flows expressed as entry/exit shares
+    # (Group J). Reads the full panel because the J and K columns are not part
+    # of the 44-variable export subset.
     entities = [("corp", "Corporate", "#1f77b4"),
                 ("univ", "University", "#ff7f0e"),
                 ("fede", "Federal lab", "#2ca02c"),
@@ -460,9 +461,21 @@ def main():
     pairs = [("univ_corp", "Univ-Corp", "#ff7f0e"),
              ("fede_corp", "FedLab-Corp", "#2ca02c"),
              ("gove_corp", "Gov-Corp", "#d62728")]
-    skill_types = [("specialized", "Specialized", "#1f77b4"),
-                   ("software", "Software", "#9467bd"),
-                   ("common", "Common", "#8c564b")]
+
+    # Derive entry/exit shares for each entity (not in the released columns;
+    # computed from churning_entries / churning_exits / n_rca_skills + lag).
+    # Entry share  = new RCA skills this year / this year's breadth.
+    # Exit share   = lost RCA skills this year / last year's breadth.
+    # Both shares land in [0,1] and are comparable across counties of
+    # different sizes.
+    panel_sorted = panel.sort_values(["county", "year"]).copy()
+    for ent, _lbl, _c in entities:
+        breadth = panel_sorted[f"{ent}_n_rca_skills"]
+        breadth_lag = panel_sorted.groupby("county")[f"{ent}_n_rca_skills"].shift(1)
+        entry = panel_sorted[f"{ent}_churning_entries"] / breadth.where(breadth > 0)
+        exit_ = panel_sorted[f"{ent}_churning_exits"] / breadth_lag.where(breadth_lag > 0)
+        panel_sorted[f"{ent}_entry_share"] = entry.replace([np.inf, -np.inf], np.nan)
+        panel_sorted[f"{ent}_exit_share"] = exit_.replace([np.inf, -np.inf], np.nan)
 
     fig, axes = plt.subplots(2, 2, figsize=(11, 8), sharex=True)
     ax_A, ax_B, ax_C, ax_D = axes[0, 0], axes[0, 1], axes[1, 0], axes[1, 1]
@@ -486,26 +499,26 @@ def main():
     ax_B.legend(loc="lower left", fontsize=9, frameon=False)
     ax_B.grid(True, alpha=0.3)
 
-    # Panel C: Group J — per-entity year-over-year net RCA churn
+    # Panel C: Group J — entry share by entity
     for key, lbl, c in entities:
-        s = panel.groupby("year")[f"{key}_churning_net"].mean()
+        s = panel_sorted.groupby("year")[f"{key}_entry_share"].mean()
         ax_C.plot(s.index, s.values, "o-", color=c, label=lbl, linewidth=1.8, markersize=4)
-    ax_C.axhline(0, color="gray", linewidth=0.6, linestyle=":")
-    ax_C.set_title("C. Specialization turnover (Group J)", loc="left", fontsize=11, fontweight="bold")
-    ax_C.set_ylabel("Mean net year-over-year\nRCA churn (entries $-$ exits)")
+    ax_C.set_title("C. RCA entry share (Group J)", loc="left", fontsize=11, fontweight="bold")
+    ax_C.set_ylabel("Mean entry share\n(new RCA / current breadth)")
     ax_C.set_xlabel("Year")
+    ax_C.set_ylim(0, 1)
     ax_C.legend(loc="best", fontsize=9, frameon=False)
     ax_C.grid(True, alpha=0.3)
 
-    # Panel D: Group K — univ-corp cosine decomposed by skill type
-    for key, lbl, c in skill_types:
-        s = panel.groupby("year")[f"cosine_univ_corp_{key}"].mean()
+    # Panel D: Group J — exit share by entity
+    for key, lbl, c in entities:
+        s = panel_sorted.groupby("year")[f"{key}_exit_share"].mean()
         ax_D.plot(s.index, s.values, "o-", color=c, label=lbl, linewidth=1.8, markersize=4)
-    ax_D.set_title("D. University-Corporate alignment, by skill type (Group K)", loc="left", fontsize=11, fontweight="bold")
-    ax_D.set_ylabel("Mean cosine similarity\nacross counties")
+    ax_D.set_title("D. RCA exit share (Group J)", loc="left", fontsize=11, fontweight="bold")
+    ax_D.set_ylabel("Mean exit share\n(lost RCA / prior-year breadth)")
     ax_D.set_xlabel("Year")
     ax_D.set_ylim(0, 1)
-    ax_D.legend(loc="lower left", fontsize=9, frameon=False)
+    ax_D.legend(loc="best", fontsize=9, frameon=False)
     ax_D.grid(True, alpha=0.3)
 
     plt.tight_layout()
