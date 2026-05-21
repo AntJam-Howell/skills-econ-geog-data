@@ -450,6 +450,69 @@ def main():
     fig.savefig(f"{FIGURES_DIR}/entity_rca_breadth.png", dpi=200)
     plt.close(fig)
 
+    # Entity-decomposed extension overview: stocks (Group I), flows (Group J),
+    # and between-entity alignment (Group K). Reads the full panel because
+    # the J and K columns are not part of the 44-variable export subset.
+    entities = [("corp", "Corporate", "#1f77b4"),
+                ("univ", "University", "#ff7f0e"),
+                ("fede", "Federal lab", "#2ca02c"),
+                ("gove", "Government", "#d62728")]
+    pairs = [("univ_corp", "Univ-Corp", "#ff7f0e"),
+             ("fede_corp", "FedLab-Corp", "#2ca02c"),
+             ("gove_corp", "Gov-Corp", "#d62728")]
+    skill_types = [("specialized", "Specialized", "#1f77b4"),
+                   ("software", "Software", "#9467bd"),
+                   ("common", "Common", "#8c564b")]
+
+    fig, axes = plt.subplots(2, 2, figsize=(11, 8), sharex=True)
+    ax_A, ax_B, ax_C, ax_D = axes[0, 0], axes[0, 1], axes[1, 0], axes[1, 1]
+
+    # Panel A: Group I — entity-specific RCA > 1 breadth
+    for key, lbl, c in entities:
+        s = panel.groupby("year")[f"{key}_n_rca_skills"].mean()
+        ax_A.plot(s.index, s.values, "o-", color=c, label=lbl, linewidth=1.8, markersize=4)
+    ax_A.set_title("A. Specialization breadth (Group I)", loc="left", fontsize=11, fontweight="bold")
+    ax_A.set_ylabel("Mean count of RCA $>$ 1 skills\nacross counties")
+    ax_A.legend(loc="upper left", fontsize=9, frameon=False)
+    ax_A.grid(True, alpha=0.3)
+
+    # Panel B: Group K — vs-corporate cosine similarity
+    for key, lbl, c in pairs:
+        s = panel.groupby("year")[f"cosine_{key}"].mean()
+        ax_B.plot(s.index, s.values, "o-", color=c, label=lbl, linewidth=1.8, markersize=4)
+    ax_B.set_title("B. Sector alignment with corporate (Group K)", loc="left", fontsize=11, fontweight="bold")
+    ax_B.set_ylabel("Mean cosine similarity\nacross counties")
+    ax_B.set_ylim(0, 1)
+    ax_B.legend(loc="lower left", fontsize=9, frameon=False)
+    ax_B.grid(True, alpha=0.3)
+
+    # Panel C: Group J — per-entity year-over-year net RCA churn
+    for key, lbl, c in entities:
+        s = panel.groupby("year")[f"{key}_churning_net"].mean()
+        ax_C.plot(s.index, s.values, "o-", color=c, label=lbl, linewidth=1.8, markersize=4)
+    ax_C.axhline(0, color="gray", linewidth=0.6, linestyle=":")
+    ax_C.set_title("C. Specialization turnover (Group J)", loc="left", fontsize=11, fontweight="bold")
+    ax_C.set_ylabel("Mean net year-over-year\nRCA churn (entries $-$ exits)")
+    ax_C.set_xlabel("Year")
+    ax_C.legend(loc="best", fontsize=9, frameon=False)
+    ax_C.grid(True, alpha=0.3)
+
+    # Panel D: Group K — univ-corp cosine decomposed by skill type
+    for key, lbl, c in skill_types:
+        s = panel.groupby("year")[f"cosine_univ_corp_{key}"].mean()
+        ax_D.plot(s.index, s.values, "o-", color=c, label=lbl, linewidth=1.8, markersize=4)
+    ax_D.set_title("D. University-Corporate alignment, by skill type (Group K)", loc="left", fontsize=11, fontweight="bold")
+    ax_D.set_ylabel("Mean cosine similarity\nacross counties")
+    ax_D.set_xlabel("Year")
+    ax_D.set_ylim(0, 1)
+    ax_D.legend(loc="lower left", fontsize=9, frameon=False)
+    ax_D.grid(True, alpha=0.3)
+
+    plt.tight_layout()
+    fig.savefig(f"{FIGURES_DIR}/entity_extension_overview.pdf", bbox_inches="tight")
+    fig.savefig(f"{FIGURES_DIR}/entity_extension_overview.png", dpi=200, bbox_inches="tight")
+    plt.close(fig)
+
     print("  Wrote composition and entity stacked plots")
 
     # ============================================================
