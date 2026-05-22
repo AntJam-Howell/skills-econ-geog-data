@@ -169,7 +169,7 @@ When using this dataset in published work, please cite both the dataset and the 
 
 **Dataset:**
 
-> Howell, A. (2026). *A U.S. county panel of skill specialization, relatedness, and complexity, across employer entity type* [Data set]. Zenodo. https://doi.org/10.5281/zenodo.XXXXXXX
+> Howell, A. (2026). *A U.S. county panel of skill specialization, relatedness, and complexity, across employer entity type* [Data set]. Zenodo. https://doi.org/10.5281/zenodo.20330086
 
 **Accompanying paper:**
 
