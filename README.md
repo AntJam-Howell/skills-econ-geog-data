@@ -5,7 +5,7 @@ A publicly available county-year panel of U.S. skill specialization, relatedness
 
 For the conceptual framework, main measure definitions, technical background, and applications in the literature, see the accompanying working paper:
 
-> Howell, A., Feldman, M., Lanahan, L., Kalathil, N., & Johnson, E. (2026). *An economic geography dataset of U.S. skill specialization, relatedness, and complexity.* Working paper, SSRN. https://ssrn.com/abstract=XXXXXXX
+> Howell, A., Feldman, M., Lanahan, L., Kalathil, N., & Johnson, E. (2026). *An economic geography dataset of U.S. skill specialization, relatedness, and complexity.* Working paper, SSRN.
 
 **Interactive dashboard**
 
