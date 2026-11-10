@@ -61,7 +61,7 @@ The released panel is built from the underlying raw Lightcast (formerly Burning 
 
 The 201 variables characterize local labor demand along three conceptual dimensions and split further into a core set (groups A-H) and an entity-decomposed extension (groups I, J, K):
 
-- **Who is hiring** (groups B, C): total posting volume, total skill-mention counts by skill type, and the decomposition of posting counts across four employer entity types (corporate, university, federal lab, government). The corporate category covers all private-sector postings.
+- **Who is hiring** (groups B, C): total posting volume, total skill-mention counts by skill type, and the decomposition of posting counts across four employer entity types (corporate, university, federal lab, government). The corporate category covers all private-sector postings, including staffing-firm and industry-unclassified postings; the corporate skill measures in groups I, J, and K exclude those two groups (see the codebook).
 - **The nature of work** (group D): modality (remote, hybrid, on-site) and the count of internship-flagged postings.
 - **What they demand** (groups E, F, G, H, and the entity-decomposed extensions I, J, K): skill content, composition, diversity, complexity, relatedness, dynamics, entity-type specialization breadth, employer-pair similarity, and per-entity-type dynamics.
 

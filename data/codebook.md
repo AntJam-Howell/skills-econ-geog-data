@@ -50,7 +50,7 @@ The 201 variables are organized into eleven groups (A through K). Groups A-H are
 | 6 | `mention_software` | int | Total mentions of software skills |
 | 7 | `mention_common` | int | Total mentions of common skills |
 | **C. Labor demand: posting counts by employer type** *(core)* | | | |
-| 8 | `n_corporate` | int | All private-sector postings in the county-year (any NAICS classification other than university, federal lab, or government) |
+| 8 | `n_corporate` | int | All private-sector postings in the county-year (any NAICS classification other than university, federal lab, or government), including staffing-firm postings and postings with NAICS-4 = 9999 (unclassified). The corporate skill measures in groups I, J, and K use a narrower pool; see the note under Group I |
 | 9 | `n_university` | int | Postings from NAICS 6112-6117 (universities/colleges) |
 | 10 | `n_federal_lab` | int | Postings from NAICS 5417, 9271 (scientific R&D, space research) |
 | 11 | `n_government` | int | Postings from NAICS 92xx (all government) |
@@ -86,7 +86,7 @@ The 201 variables are organized into eleven groups (A through K). Groups A-H are
 | 36 | `churning_net` | int | `churning_entries` - `churning_exits` |
 | 37 | `skill_cosine_distance` | float [0,1] | 1 - cosine(skill freq vector at t-1, t); structural change in demand profile |
 | **I. Employer-type specialization breadth** *(entity-decomposed extension)* | | | |
-| 38 | `corp_n_rca_skills` | int | Count of skills with corporate-specific RCA > 1 |
+| 38 | `corp_n_rca_skills` | int | Count of skills with corporate-specific RCA > 1, computed on corporate postings excluding staffing-firm and unclassified (NAICS-4 = 9999) postings |
 | 39 | `univ_n_rca_skills` | int | Count of skills with university-specific RCA > 1 |
 | 40 | `fede_n_rca_skills` | int | Count of skills with federal-lab-specific RCA > 1 |
 | 41 | `gove_n_rca_skills` | int | Count of skills with government-specific RCA > 1 |
@@ -105,6 +105,8 @@ Four classes of research questions require variables beyond the 37 core measures
 ### Group I. Entity-type specialization breadth (4 variables)
 
 For each of the four entity types (corporate, university, federal lab, government), the count of skills with entity-specific RCA > 1. The entity-specific RCA computes the Balassa formula on each entity type's own skill pool. See variables 38--41 in the table above.
+
+**Note on the corporate pool.** Corporate skill measures (groups I, J, K) use a narrower pool than `n_corporate`: postings with an assigned NAICS-4 that are not staffing-firm postings (NAICS 5613 or Lightcast staffing flag) and not unclassified (NAICS 9999). `n_corporate` is the full private-sector residual and includes both. Over 2010-2024 the narrower pool is 63% of `n_corporate` (48% in 2010, 69% in 2024). The same narrower corporate pool underlies the corporate columns of groups J and K.
 
 ### Group J. Per-employer-type skill dynamics (16 variables)
 
